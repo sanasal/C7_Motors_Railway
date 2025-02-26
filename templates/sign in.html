@@ -1,0 +1,70 @@
+{% block content %}
+{% load static %}
+
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Sign in</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="icon" type="image/png" href="{% static 'img/c7.png'%}">
+
+		<!-- MATERIAL DESIGN ICONIC FONT -->
+		<link rel="stylesheet" href="{% static 'fonts/material-design-iconic-font/css/material-design-iconic-font.min.css'%}">
+		
+		<!-- STYLE CSS -->
+		<link rel="stylesheet" href="{% static 'css/style2.css'%}">
+		<style>
+			body
+			{
+				background-image: url("{% static 'img/car1.jpg'%}");
+				background-size: cover;
+				background-repeat: no-repeat;
+			}
+			.inner2
+			{
+				backdrop-filter: blur(8px);
+			}
+		</style>
+	</head>
+
+	<body class="img-fluid">
+
+		<div class="wrapper">
+			<div class="inner inner2">
+				<form action="/sign_in/" method="post">
+					{% csrf_token %}
+					<h3>Sign in</h3>
+					<div class="form-group">
+						<div class="form-wrapper">
+							<label for="id_username">User name</label>
+							<input type="text" name="username" class="form-control" autocapitalize="none" autocomplete="username" required id="id_username floatingInput">
+						</div>
+					</div>
+					<div class="form-wrapper">
+						<label for="id_password1">Password</label>
+						<input type="password" name="password1" autocomplete="new-password" required id="id_password1 floatingPassword" class="form-control">
+					</div>
+					<div class="form-wrapper">
+						<label for="id_password2">Confirm Password</label>
+						<input type="password" name="password2" autocomplete="new-password" required id="id_password2 floatingPassword" class="form-control">
+					</div>
+					<div class="checkbox">
+						<label>
+							<input type="checkbox"> I caccept the Terms of Use & Privacy Policy.
+							<span class="checkmark"></span>
+						</label>
+					</div>
+					<button type="submit">Sign in</button>
+					{% if request.GET.next %}
+					<input type="hidden" name="next" value="{{ request.GET.next }}">
+				  	{% endif %}
+				</form>
+			</div>
+		</div>
+		
+	</body>
+</html>
+
+{% endblock %}
