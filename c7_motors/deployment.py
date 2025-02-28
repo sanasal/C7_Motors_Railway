@@ -51,26 +51,38 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS=[os.path.join(BASE_DIR , 'staticfiles')]
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')  
 
-DEFAULT_FILE_STORAGE = 'storages.backends.azure_storage.AzureStorage'
-AZURE_ACCOUNT_NAME = os.environ.get('AZURE_ACCOUNT_NAME')
-AZURE_ACCOUNT_KEY = os.environ.get('AZURE_ACCOUNT_KEY')
-AZURE_CONTAINER = os.environ.get('AZURE_CONTAINER')
-MEDIA_URL = f'https://{AZURE_ACCOUNT_NAME}.blob.core.windows.net/{AZURE_CONTAINER}/'
+DEFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'
+MEDIA_URL = "/DATA/media/"
+MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
-connection_string = os.environ.get("AZURE_MYSQL_CONNECTIONSTRING")
-parameters = {pair.split("=")[0]: pair.split("=")[1] for pair in connection_string.split(";")}
+# Retrieve and parse the connection string for MySQL from the environment variable
+connection_string = os.environ.get("DATABASE_URL") 
+if connection_string:
+    parsed_url = urlparse(connection_string)
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': os.environ.get('AZURE_MYSQL_NAME') ,
-        'USER' : os.environ.get('AZURE_MYSQL_USER') ,
-        'PASSWORD' : os.environ.get('AZURE_MYSQL_PASSWORD') ,
-        'HOST' : os.environ.get('AZURE_MYSQL_HOST') , 
-        'PORT' :os.environ.get('AZURE_MYSQL_PORT') ,
-        'ssl_disabled': True
+    # Extract database connection parameters from the URL
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.mysql',
+            'NAME': parsed_url.path[1:],
+            'USER': parsed_url.username,
+            'PASSWORD': parsed_url.password,
+            'HOST': parsed_url.hostname,
+            'PORT': parsed_url.port,
+        }
     }
-}
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.mysql',
+            'NAME': os.environ.get('MYSQL_NAME'),
+            'USER': os.environ.get('MYSQL_USER'),
+            'PASSWORD': os.environ.get('MYSQL_PASSWORD'),
+            'HOST': os.environ.get('MYSQL_HOST'),
+            'PORT': os.environ.get('MYSQL_PORT'),
+        }
+    }
+
 
 
 #Payment By STRIPE
