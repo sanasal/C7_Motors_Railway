@@ -16,7 +16,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v3
         with:
-          python-version: '3.9'
+          python-version: '3.11'
 
       - name: Install Dependencies
         run: |
@@ -35,5 +35,5 @@ jobs:
         uses: railwayapp/cli-action@v2
         with:
           token: ${{ secrets.RAILWAY_TOKEN }}
-          service: your-service-name
+          service: C7_Motors
           command: railway up
