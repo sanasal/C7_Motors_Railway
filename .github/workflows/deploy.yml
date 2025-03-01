@@ -51,9 +51,3 @@ jobs:
 
       - name: Check Railway CLI version
         run: railway --version
-
-      - name: Authenticate Railway
-        env:
-          RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
-        run: railway login $RAILWAY_TOKEN
-
