@@ -51,3 +51,6 @@ jobs:
 
       - name: Check Railway CLI version
         run: railway --version
+
+      - name: Authenticate Railway
+        run: railway auth --token ${{ secrets.RAILWAY_TOKEN }}
