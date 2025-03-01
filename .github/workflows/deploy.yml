@@ -52,4 +52,5 @@ jobs:
         run: curl -fsSL https://railway.app/install.sh | sh
 
       - name: Authenticate Railway
-        run: echo "${{ secrets.RAILWAY_TOKEN }}" | railway login
+        run: railway auth --token ${{ secrets.RAILWAY_TOKEN }}
+
