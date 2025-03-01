@@ -29,8 +29,6 @@ jobs:
       - name: Run collectstatic
         run: python manage.py collectstatic --noinput
 
-      # Optional: Add step to run tests here (PyTest, Django test suites, etc.)
-      
       - name: Upload artifact for deployment
         uses: actions/upload-artifact@v4
         with:
@@ -51,6 +49,11 @@ jobs:
       - name: Install Railway CLI
         run: curl -fsSL https://railway.app/install.sh | sh
 
+      - name: Check Railway CLI version
+        run: railway --version
+
       - name: Authenticate Railway
-        run: railway auth --token ${{ secrets.RAILWAY_TOKEN }}
+        env:
+          RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
+        run: railway login --token $RAILWAY_TOKEN
 
