@@ -5,8 +5,8 @@ import stripe
 
 #The trusted urls and domains from which requests can come into our applictation 
 SECRET_KEY = os.environ.get('SECRET')
-ALLOWED_HOSTS = [os.environ.get('HOSTNAME')]
-CSRF_TRUSTED_ORIGINS = ['https://' + os.environ.get('HOSTNAME')]
+ALLOWED_HOSTS = [os.environ.get('WEBSITE_HOSTNAME')]
+CSRF_TRUSTED_ORIGINS = ['https://' + os.environ.get('WEBSITE_HOSTNAME')]
 
 DEBUG = True
 
