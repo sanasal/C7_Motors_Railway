@@ -10,6 +10,7 @@ CSRF_TRUSTED_ORIGINS = ['https://' + os.environ.get('WEBSITE_HOSTNAME')]
 
 DEBUG = True
 
+PORT = os.environ.get("PORT", 8000)
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SETTINGS_PATH = os.path.dirname(os.path.dirname(__file__))#MS ADDED
