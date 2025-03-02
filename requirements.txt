@@ -1,7 +1,4 @@
 asgiref==3.8.1
-azure-core==1.32.0
-azure-identity==1.19.0
-azure-storage-blob==12.24.1
 certifi==2024.12.14
 cffi==1.17.1
 charset-normalizer==3.4.0
@@ -11,15 +8,12 @@ django-storages==1.14.4
 gunicorn==23.0.0
 idna==3.10
 isodate==0.7.2
-msal==1.31.1
-msal-extensions==1.2.0
 mysqlclient==2.2.6
 packaging==24.2
 pillow==11.0.0
 portalocker==2.10.1
 pycparser==2.22
 PyJWT==2.10.1
-PyMySQL==1.1.1
 python-dotenv==1.0.1
 pytz==2024.1
 PyYAML==6.0.2
