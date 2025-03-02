@@ -1,3 +1,4 @@
+mysqlclient==2.2.6
 asgiref==3.8.1
 certifi==2024.12.14
 cffi==1.17.1
@@ -25,5 +26,4 @@ typing_extensions==4.12.2
 tzdata==2024.2
 urllib3==2.2.3
 whitenoise==6.8.2
-mysqlclient==2.2.6
 dj-database-url==2.3.0
