@@ -8,7 +8,7 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest  # Use Windows runner
 
     steps:
       - uses: actions/checkout@v4
@@ -21,7 +21,7 @@ jobs:
       - name: Create and start virtual environment
         run: |
           python -m venv venv
-          source venv/bin/activate
+          venv\Scripts\activate
 
       - name: Install dependencies
         run: pip install -r requirements.txt
@@ -38,7 +38,7 @@ jobs:
             !venv/
 
   deploy:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest  # Use Windows runner
     needs: build
     steps:
       - name: Download artifact from build job
@@ -46,14 +46,18 @@ jobs:
         with:
           name: python-app
 
-      - name: Install Railway CLI
-        run: npm install -g @railway/cli  # Use npm to install globally
-
-      - name: Check Railway CLI version
-        run: railway --version
+      - name: Install Railway CLI on Windows
+        run: |
+          irm https://railway.app/install.ps1 | iex
+          echo "$env:USERPROFILE\.railway\bin" | Out-File -Append -Encoding utf8 $env:GITHUB_PATH
+          railway --version  # Verify installation
 
       - name: Authenticate Railway
-        run: railway login --token ${{ secrets.RAILWAY_TOKEN }}
+        env:
+          RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
+        run: |
+          echo $RAILWAY_TOKEN | railway login --token
+          railway whoami  # Verify authentication
 
       - name: Deploy to Railway
         run: railway up  # Deploy the project
