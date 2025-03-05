@@ -1,27 +1,26 @@
-import os 
+import os
 from .settings import *
-from .settings import BASE_DIR 
-import stripe 
+from .settings import BASE_DIR
+import stripe
+from urllib.parse import urlparse  # ✅ Added import for urlparse
 
-#The trusted urls and domains from which requests can come into our applictation 
-SECRET_KEY = os.environ.get('SECRET')
-ALLOWED_HOSTS = [os.environ.get('WEBSITE_HOSTNAME')]
-CSRF_TRUSTED_ORIGINS = ['https://' + os.environ.get('WEBSITE_HOSTNAME')]
+# Security & Allowed Hosts
+SECRET_KEY = os.environ.get('SECRET', 'default-secret-key')
+ALLOWED_HOSTS = [os.environ.get('HOSTNAME', '')]  # ✅ Prevents breaking if env is missing
+CSRF_TRUSTED_ORIGINS = [f"https://{os.environ.get('HOSTNAME', '')}"]
 
-DEBUG = True
+# Debug Mode
+DEBUG = os.environ.get('DEBUG', 'False') == 'True'  # ✅ Dynamically set from env
 
-PORT = os.environ.get("PORT", 8000)
-
+# Paths & Templates
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-SETTINGS_PATH = os.path.dirname(os.path.dirname(__file__))#MS ADDED
-Temp_Path = os.path.realpath('.')# MS ADDED
-index_path =  os.path.join(os.path.dirname(os.path.dirname(__file__)),'templates')
-
+SETTINGS_PATH = os.path.dirname(os.path.dirname(__file__))  # MS ADDED
+Temp_Path = os.path.realpath('.')  # MS ADDED
 
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(SETTINGS_PATH ,'templates')],
+        'DIRS': [os.path.join(SETTINGS_PATH, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -34,7 +33,9 @@ TEMPLATES = [
     },
 ]
 
+# Middleware
 MIDDLEWARE = [
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -42,26 +43,22 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware'
-]  
+]
 
-
+# Static & Media Files
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-
 STATIC_URL = '/static/'
-STATICFILES_DIRS=[os.path.join(BASE_DIR , 'staticfiles')]
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')  
-
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'staticfiles')] if DEBUG else []  # ✅ Fix
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 DEFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'
-MEDIA_URL = "/DATA/media/"
+MEDIA_URL = "/media/"
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
-# Retrieve and parse the connection string for MySQL from the environment variable
-connection_string = os.environ.get("DATABASE_URL") 
+# Database Configuration
+connection_string = os.environ.get("DATABASE_URL")
+
 if connection_string:
     parsed_url = urlparse(connection_string)
-
-    # Extract database connection parameters from the URL
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.mysql',
@@ -76,16 +73,14 @@ else:
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.mysql',
-            'NAME': os.environ.get('MYSQL_NAME'),
-            'USER': os.environ.get('MYSQL_USER'),
-            'PASSWORD': os.environ.get('MYSQL_PASSWORD'),
-            'HOST': os.environ.get('MYSQL_HOST'),
-            'PORT': os.environ.get('MYSQL_PORT'),
+            'NAME': os.getenv('MYSQL_DATABASE', 'default_db'),
+            'USER': os.getenv('MYSQL_USER', 'default_user'),
+            'PASSWORD': os.getenv('MYSQL_PASSWORD', 'default_password'),
+            'HOST': os.getenv('MYSQL_HOST', 'localhost'),
+            'PORT': os.getenv('MYSQL_PORT', '3306'),
         }
     }
 
-
-
-#Payment By STRIPE
-STRIPE_PUBLIC_KEY = os.environ.get('STRIPE_PUBLIC_KEY')
-STRIPE_SECRET_KEY =os.environ.get('STRIPE_SECRET_KEY')
+# Stripe Payment Configuration
+STRIPE_PUBLIC_KEY = os.environ.get('STRIPE_PUBLIC_KEY', '')
+STRIPE_SECRET_KEY = os.environ.get('STRIPE_SECRET_KEY', '')
