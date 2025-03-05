@@ -54,9 +54,8 @@ DEFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'
 MEDIA_URL = "/media/"
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
-'''
 # Database Configuration
-connection_string = os.environ.get("DATABASE_URL")
+connection_string = 'mysql://root:uyCPoanSjfEsJTFULhNnLJUJzrKzGKrF@hopper.proxy.rlwy.net:46685/railway'
 
 if connection_string:
     parsed_url = urlparse(connection_string)
@@ -71,14 +70,13 @@ if connection_string:
         }
     }
 else:
-'''
-DATABASES = {
+    DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.mysql',
             'NAME': 'railway',
             'USER':'root',
             'PASSWORD': 'uyCPoanSjfEsJTFULhNnLJUJzrKzGKrF',
-            'HOST': '127.0.0.1',
+            'HOST': 'mysql.railway.internal',
             'PORT':  '3306',
         }
     }
