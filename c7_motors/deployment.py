@@ -6,8 +6,8 @@ from urllib.parse import urlparse
 
 # Security & Allowed Hosts
 SECRET_KEY =  'j5aptH4rzF'
-ALLOWED_HOSTS = ['c7motors.up.railway.app'] 
-CSRF_TRUSTED_ORIGINS = [f"https://c7motors.up.railway.app/"]
+ALLOWED_HOSTS = ['c7motorsrailway-production.up.railway.app'] 
+CSRF_TRUSTED_ORIGINS = [f"https://c7motorsrailway-production.up.railway.app"]
 
 # Debug Mode
 DEBUG = True 
