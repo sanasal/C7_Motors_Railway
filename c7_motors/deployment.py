@@ -76,8 +76,8 @@ else:
             'NAME': 'railway',
             'USER':'root',
             'PASSWORD': 'uyCPoanSjfEsJTFULhNnLJUJzrKzGKrF',
-            'HOST': 'hopper.proxy.rlwy.net:46685',
-            'PORT':  '3306',
+            'HOST': 'hopper.proxy.rlwy.net',
+            'PORT':  '46685',
         }
     }
 
