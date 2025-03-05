@@ -60,8 +60,8 @@ DATABASES = {
             'NAME': 'railway',
             'USER':'root',
             'PASSWORD': 'uyCPoanSjfEsJTFULhNnLJUJzrKzGKrF',
-            'HOST': 'mysql.railway.internal',
-            'PORT':  '3306',
+            'HOST': 'hopper.proxy.rlwy.net',
+            'PORT':  '46685',
         }
     }
 
