@@ -2,15 +2,15 @@ import os
 from .settings import *
 from .settings import BASE_DIR
 import stripe
-from urllib.parse import urlparse  # ✅ Added import for urlparse
+from urllib.parse import urlparse 
 
 # Security & Allowed Hosts
-SECRET_KEY = os.environ.get('SECRET', 'default-secret-key')
-ALLOWED_HOSTS = [os.environ.get('HOSTNAME', '')]  # ✅ Prevents breaking if env is missing
-CSRF_TRUSTED_ORIGINS = [f"https://{os.environ.get('HOSTNAME', '')}"]
+SECRET_KEY =  'j5aptH4rzF'
+ALLOWED_HOSTS = ['c7motors.up.railway.app'] 
+CSRF_TRUSTED_ORIGINS = [f"https://c7motors.up.railway.app/"]
 
 # Debug Mode
-DEBUG = os.environ.get('DEBUG', 'False') == 'True'  # ✅ Dynamically set from env
+DEBUG = True 
 
 # Paths & Templates
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -48,12 +48,13 @@ MIDDLEWARE = [
 # Static & Media Files
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 STATIC_URL = '/static/'
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'staticfiles')] if DEBUG else []  # ✅ Fix
+STATICFILES_DIRS = os.path.join(BASE_DIR, 'staticfiles')
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 DEFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'
 MEDIA_URL = "/media/"
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
+'''
 # Database Configuration
 connection_string = os.environ.get("DATABASE_URL")
 
@@ -70,17 +71,18 @@ if connection_string:
         }
     }
 else:
-    DATABASES = {
+'''
+DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.mysql',
-            'NAME': os.environ.get('MYSQL_DATABASE', 'railway'),
-            'USER': os.environ.get('MYSQL_USER', 'root'),
-            'PASSWORD': os.environ.get('MYSQL_PASSWORD', 'uyCPoanSjfEsJTFULhNnLJUJzrKzGKrF'),
-            'HOST': os.environ.get('MYSQL_HOST', 'c7-motors-mysql.up.railway.app'),
-            'PORT': os.environ.get('MYSQL_PORT', '3306'),
+            'NAME': 'railway',
+            'USER':'root',
+            'PASSWORD': 'uyCPoanSjfEsJTFULhNnLJUJzrKzGKrF',
+            'HOST': 'mysql.railway.internal',
+            'PORT':  '3306',
         }
     }
 
 # Stripe Payment Configuration
-STRIPE_PUBLIC_KEY = os.environ.get('STRIPE_PUBLIC_KEY', '')
-STRIPE_SECRET_KEY = os.environ.get('STRIPE_SECRET_KEY', '')
+STRIPE_PUBLIC_KEY = os.environ.get('STRIPE_PUBLIC_KEY')
+STRIPE_SECRET_KEY = os.environ.get('STRIPE_SECRET_KEY')
