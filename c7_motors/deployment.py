@@ -56,21 +56,9 @@ MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
 # Database Configuration
 connection_string = 'mysql://root:uyCPoanSjfEsJTFULhNnLJUJzrKzGKrF@hopper.proxy.rlwy.net:46685/railway'
+parsed_url = urlparse(connection_string)
 
-if connection_string:
-    parsed_url = urlparse(connection_string)
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.mysql',
-            'NAME': parsed_url.path[1:],
-            'USER': parsed_url.username,
-            'PASSWORD': parsed_url.password,
-            'HOST': parsed_url.hostname,
-            'PORT': parsed_url.port,
-        }
-    }
-else:
-    DATABASES = {
+DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.mysql',
             'NAME': 'railway',
