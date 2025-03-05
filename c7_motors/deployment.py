@@ -54,18 +54,14 @@ DEFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'
 MEDIA_URL = "/media/"
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
-# Database Configuration
-connection_string = 'mysql://root:uyCPoanSjfEsJTFULhNnLJUJzrKzGKrF@hopper.proxy.rlwy.net:46685/railway'
-parsed_url = urlparse(connection_string)
-
 DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.mysql',
             'NAME': 'railway',
             'USER':'root',
             'PASSWORD': 'uyCPoanSjfEsJTFULhNnLJUJzrKzGKrF',
-            'HOST': 'hopper.proxy.rlwy.net',
-            'PORT':  '46685',
+            'HOST': 'mysql.railway.internal',
+            'PORT':  '3306',
         }
     }
 
