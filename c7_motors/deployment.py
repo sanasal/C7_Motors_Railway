@@ -81,11 +81,11 @@ if connection_string:
 DATABASES = {
             'default': {
                 'ENGINE': 'django.db.backends.mysql',
-                'NAME': os.environ.get("MYSQL_DATABASE"),
-                'USER':os.environ.get("MYSQL_USER"),
-                'PASSWORD': os.environ.get("MYSQL_PASSWORD"),
-                'HOST': os.environ.get("MYSQL_HOST"),
-                'PORT':  os.environ.get("MYSQL_PORT"),
+                'NAME': 'railway',
+                'USER':'root',
+                'PASSWORD': 'TTexxYqCvXCzaEcGMLTITgjmEfyEtQeA',
+                'HOST': 'maglev.proxy.rlwy.net',
+                'PORT':  '30604',
                 'OPTIONS': {
                         'unix_socket': None,  # Disable Unix socket
                         'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
