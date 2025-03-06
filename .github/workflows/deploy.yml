@@ -23,7 +23,18 @@ jobs:
         python -m pip install --upgrade pip
         pip install -r requirements.txt
 
+    - name: Wait for MySQL to be ready
+      run: |
+        echo "Waiting for MySQL..."
+        until nc -z -v -w30 mysql.railway.internal 3306; do
+          echo "Waiting for database connection..."
+          sleep 5
+        done
+        echo "MySQL is up!"
+
     - name: Run migrations
+      env:
+        DATABASE_URL: ${{ secrets.DATABASE_URL }}  # Ensure Railway provides this
       run: |
         python manage.py migrate
 
@@ -34,7 +45,6 @@ jobs:
     - name: Deploy to Railway
       run: |
         curl -sSL https://railway.app/release && bash
-        railway link
         railway up
       env:
         RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
