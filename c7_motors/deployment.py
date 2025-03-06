@@ -58,7 +58,6 @@ DEFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'
 MEDIA_URL = "/media/"
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
-'''
 connection_string = os.environ.get("DATABASE_URL")
 
 if connection_string:
@@ -75,25 +74,6 @@ if connection_string:
             'PORT': parsed_url.port,
         }
     }
-    print(11)
-'''
-
-DATABASES = {
-            'default': {
-                'ENGINE': 'django.db.backends.mysql',
-                'NAME': 'railway',
-                'USER':'root',
-                'PASSWORD': 'TTexxYqCvXCzaEcGMLTITgjmEfyEtQeA',
-                'HOST': 'maglev.proxy.rlwy.net',
-                'PORT':  '30604',
-                'OPTIONS': {
-                        'unix_socket': None,  # Disable Unix socket
-                        'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
-                        'ssl_disabled':True
-                    },
-            }
-        }
-
 
 # Stripe Payment Configuration
 STRIPE_PUBLIC_KEY = os.environ.get("STRIPE_PUBLIC_KEY")
