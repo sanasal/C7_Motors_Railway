@@ -5,9 +5,9 @@ import stripe
 from urllib.parse import urlparse 
 
 # Security & Allowed Hosts
-SECRET_KEY =  'j5aptH4rzF'
-ALLOWED_HOSTS = ['c7motorsrailway-production.up.railway.app'] 
-CSRF_TRUSTED_ORIGINS = [f"https://c7motorsrailway-production.up.railway.app"]
+SECRET_KEY =  os.environ.get('SECRET')
+ALLOWED_HOSTS = [os.environ.get('HOSTNAME')] 
+CSRF_TRUSTED_ORIGINS = [f"https://{os.environ.get('HOSTNAME')}"]
 
 # Debug Mode
 DEBUG = True 
@@ -57,11 +57,11 @@ MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.mysql',
-            'NAME': 'railway',
-            'USER':'root',
-            'PASSWORD': 'uyCPoanSjfEsJTFULhNnLJUJzrKzGKrF',
-            'HOST': 'hopper.proxy.rlwy.net',
-            'PORT':  '46685',
+            'NAME': os.environ.get('MYSQL_DATABASE'),
+            'USER':os.environ.get('MYSQL_USER'),
+            'PASSWORD': os.environ.get('MYSQL_PASSWORD'),
+            'HOST': os.environ.get('MYSQL_HOST'),
+            'PORT':  os.environ.get('MYSQL_PORT'),
         }
     }
 
