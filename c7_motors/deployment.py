@@ -58,7 +58,7 @@ DEFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'
 MEDIA_URL = "/media/"
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
-
+'''
 connection_string = os.environ.get("DATABASE_URL")
 
 if connection_string:
@@ -76,9 +76,9 @@ if connection_string:
         }
     }
     print(11)
+'''
 
-else:
-    DATABASES = {
+DATABASES = {
             'default': {
                 'ENGINE': 'django.db.backends.mysql',
                 'NAME': os.environ.get("MYSQL_DATABASE"),
@@ -87,6 +87,7 @@ else:
                 'HOST': os.environ.get("MYSQL_HOST"),
                 'PORT':  os.environ.get("MYSQL_PORT"),
                 'OPTIONS': {
+                        'unix_socket': None,  # Disable Unix socket
                         'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
                     },
             }
