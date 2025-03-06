@@ -6,12 +6,8 @@ from urllib.parse import urlparse
 
 # Security & Allowed Hosts
 SECRET_KEY =  os.environ.get("SECRET")
-print(1)
 ALLOWED_HOSTS = [os.environ.get("HOSTNAME")] 
-print(2)
-
 CSRF_TRUSTED_ORIGINS = [f"https://{os.environ.get('HOSTNAME')}"]
-print(3)
 
 
 # Debug Mode
@@ -21,7 +17,6 @@ DEBUG = True
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SETTINGS_PATH = os.path.dirname(os.path.dirname(__file__))  # MS ADDED
 Temp_Path = os.path.realpath('.')  # MS ADDED
-print(4)
 
 TEMPLATES = [
     {
@@ -39,8 +34,6 @@ TEMPLATES = [
     },
 ]
 
-print(5)
-
 # Middleware
 MIDDLEWARE = [
     'whitenoise.middleware.WhiteNoiseMiddleware',
@@ -52,7 +45,6 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
-print(6)
 
 
 # Static & Media Files
@@ -60,19 +52,17 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 STATIC_URL = '/static/'
 STATICFILES_DIRS = os.path.join(BASE_DIR, 'staticfiles')
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
-print(7)
 
 DEFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'
+
 MEDIA_URL = "/media/"
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
-print(8)
+
 
 connection_string = os.environ.get("DATABASE_URL")
-print(9)
 
 if connection_string:
     parsed_url = urlparse(connection_string)
-    print(10)
 
     # Extract database parameters
     DATABASES = {
@@ -88,8 +78,6 @@ if connection_string:
     print(11)
 
 else:
-    print(12)
-
     DATABASES = {
             'default': {
                 'ENGINE': 'django.db.backends.mysql',
@@ -98,14 +86,13 @@ else:
                 'PASSWORD': os.environ.get("MYSQL_PASSWORD"),
                 'HOST': os.environ.get("MYSQL_HOST"),
                 'PORT':  os.environ.get("MYSQL_PORT"),
+                'OPTIONS': {
+                        'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
+                    },
             }
         }
-    print(13)
-
-print(14)
 
 
 # Stripe Payment Configuration
 STRIPE_PUBLIC_KEY = os.environ.get("STRIPE_PUBLIC_KEY")
 STRIPE_SECRET_KEY = os.environ.get("STRIPE_SECRET_KEY")
-print(15)
