@@ -89,6 +89,7 @@ DATABASES = {
                 'OPTIONS': {
                         'unix_socket': None,  # Disable Unix socket
                         'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
+                        'ssl_disabled':True
                     },
             }
         }
