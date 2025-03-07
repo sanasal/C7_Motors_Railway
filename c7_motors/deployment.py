@@ -6,8 +6,8 @@ from urllib.parse import urlparse
 
 # Security & Allowed Hosts
 SECRET_KEY =  os.environ.get("SECRET")
-ALLOWED_HOSTS = [os.environ.get("HOSTNAME")] 
-CSRF_TRUSTED_ORIGINS = [f"https://{os.environ.get('HOSTNAME')}"]
+ALLOWED_HOSTS = ['c7motorsrailway-production.up.railway.app'] 
+CSRF_TRUSTED_ORIGINS = [f"https://c7motorsrailway-production.up.railway.app"]
 
 
 # Debug Mode
@@ -50,7 +50,7 @@ MIDDLEWARE = [
 # Static & Media Files
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 STATIC_URL = '/static/'
-STATICFILES_DIRS = os.path.join(BASE_DIR, 'staticfiles')
+STATICFILES_DIRS = [os.path.join(BASE_DIR , 'staticfiles')]
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 DEFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'
