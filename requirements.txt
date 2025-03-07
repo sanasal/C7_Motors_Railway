@@ -1,3 +1,4 @@
+mysqlclient==2.2.6
 asgiref==3.8.1
 certifi==2024.12.14
 cffi==1.17.1
