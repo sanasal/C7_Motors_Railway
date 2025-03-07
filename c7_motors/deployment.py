@@ -83,7 +83,7 @@ DATABASES = {
                 'USER':'root',
                 'PASSWORD':'TTexxYqCvXCzaEcGMLTITgjmEfyEtQeA',
                 'HOST': 'maglev.proxy.rlwy.net',
-                'PORT': '3306' ,
+                'PORT': '30604' ,
             }
 }
 
