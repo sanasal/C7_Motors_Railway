@@ -9,7 +9,6 @@ django-storages==1.14.4
 gunicorn==23.0.0
 idna==3.10
 isodate==0.7.2
-PyMySQL==1.1.1
 packaging==24.2
 pillow==11.0.0
 portalocker==2.10.1
