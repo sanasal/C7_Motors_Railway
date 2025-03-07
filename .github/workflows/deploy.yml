@@ -38,4 +38,3 @@ jobs:
         railway up
       env:
         RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
-'
