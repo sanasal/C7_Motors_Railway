@@ -23,18 +23,35 @@ jobs:
         python -m pip install --upgrade pip
         pip install -r requirements.txt
 
-    - name: Wait for MySQL to be ready
+    - name: Install mysql-client (for debugging)
       run: |
-        echo "Waiting for MySQL..."
-        until nc -z -v -w30 maglev.proxy.rlwy.net 30604; do
-          echo "Waiting for database connection..."
-          sleep 5
-        done
-        echo "MySQL is up!"
+        sudo apt-get update
+        sudo apt-get install -y mysql-client
+
+    - name: Verify MySQL connection
+      env:
+        MYSQL_HOST: ${{ secrets.MYSQL_HOST }}
+        MYSQL_PORT: ${{ secrets.MYSQL_PORT }}
+        MYSQL_USER: ${{ secrets.MYSQL_USER }}
+        MYSQL_PASSWORD: ${{ secrets.MYSQL_PASSWORD }}
+        MYSQL_DATABASE: ${{ secrets.MYSQL_DATABASE }}
+      run: |
+        echo "Verifying MySQL connection..."
+        mysql -h $MYSQL_HOST -P $MYSQL_PORT -u $MYSQL_USER -p$MYSQL_PASSWORD -e "SHOW DATABASES;"
+        if [ $? -eq 0 ]; then
+          echo "MySQL connection successful!"
+        else
+          echo "Failed to connect to MySQL."
+          exit 1
+        fi
 
     - name: Run migrations
       env:
-        DATABASE_URL: ${{ secrets.DATABASE_URL }}  # Ensure Railway provides this
+        MYSQL_DATABASE: ${{ secrets.MYSQL_DATABASE }}
+        MYSQL_USER: ${{ secrets.MYSQL_USER }}
+        MYSQL_PASSWORD: ${{ secrets.MYSQL_PASSWORD }}
+        MYSQL_HOST: ${{ secrets.MYSQL_HOST }}
+        MYSQL_PORT: ${{ secrets.MYSQL_PORT }}
       run: |
         python manage.py migrate
 
@@ -43,8 +60,8 @@ jobs:
         python manage.py collectstatic --noinput
 
     - name: Deploy to Railway
+      env:
+        RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
       run: |
         curl -sSL https://railway.app/release && bash
         railway up
-      env:
-        RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
