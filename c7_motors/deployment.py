@@ -87,9 +87,10 @@ DATABASES = {
                     'PORT': '30604' ,
                     'ssl_disabled': True,
                     'OPTIONS': {
-                        'connect_timeout': 60,  # Increase timeout
-                        'init_command': "SET SESSION wait_timeout = 28800",
+                        'connect_timeout': 10,
+                        'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
                     },
+                    'CONN_MAX_AGE': 300
                 }
     }
 
