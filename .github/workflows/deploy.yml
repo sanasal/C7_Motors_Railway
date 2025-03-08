@@ -26,7 +26,7 @@ jobs:
     - name: Wait for MySQL to be ready
       run: |
         echo "Waiting for MySQL..."
-        until nc -z -v -w30 mysql.railway.internal 3306; do
+        until nc -z -v -w30 maglev.proxy.rlwy.net 30604; do
           echo "Waiting for database connection..."
           sleep 5
         done

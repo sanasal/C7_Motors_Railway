@@ -61,7 +61,7 @@ DEFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'
 
 MEDIA_URL = "/media/"
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
-
+'''
 connection_string = os.environ.get("DATABASE_URL")
 if connection_string:
     parsed_url = urlparse(connection_string)
@@ -79,14 +79,15 @@ if connection_string:
     }
 
 else:
-    DATABASES = {
+'''
+DATABASES = {
                 'default': {
                     'ENGINE': 'django.db.backends.mysql',
                     'NAME': os.environ.get('MYSQL_DATABASE'),
                     'USER': os.environ.get('MYSQL_USER'),
                     'PASSWORD':os.environ.get('MYSQL_PASSWORD'),
-                    'HOST': os.environ.get('MYSQL_HOST'),
-                    'PORT': os.environ.get('MYSQL_PORT') ,
+                    'HOST': 'maglev.proxy.rlwy.net',
+                    'PORT': '30604' ,
                 }
     }
 
