@@ -3,9 +3,6 @@ from .settings import *
 from .settings import BASE_DIR
 import stripe
 from urllib.parse import urlparse 
-import pymysql
-
-pymysql.install_as_MySQLdb()
 
 
 # Security & Allowed Hosts
