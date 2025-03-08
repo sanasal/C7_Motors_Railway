@@ -86,8 +86,8 @@ DATABASES = {
                     'NAME': os.environ.get('MYSQL_DATABASE'),
                     'USER': os.environ.get('MYSQL_USER'),
                     'PASSWORD':os.environ.get('MYSQL_PASSWORD'),
-                    'HOST': 'maglev.proxy.rlwy.net',
-                    'PORT': '30604' ,
+                    'HOST': 'mysql.railway.internal',
+                    'PORT': '3306' ,
                     'OPTIONS': {
                         'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
                     }
