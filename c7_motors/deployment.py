@@ -86,11 +86,13 @@ DATABASES = {
                     'NAME': os.environ.get('MYSQL_DATABASE'),
                     'USER': os.environ.get('MYSQL_USER'),
                     'PASSWORD':os.environ.get('MYSQL_PASSWORD'),
-                    'HOST': 'mysql.railway.internal',
-                    'PORT': '3306' ,
+                    'HOST': 'maglev.proxy.rlwy.net',
+                    'PORT': '30604' ,
                     'OPTIONS': {
+                        'connect_timeout': 10,
                         'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
-                    }
+                    },
+                    'CONN_MAX_AGE': 300
                 }
     }
 
