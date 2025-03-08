@@ -1,1 +1,1 @@
-web: gunicorn c7_motors.wsgi:application --bind 0.0.0.0:$PORT
+web: gunicorn c7_motors.wsgi:application --bind 0.0.0.0:8000
