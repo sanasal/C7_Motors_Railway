@@ -88,6 +88,9 @@ DATABASES = {
                     'PASSWORD':os.environ.get('MYSQL_PASSWORD'),
                     'HOST': 'maglev.proxy.rlwy.net',
                     'PORT': '30604' ,
+                    'OPTIONS': {
+                        'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
+                    }
                 }
     }
 
