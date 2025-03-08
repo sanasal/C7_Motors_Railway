@@ -1,14 +1,6 @@
-name: Deploy to Railway
-
-on:
-  push:
-    branches:
-      - main  # or the branch you want to deploy from
-
 jobs:
   build_and_deploy:
     runs-on: ubuntu-latest
-
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
@@ -23,17 +15,27 @@ jobs:
         python -m pip install --upgrade pip
         pip install -r requirements.txt
 
-    - name: Run migrations
+    - name: Wait for MySQL to be ready
       run: |
-        python manage.py migrate
+        until mysqladmin ping -h "$MYSQL_HOST" --silent; do
+          echo "Waiting for MySQL..."
+          sleep 5
+        done
+
+    - name: Run migrations
+      env:
+        MYSQL_HOST: ${{ secrets.MYSQL_HOST }}
+        MYSQL_DATABASE: ${{ secrets.MYSQL_DATABASE }}
+        MYSQL_USER: ${{ secrets.MYSQL_USER }}
+        MYSQL_PASSWORD: ${{ secrets.MYSQL_PASSWORD }}
+      run: python manage.py migrate
 
     - name: Collect static files
-      run: |
-        python manage.py collectstatic --noinput
+      run: python manage.py collectstatic --noinput
 
     - name: Deploy to Railway
       run: |
-        curl -sSL https://railway.app/release && bash
+        curl -sSL https://railway.app/release | bash
         railway link
         railway up
       env:

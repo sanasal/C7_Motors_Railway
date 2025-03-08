@@ -10,8 +10,8 @@ pymysql.install_as_MySQLdb()
 
 # Security & Allowed Hosts
 SECRET_KEY =  os.environ.get("SECRET")
-ALLOWED_HOSTS = ['c7motorsrailway-production.up.railway.app'] 
-CSRF_TRUSTED_ORIGINS = [f"https://c7motorsrailway-production.up.railway.app"]
+ALLOWED_HOSTS = [os.environ.get('HOSTNAME')] 
+CSRF_TRUSTED_ORIGINS = [f"https://+{os.environ.get('HOSTNAME')}"]
 
 
 # Debug Mode
@@ -82,12 +82,11 @@ else:
     DATABASES = {
                 'default': {
                     'ENGINE': 'django.db.backends.mysql',
-                    'NAME': 'railway',
-                    'USER':'root',
-                    'PASSWORD':'TTexxYqCvXCzaEcGMLTITgjmEfyEtQeA',
-                    'HOST': 'mysql.railway.internal',
-                    'PORT': '3306' ,
-
+                    'NAME': os.environ.get('MYSQL_DATABASE'),
+                    'USER': os.environ.get('MYSQL_USER'),
+                    'PASSWORD':os.environ.get('MYSQL_PASSWORD'),
+                    'HOST': os.environ.get('MYSQL_HOST'),
+                    'PORT': os.environ.get('MYSQL_PORT') ,
                 }
     }
 
