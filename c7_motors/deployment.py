@@ -8,7 +8,7 @@ from urllib.parse import urlparse
 # Security & Allowed Hosts
 SECRET_KEY =  os.environ.get("SECRET")
 ALLOWED_HOSTS = [os.environ.get('HOSTNAME')] 
-CSRF_TRUSTED_ORIGINS = [f"https://+{os.environ.get('HOSTNAME')}"]
+CSRF_TRUSTED_ORIGINS = ['https://' + os.environ.get('HOSTNAME')]
 
 
 # Debug Mode
@@ -78,20 +78,32 @@ if connection_string:
             'PASSWORD': parsed_url.password,
             'HOST': parsed_url.hostname,
             'PORT': parsed_url.port,
+            'ssl_disabled': True,
+            'OPTIONS': {
+                'connect_timeout': 10,
+                'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
+            },
+            'CONN_MAX_AGE': 300
         }
     }
 
 else:
     DATABASES = {
-                    'default': {
-                        'ENGINE': 'django.db.backends.mysql',
-                        'NAME': os.environ.get('MYSQL_DATABASE'),
-                        'USER': os.environ.get('MYSQL_USER'),
-                        'PASSWORD':os.environ.get('MYSQL_PASSWORD'),
-                        'HOST': os.environ.get('MYSQL_HOST'),
-                        'PORT': os.environ.get('MYSQL_PORT') ,
-                    }
+        'default': {
+                'ENGINE': 'django.db.backends.mysql',
+                'NAME': os.environ.get('MYSQL_DATABASE'),
+                'USER': os.environ.get('MYSQL_USER'),
+                'PASSWORD':os.environ.get('MYSQL_PASSWORD'),
+                'HOST': os.environ.get('MYSQL_HOST'),
+                'PORT': os.environ.get('MYSQL_PORT') ,
+                'ssl_disabled': True,
+                'OPTIONS': {
+                'connect_timeout': 10,
+                'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
+            },
+            'CONN_MAX_AGE': 300
         }
+}
 
 # Stripe Payment Configuration
 STRIPE_PUBLIC_KEY = os.environ.get("STRIPE_PUBLIC_KEY")
