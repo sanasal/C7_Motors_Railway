@@ -14,6 +14,14 @@ CSRF_TRUSTED_ORIGINS = [f"https://+{os.environ.get('HOSTNAME')}"]
 # Debug Mode
 DEBUG = True 
 
+# Get the PORT from environment variables (Railway uses 8080)
+PORT = os.environ.get("PORT", 8080)
+
+# Run Django with this port
+if __name__ == "__main__":
+    from django.core.management import execute_from_command_line
+    execute_from_command_line(["manage.py", "runserver", f"0.0.0.0:{PORT}"])
+
 # Paths & Templates
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SETTINGS_PATH = os.path.dirname(os.path.dirname(__file__))  # MS ADDED
