@@ -28,22 +28,6 @@ jobs:
         sudo apt-get update
         sudo apt-get install -y mysql-client
 
-    - name: Verify MySQL connection
-      env:
-        MYSQL_HOST: ${{ secrets.MYSQL_HOST }}
-        MYSQL_PORT: ${{ secrets.MYSQL_PORT }}
-        MYSQL_USER: ${{ secrets.MYSQL_USER }}
-        MYSQL_PASSWORD: ${{ secrets.MYSQL_PASSWORD }}
-        MYSQL_DATABASE: ${{ secrets.MYSQL_DATABASE }}
-      run: |
-        echo "Verifying MySQL connection..."
-        mysql -h $MYSQL_HOST -P $MYSQL_PORT -u $MYSQL_USER -p$MYSQL_PASSWORD -e "SHOW DATABASES;"
-        if [ $? -eq 0 ]; then
-          echo "MySQL connection successful!"
-        else
-          echo "Failed to connect to MySQL."
-          exit 1
-        fi
 
     - name: Run migrations
       env:
