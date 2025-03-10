@@ -25,8 +25,12 @@ jobs:
 
     - name: Fix Ubuntu package sources (avoid Azure)
       run: |
-        sudo sed -i 's|http://azure.archive.ubuntu.com/ubuntu|http://archive.ubuntu.com/ubuntu|g' /etc/apt/sources.list
+        echo "Updating Ubuntu sources to use the main archive..."
+        echo "deb http://archive.ubuntu.com/ubuntu noble main restricted universe multiverse" | sudo tee /etc/apt/sources.list
+        echo "deb http://archive.ubuntu.com/ubuntu noble-updates main restricted universe multiverse" | sudo tee -a /etc/apt/sources.list
+        echo "deb http://security.ubuntu.com/ubuntu noble-security main restricted universe multiverse" | sudo tee -a /etc/apt/sources.list
         sudo apt-get update
+
 
     - name: Install mysql-client (for debugging)
       run: |
