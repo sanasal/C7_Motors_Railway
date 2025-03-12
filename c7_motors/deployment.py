@@ -95,8 +95,8 @@ DATABASES = {
                 'NAME': 'railway',
                 'USER': 'root',
                 'PASSWORD':'TTexxYqCvXCzaEcGMLTITgjmEfyEtQeA',
-                'HOST': 'mysql.railway.internal',
-                'PORT': '3306',
+                'HOST': 'maglev.proxy.rlwy.net',
+                'PORT': '30604',
                 'ssl_disabled': True,
                 'OPTIONS': {
                 'connect_timeout': 10,
