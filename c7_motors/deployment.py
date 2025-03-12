@@ -64,7 +64,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 MEDIA_URL = "/media/"
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
-
+'''
 connection_string = os.environ.get("DATABASE_URL")
 if connection_string:
     parsed_url = urlparse(connection_string)
@@ -88,14 +88,15 @@ if connection_string:
     }
 
 else:
-    DATABASES = {
+'''
+DATABASES = {
         'default': {
                 'ENGINE': 'django.db.backends.mysql',
-                'NAME': os.environ.get('MYSQL_DATABASE'),
-                'USER': os.environ.get('MYSQL_USER'),
-                'PASSWORD':os.environ.get('MYSQL_PASSWORD'),
-                'HOST': os.environ.get('MYSQL_HOST'),
-                'PORT': os.environ.get('MYSQL_PORT'),
+                'NAME': 'railway',
+                'USER': 'root',
+                'PASSWORD':'TTexxYqCvXCzaEcGMLTITgjmEfyEtQeA',
+                'HOST': 'mysql.railway.internal',
+                'PORT': '3306',
                 'ssl_disabled': True,
                 'OPTIONS': {
                 'connect_timeout': 10,
