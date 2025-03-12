@@ -64,16 +64,15 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 MEDIA_URL = "/media/"
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
-'''
+
 connection_string = os.environ.get("DATABASE_URL")
 if connection_string:
     parsed_url = urlparse(connection_string)
 
-    # Extract database parameters
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.mysql',
-            'NAME': parsed_url.path[1:],  # Removes the leading '/' in the DB name
+            'NAME': parsed_url.path[1:],
             'USER': parsed_url.username,
             'PASSWORD': parsed_url.password,
             'HOST': parsed_url.hostname,
@@ -88,15 +87,15 @@ if connection_string:
     }
 
 else:
-'''
-DATABASES = {
+
+    DATABASES = {
         'default': {
                 'ENGINE': 'django.db.backends.mysql',
                 'NAME': 'railway',
                 'USER': 'root',
-                'PASSWORD':'TTexxYqCvXCzaEcGMLTITgjmEfyEtQeA',
-                'HOST': 'maglev.proxy.rlwy.net',
-                'PORT': '30604',
+                'PASSWORD':'zMLAyyvDppMvYiETnzWHNiwRgeEsSOIF',
+                'HOST': 'shortline.proxy.rlwy.net',
+                'PORT': '35790',
                 'ssl_disabled': True,
                 'OPTIONS': {
                 'connect_timeout': 10,
