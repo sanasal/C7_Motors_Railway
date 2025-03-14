@@ -104,29 +104,31 @@ class Cart(models.Model):
     def __str__(self):
        return f"{self.id} - {self.user}"
 
+
 class Car(models.Model):
-    brand_name = models.CharField(max_length=100 , blank=True)
-    model = models.CharField(max_length=100 , blank=True)
-    main_img = models.ImageField(default = '' , blank=True)
+    brand_name = models.CharField(max_length=100, blank=True)
+    model = models.CharField(max_length=100, blank=True)
+    main_img = models.ImageField(default='', blank=True)
 
     SUV = 'SUV'
     SEDAN = 'Sedan'
     HATCHBACK = 'Hatchback'
-    HYBIRD = 'Hybird'
+    HYBRID = 'Hybrid'
     ELECTRIC = 'Electric'
     COUPE = 'Coupe'
-    GEAR_CHOICES = [
+    
+    TYPE_CHOICES = [
         (SUV, 'SUV'),
         (SEDAN, 'Sedan'),
         (HATCHBACK, 'Hatchback'),
-        (HYBIRD, 'Hybird'),
+        (HYBRID, 'Hybrid'),
         (ELECTRIC, 'Electric'),
-        (COUPE, 'Coupe')
+        (COUPE, 'Coupe'),
     ]
 
-    type = models.CharField(max_length=20, choices=GEAR_CHOICES , blank=True)
-    exterior_color = models.CharField(max_length=100 , blank=True)
-    interior_color = models.CharField(max_length=100 , blank=True)
+    type = models.CharField(max_length=20, choices=TYPE_CHOICES, blank=True)
+    exterior_color = models.CharField(max_length=100, blank=True)
+    interior_color = models.CharField(max_length=100, blank=True)
     
     MANUAL = 'Manual'
     AUTOMATIC = 'Automatic'
@@ -138,39 +140,36 @@ class Car(models.Model):
     transmission = models.CharField(max_length=20, choices=GEAR_CHOICES)
     model_year = models.IntegerField(null=True, blank=True)
     mileage = models.IntegerField(null=True, blank=True)
-    cash_price =models.IntegerField(null=True, blank=True)
+    cash_price = models.IntegerField(null=True, blank=True)
     monthly_installments_price = models.IntegerField(null=True, blank=True)
     description = models.TextField(blank=True)
     selled = models.BooleanField(default=False)
 
     def delete_selled_car_images(self):
         """Delete all images from storage and database when a car is sold."""
-        if self.selled:  # Check if the car is sold
-            for img in self.images.all(): 
-                if img.image:  
-                    image_path = img.image.path  # Get the file path
-                    if os.path.exists(image_path):  
-                        os.remove(image_path)  # Delete the file from storage
-                img.delete()  # Remove from database
+        if self.selled:
+            for img in self.images.all():  
+                if img.image and os.path.exists(img.image.path):  
+                    os.remove(img.image.path) 
+                img.delete()  
 
     def save(self, *args, **kwargs):
         """Override save to check when a car is marked as sold."""
-        if self.pk:  # Ensure this is an update, not a new instance
+        if self.pk:
             old_car = Car.objects.filter(pk=self.pk).first()
             if old_car and not old_car.selled and self.selled:
-                self.delete_selled_car_images()  # Delete images when sold
+                self.delete_selled_car_images()
         super().save(*args, **kwargs)
 
     def __str__(self):
         return f"{self.brand_name} {self.model}"
-
 
 class CarImages(models.Model):
     product = models.ForeignKey(Car, related_name='images', on_delete=models.CASCADE)
     image = models.ImageField(upload_to='C7_Motors\media')
 
     def __str__(self):
-        return f"{self.product.brand_name} {self.product.model}"
+        return f"Image of {self.product.brand_name} {self.product.model}"
 
 
 class CarsCart(models.Model):
