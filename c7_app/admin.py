@@ -3,6 +3,7 @@ from django.contrib import messages
 import os
 from django.core.files import File
 from django.conf import settings
+from django.utils.html import format_html
 from django.shortcuts import redirect
 from django.urls import path
 from django.http import HttpResponseRedirect
@@ -46,10 +47,13 @@ class CarAdmin(admin.ModelAdmin):
         messages.success(request, f"Added {images_added} images to {car.brand_name} {car.model}")
         return redirect(request.META.get('HTTP_REFERER', 'admin:index'))
 
-    def import_images_button(self, obj):
-        if obj.id:
-            return f'<a href="/admin/import-images/{obj.id}/" class="button">Import Images</a>'
-        return "Save this car first!"
+
+        def import_images_button(self, obj):
+            if obj and obj.pk:  # Ensure the car is saved before showing the button
+                return format_html('<a href="{}" class="button" style="padding: 6px 12px; background: #007bff; color: white; border-radius: 5px; text-decoration: none;">Import Images</a>', f"/admin/import-images/{obj.id}/")
+            return format_html('<span style="color: red;">Save this car first!</span>')
+
+
 
     import_images_button.short_description = "Import Images"
     import_images_button.allow_tags = True
