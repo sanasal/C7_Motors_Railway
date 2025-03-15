@@ -5,6 +5,8 @@ from django.db import models
 from django.contrib.auth.models import User
 import uuid
 import os
+import zipfile
+from django.core.files.base import ContentFile
 
 # Create your models here
 
@@ -165,11 +167,28 @@ class Car(models.Model):
         return f"{self.brand_name} {self.model}"
 
 class CarImages(models.Model):
-    product = models.ForeignKey(Car, related_name='images', on_delete=models.CASCADE)
-    image = models.ImageField(upload_to='C7_Motors\media')
+    car = models.ForeignKey(Car, related_name="images", on_delete=models.CASCADE)
+    image = models.ImageField(upload_to="car_images/" , null=True)
 
     def __str__(self):
-        return f"Image of {self.product.brand_name} {self.product.model}"
+        return f"{self.car.brand_name} {self.car.model}"
+
+
+class CarImageZip(models.Model):
+    car = models.ForeignKey(Car, on_delete=models.CASCADE)
+    zip_file = models.FileField(upload_to="car_images/")
+
+    def extract_images(self):
+        """Extract images from the uploaded ZIP file."""
+        if self.zip_file:
+            zip_path = self.zip_file.path
+            with zipfile.ZipFile(zip_path, "r") as zip_ref:
+                for filename in zip_ref.namelist():
+                    if filename.endswith((".jpg", ".jpeg", ".png")):
+                        img_data = zip_ref.read(filename)
+                        new_image = CarImages(car=self.car)
+                        new_image.image.save(filename, ContentFile(img_data))
+                        new_image.save()
 
 
 class CarsCart(models.Model):
@@ -177,7 +196,7 @@ class CarsCart(models.Model):
     cart = models.ForeignKey(Cart, on_delete = models.CASCADE , related_name='cartitems')
 
     def __str__(self):
-        return f"{self.car.brand_name} - ${self.car.cash_price}"
+        return f"{self.car.brand_name} - ${self.car.cash_price} - {self.cart.user}"
 
     def cars_cash_price(self):
         car_price = int(self.car.cash_price)
