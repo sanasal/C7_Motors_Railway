@@ -216,6 +216,7 @@ def cars(request, car_type=None):
         'stripe_remaining': remaining_price,
         'STRIPE_PUBLISHABLE_KEY': settings.STRIPE_PUBLIC_KEY,
         'cars': cars,
+        'car_type' : car_type
     }
 
     return render(request, 'cars.html', context)
