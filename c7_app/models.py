@@ -175,41 +175,21 @@ class CarImages(models.Model):
 
 
 class CarImageZip(models.Model):
-    car = models.ForeignKey(Car, on_delete=models.CASCADE)
-    zip_file = models.FileField(upload_to="")
-
-
-    '''
+    car = models.ForeignKey(Car, on_delete=models.CASCADE , related_name="zip_files")
+    zip_file = models.FileField(upload_to="" , null=True)
+    
     def extract_images(self):
-        """Extract images from the uploaded ZIP file and save them in CarImages."""
-        if not self.zip_file or not self.zip_file.name:
-            print("No ZIP file provided.")
-            return
-
-        zip_path = self.zip_file.path
-        print(f"Extracting from ZIP path: {zip_path}")
-
-        # Ensure file exists before attempting extraction
-        if not os.path.exists(zip_path):
-            print(f"Error: ZIP file not found at {zip_path}")
-            return
-
-        try:
+        """Extract images from the uploaded ZIP file."""
+        if self.zip_file:
+            zip_path = self.zip_file.path
             with zipfile.ZipFile(zip_path, "r") as zip_ref:
                 for filename in zip_ref.namelist():
-                    if filename.lower().endswith((".jpg", ".jpeg", ".png")):
-                        with zip_ref.open(filename) as img_file:
-                            img_data = img_file.read()
-                            new_image = CarImages(car=self.car)
-                            new_image.image.save(filename, ContentFile(img_data))
-                            new_image.save()
-                            print(f"Saved image: {filename}")
+                    if filename.endswith((".jpg", ".jpeg", ".png")):
+                        img_data = zip_ref.read(filename)
+                        new_image = CarImages(car=self.car)
+                        new_image.image.save(filename, ContentFile(img_data))
+                        new_image.save()
 
-        except zipfile.BadZipFile:
-            print("Error: Invalid ZIP file format.")
-        except Exception as e:
-            print(f"Unexpected error: {e}")
-    '''
 
 class CarsCart(models.Model):
     car = models.ForeignKey(Car, on_delete=models.CASCADE , related_name='items')
