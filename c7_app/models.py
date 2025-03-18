@@ -178,6 +178,8 @@ class CarImageZip(models.Model):
     car = models.ForeignKey(Car, on_delete=models.CASCADE)
     zip_file = models.FileField(upload_to="")
 
+
+    '''
     def extract_images(self):
         """Extract images from the uploaded ZIP file and save them in CarImages."""
         if not self.zip_file or not self.zip_file.name:
@@ -207,7 +209,7 @@ class CarImageZip(models.Model):
             print("Error: Invalid ZIP file format.")
         except Exception as e:
             print(f"Unexpected error: {e}")
-
+    '''
 
 class CarsCart(models.Model):
     car = models.ForeignKey(Car, on_delete=models.CASCADE , related_name='items')
