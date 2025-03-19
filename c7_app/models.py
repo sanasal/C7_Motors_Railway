@@ -7,7 +7,6 @@ import uuid
 import os
 import zipfile
 from django.core.files.base import ContentFile
-from .deployment import *
 
 # Create your models here
 
@@ -185,7 +184,7 @@ class CarImageZip(models.Model):
             zip_path = self.zip_file.path
 
             # Ensure the car_images/ directory exists
-            car_images_path = os.path.join(deployment.MEDIA_ROOT, "car_images/")
+            car_images_path =  "/app/media/car_images/"
             os.makedirs(car_images_path, exist_ok=True)
 
             with zipfile.ZipFile(zip_path, "r") as zip_ref:
