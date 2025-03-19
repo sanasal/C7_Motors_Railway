@@ -9,10 +9,9 @@ class CarImageZipAdmin(admin.ModelAdmin):
     list_display = ["car", "zip_file"]
 
     def save_model(self, request, obj, form, change):
-        """Extract images automatically after uploading a ZIP file."""
+        """Save model and notify user that extraction happens asynchronously."""
         super().save_model(request, obj, form, change)
-        obj.extract_images()
-        messages.success(request, "Images extracted and saved successfully!")
+        messages.success(request, "ZIP file uploaded. Images will be extracted soon.")
 
 #Register Models
 admin.site.register(Car, CarAdmin)

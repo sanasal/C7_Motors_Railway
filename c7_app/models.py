@@ -7,6 +7,9 @@ import uuid
 import os
 import zipfile
 from django.core.files.base import ContentFile
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+from django.contrib import messages
 
 # Create your models here
 
@@ -183,9 +186,9 @@ class CarImageZip(models.Model):
         if self.zip_file:
             zip_path = self.zip_file.path
 
-            # Ensure the car_images/ directory exists
-            car_images_path =  "/app/media/car_images/"
-            os.makedirs(car_images_path, exist_ok=True)
+            if not os.path.exists(zip_path):
+                print(f"ZIP file does NOT exist: {zip_path}")
+                return
 
             with zipfile.ZipFile(zip_path, "r") as zip_ref:
                 for filename in zip_ref.namelist():
@@ -194,6 +197,12 @@ class CarImageZip(models.Model):
                         new_image = CarImages(car=self.car)
                         new_image.image.save(filename, ContentFile(img_data))
                         new_image.save()
+
+@receiver(post_save, sender=CarImageZip)
+def extract_images_after_save(sender, instance, created, **kwargs):
+    """Extract images only after the ZIP file is fully saved."""
+    if created:  # Only on first save, to prevent loops
+        instance.extract_images()
 
 
 class CarsCart(models.Model):
