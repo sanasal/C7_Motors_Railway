@@ -168,7 +168,7 @@ class Car(models.Model):
 
 class CarImages(models.Model):
     car = models.ForeignKey(Car, related_name="images", on_delete=models.CASCADE)
-    image = models.ImageField(upload_to="" , null=True)
+    image = models.ImageField(upload_to="car_images/" , null=True)
 
     def __str__(self):
         return f"{self.car.brand_name} {self.car.model}"
@@ -176,12 +176,17 @@ class CarImages(models.Model):
 
 class CarImageZip(models.Model):
     car = models.ForeignKey(Car, on_delete=models.CASCADE , related_name="zip_files")
-    zip_file = models.FileField(upload_to="" , null=True)
-    
+    zip_file = models.FileField(upload_to="car_zips/" , null=True)
+
     def extract_images(self):
         """Extract images from the uploaded ZIP file."""
         if self.zip_file:
             zip_path = self.zip_file.path
+
+            # Ensure the car_images/ directory exists
+            car_images_path = os.path.join(settings.MEDIA_ROOT, "car_images/")
+            os.makedirs(car_images_path, exist_ok=True)
+
             with zipfile.ZipFile(zip_path, "r") as zip_ref:
                 for filename in zip_ref.namelist():
                     if filename.endswith((".jpg", ".jpeg", ".png")):
