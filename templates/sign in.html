@@ -23,16 +23,19 @@
 				background-image: url("{% static 'img/car1.jpg'%}");
 				background-size: cover;
 				background-repeat: no-repeat;
+				font-size: 15px;
 			}
 			.inner2
 			{
-				backdrop-filter: blur(8px);
+				backdrop-filter: blur(10px);
+				border-radius: 30px;
+				padding-top: 20px;
+				padding-bottom: 20px;
 			}
 		</style>
 	</head>
 
 	<body class="img-fluid">
-
 		<div class="wrapper">
 			<div class="inner inner2">
 				<form action="/sign_in/" method="post">
@@ -40,21 +43,21 @@
 					<h3>Sign in</h3>
 					<div class="form-group">
 						<div class="form-wrapper">
-							<label for="id_username">User name</label>
+							<label for="id_username" style="color: black;">User name</label>
 							<input type="text" name="username" class="form-control" autocapitalize="none" autocomplete="username" required id="id_username floatingInput">
 						</div>
 					</div>
 					<div class="form-wrapper">
-						<label for="id_password1">Password</label>
+						<label for="id_password1" style="color: black;">Password</label>
 						<input type="password" name="password1" autocomplete="new-password" required id="id_password1 floatingPassword" class="form-control">
 					</div>
 					<div class="form-wrapper">
-						<label for="id_password2">Confirm Password</label>
+						<label for="id_password2" style="color: black;">Confirm Password</label>
 						<input type="password" name="password2" autocomplete="new-password" required id="id_password2 floatingPassword" class="form-control">
 					</div>
 					<div class="checkbox">
 						<label>
-							<input type="checkbox"> I caccept the Terms of Use & Privacy Policy.
+							<input type="checkbox"><p style="color: black;"> I accept the Terms of Use & Privacy Policy.</p>
 							<span class="checkmark"></span>
 						</label>
 					</div>

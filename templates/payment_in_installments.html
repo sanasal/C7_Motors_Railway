@@ -89,7 +89,7 @@
                         <span class="fa fa-bars"></span>
                     </button>
                     <div class="collapse navbar-collapse" id="navbarCollapse">
-                        <div class="navbar-nav mx-auto py-0">
+                        <div class="navbar-nav mx-auto py-0 mt-3">
                             <a href="{% url 'c7_motors:home' %}" class="nav-item nav-link"><i class="bi bi-house-door"></i> Home</a>
                             <a href="{% url 'c7_motors:about' %}" class="nav-item nav-link"><i class="bi bi-info-circle"></i> About</a>
                             <a href="{% url 'c7_motors:service' %}" class="nav-item nav-link"><i class="bi bi-tools"></i> Service</a>
@@ -101,11 +101,11 @@
                         {% if user.is_authenticated %}
                         <form action="/log_out/" method="post" class="main_nav">
                          {% csrf_token %}
-                         <a class="btn rounded-pill py-2 px-4" style="background-color: #e30a23;"><button type="submit" class="btn" style="color: #ffffff;">Log out</button></a>
+                         <a class="btn rounded-pill" style="background-color: #e30a23;"><button type="submit" class="btn" style="color: #ffffff;">Log out</button></a>
                         </form>
                         {% else %}
-                        <a class="btn rounded-pill py-2 px-4" style="background-color: #e30a23;" href="{% url 'c7_motors:log_in'%}"><button type="submit" class="btn" style="color: #ffffff;">Log in</button></a>
-                        <a class="btn rounded-pill py-2 px-4" style="background-color: #e30a23;" href="{% url 'c7_motors:sign_in'%}" style="margin-left: 20px;"><button type="submit" class="btn" style="color: #ffffff;">Sign in</button></a>
+                        <a class="btn rounded-pill mx-3" style="background-color: #e30a23;" href="{% url 'c7_motors:log_in'%}"><button type="submit" class="btn" style="color: #ffffff;">Log in</button></a>
+                        <a class="btn rounded-pill" style="background-color: #e30a23;" href="{% url 'c7_motors:sign_in'%}" style="margin-left: 20px;"><button type="submit" class="btn" style="color: #ffffff;">Sign in</button></a>
                         {% endif %}
                     </div>
                 </nav>
