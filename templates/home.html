@@ -425,6 +425,15 @@
                     display: flex !important;
                 }
             }
+
+            .fact_background{
+                background-image: url("/static/img/bmw1.jpg");
+                background-repeat: no-repeat;
+                background-size: cover;
+                background-attachment: scroll !important;
+                overflow-y: auto;
+                scroll-behavior: smooth;
+            }
         </style>
     </head>
 
@@ -830,7 +839,7 @@
         <!-- About End -->
 
         <!-- Fact Counter -->
-        <div class="container-fluid counter bg-secondary py-5">
+        <div class="container-fluid counter py-5 fact_background img-fluid">
             <div class="container py-5">
                 <div class="row g-5">
                     <div class="col-md-6 col-lg-6 col-xl-3 wow fadeInUp" data-wow-delay="0.1s">
@@ -1173,6 +1182,10 @@
         }
         const csrftoken = getCookie('csrftoken');
 
+        window.addEventListener("scroll", function() {
+            document.querySelector(".fact_background").style.backgroundPosition = "px" + window.scrollY + "px";
+        });
+        
 
         document.getElementById('searchForm').addEventListener('submit', function(e) {
             e.preventDefault(); // Prevent form submission
