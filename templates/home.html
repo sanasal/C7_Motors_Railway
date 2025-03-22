@@ -1181,25 +1181,6 @@
             return cookieValue;
         }
         const csrftoken = getCookie('csrftoken');
-
-        window.addEventListener("scroll", function() {
-            document.querySelector(".fact_background").style.backgroundPosition = "px" + window.scrollY + "px";
-        });
-        
-
-        document.getElementById('searchForm').addEventListener('submit', function(e) {
-            e.preventDefault(); // Prevent form submission
-
-            // Collect form data
-            const formData = new FormData(e.target);
-            const query = Object.fromEntries(formData.entries());
-
-            console.log('Search Data:', query);
-            alert('Search submitted. Check console for details.');
-
-            // Perform search here
-        });
-
     </script>
 
     <!-- Checkout Stripe -->
