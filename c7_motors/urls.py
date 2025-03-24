@@ -28,6 +28,8 @@ urlpatterns = [
     path('google30eaf36ea9f9767a.html', TemplateView.as_view(template_name="google30eaf36ea9f9767a.html"))
 ]
 
+admin.site.index_title = "C7 Motors"
+admin.site.site_header = "C7 Motors Administration"
 
 urlpatterns += static(settings.MEDIA_URL , document_root = settings.MEDIA_ROOT)
 urlpatterns += staticfiles_urlpatterns()

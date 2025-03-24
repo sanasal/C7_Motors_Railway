@@ -6,7 +6,7 @@
 <html lang="en">
 
     <head>
-        <title>Used Cars for Sale at the Best Prices | C7 Motors</title>
+        <title>C7 Motors | Used Cars for Sale at the Best Prices</title>
         <meta charset="utf-8">
         <meta name="description" content="Find high-quality used cars for sale at competitive prices. Browse our wide selection of well-maintained vehicles with flexible financing options. Explore now!" />
         <meta name="keywords" content="c7 motors , used cars for sale, buy a used car, best used car prices, second-hand cars, pre-owned vehicles, used cars in Dubai" />
@@ -121,36 +121,6 @@
                 margin-top: 10px;
             }
             
-            .hero__text__price {
-                position: relative;
-                padding-left: 140px;
-                margin-bottom: 55px;
-            }
-            
-            .hero__text__price .car-model {
-                font-size: 13px;
-                color: #323232;
-                font-weight: 700;
-                display: inline-block;
-                padding: 6px 14px;
-                background: #fff;
-                border-radius: 2px;
-                position: absolute;
-                left: 0;
-                top: 0;
-            }
-            
-            .hero__text__price h2 {
-                font-size: 50px;
-                color: #fff;
-                font-weight: 700;
-                line-height: 45px;
-            }
-            
-            .hero__text__price h2 span {
-                font-size: 40px;
-            }
-            
             .hero__tab .nav-tabs {
                 border-bottom: none;
             }
@@ -190,7 +160,7 @@
                 opacity: 1;
                 bottom: -7px;
             }
-            
+
             .hero__tab__form {
                 position: relative;
                 z-index: 10;
@@ -260,69 +230,6 @@
             
             .hero__tab__form form .select-list .select-list-item .nice-select:after {
                 display: none;
-            }
-            
-            .hero__tab__form form .car-price {
-                margin-bottom: 45px;
-            }
-            
-            .hero__tab__form form .car-price p {
-                color: #323232;
-                margin-bottom: 5px;
-                margin-bottom: 12px;
-                position: relative;
-                margin-right: 90%;
-            }
-            
-            .hero__tab__form form .car-price .price-range-wrap {
-                position: relative;
-            }
-            
-            .hero__tab__form form .car-price .price-range-wrap .ui-widget-content {
-                height: 5px;
-                background: rgba(45, 45, 45, 0.1);
-                border: none;
-                border-radius: 1px;
-            }
-            
-            .hero__tab__form form .car-price .price-range-wrap .ui-slider-horizontal .ui-slider-handle {
-                top: -5px;
-                margin-left: -4px;
-            }
-            
-            .hero__tab__form form .car-price .price-range-wrap .ui-slider .ui-slider-handle {
-                width: 14px;
-                height: 14px;
-                background: #fff;
-                border-radius: 50%;
-                cursor: pointer;
-            }
-            
-            .hero__tab__form form .car-price .price-range-wrap .ui-state-default,
-            .hero__tab__form form .car-price .price-range-wrap .ui-widget-content .ui-state-default,
-            .hero__tab__form form .car-price .price-range-wrap .ui-widget-header .ui-state-default,
-            .hero__tab__form form .car-price .price-range-wrap .ui-button,
-            .hero__tab__form form .car-price .price-range-wrap html .ui-button.ui-state-disabled:hover,
-            .hero__tab__form form .car-price .price-range-wrap html .ui-button.ui-state-disabled:active {
-                border: 1.5px solid #e30a23;
-            }
-            
-            .hero__tab__form form .car-price .price-range-wrap .ui-slider .ui-slider-range {
-                background: #e30a23;
-            }
-            
-            .hero__tab__form form .car-price .price-input {
-                position: absolute;
-                left: 50px;
-                top: -36px;
-            }
-            
-            .hero__tab__form form .car-price .price-input input {
-                font-size: 15px;
-                color: #323232;
-                font-weight: 700;
-                border: none;
-                width: 180px;
             }
 
             .carousel-caption {
@@ -1181,6 +1088,18 @@
             return cookieValue;
         }
         const csrftoken = getCookie('csrftoken');
+
+        document.addEventListener("DOMContentLoaded", function () {
+            document.querySelector(".navbar-toggler").addEventListener("click", function () {
+                let nav = document.querySelector("#navbarCollapse");
+                if (nav.classList.contains("show")) {
+                    nav.classList.remove("show");
+                } else {
+                    nav.classList.add("show");
+                }
+            });
+        });
+        
     </script>
 
     <!-- Checkout Stripe -->
@@ -1242,7 +1161,6 @@
     <script src="{% static 'js/jquery.slicknav.js' %}"></script>
     <script src="{% static 'js/owl.carousel.min.js' %}"></script>
     <script src="{% static 'js/main2.js'%}"></script>
-    
 </body>
 
 </html>

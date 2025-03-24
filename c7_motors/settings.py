@@ -57,6 +57,7 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'c7_motors.urls'
 
+#setting describes how Django will load and render templates
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
