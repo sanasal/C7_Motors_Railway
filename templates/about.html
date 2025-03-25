@@ -83,7 +83,7 @@
                             <a href="{% url 'c7_motors:service' %}" class="nav-item nav-link"><i class="bi bi-tools"></i> Service</a>
                             <a href="{% url 'c7_motors:feature' %}" class="nav-item nav-link"><i class="bi bi-star-fill"></i> Features</a>
                             <a href="{% url 'c7_motors:shopping_cart' %}" class="nav-item nav-link"><i class="bi bi-basket3"></i> My Cart</a>
-                            <a class="nav-item nav-link" id="checkout-button" data-bs-toggle="modal" data-bs-target="#exampleModal" type="button"><i class="bi bi-cash"></i> Pay</a>
+                            <a href="" class="nav-item nav-link" id="checkout-button" data-bs-toggle="modal" data-bs-target="#exampleModal"><i class="bi bi-cash"></i> Pay</a>
                             <a href="{% url 'c7_motors:contact_us' %}" class="nav-item nav-link"><i class="bi bi-telephone"></i> Contact</a>
                         </div>
                         {% if user.is_authenticated %}

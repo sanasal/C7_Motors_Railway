@@ -21,9 +21,10 @@ from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.conf import settings
 from django.conf.urls.static import static
 from django.views.generic import TemplateView 
+from c7_app.admin import custom_admin_site 
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path('admin/', custom_admin_site.urls),
     path('' , include('c7_app.urls')),
     path('google30eaf36ea9f9767a.html', TemplateView.as_view(template_name="google30eaf36ea9f9767a.html"))
 ]
