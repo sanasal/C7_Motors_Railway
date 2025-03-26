@@ -8,14 +8,14 @@ class CustomAdminSite(admin.AdminSite):
     site_title = "Admin Site"
     index_title = "C7 Motors"
 
-    def get_app_list(self, request):
+    def get_app_list(self, request , app_label = 'C7 Motors'):
         """Customize the display of models in the Django admin index page."""
         app_list = super().get_app_list(request)
 
         # Define sections
-        car_details_section = {"name": "Cars Data", "app_label": "cars", "models": []}
-        customers_section = {"name": "Customers Data", "app_label": "customers", "models": []}
-        auth_section = {"name": "Authentication and Authorization", "app_label": "auth", "models": []}
+        car_details_section = {"name": "Cars Data","app_label":"Cars", "models": []}
+        customers_section = {"name": "Customers Data","app_label":"Customers", "models": []}
+        auth_section = {"name": "Authentication and Authorization","app_label":"Authentication and Authorization", "models": []}
 
         # Iterate over apps and categorize models
         for app in app_list:
