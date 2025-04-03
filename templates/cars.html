@@ -33,9 +33,9 @@
         /*** Cars Categories Start ***/
         .categories {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Adjust minmax for card size */
-            gap: 20px; /* Space between cards */
-            padding: 20px; /* Optional: Add padding to the container */
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); 
+            gap: 20px;
+            padding: 20px;
         }
 
         .categories .categories-item {
@@ -43,13 +43,13 @@
             border: 1px solid linear-gradient(rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.9));
             border-radius: 10px;
             transition: 0.5s;
-            background: #fff; /* Optional: Add background color */
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional: Add shadow for better appearance */
+            background: #fff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
         }
 
         .categories .categories-item:hover {
             border: 1px solid #e30a23;
-            transform: translateY(-5px); /* Optional: Add hover effect */
+            transform: translateY(-5px);
         }
 
         .categories .categories-item .categories-item-inner {
@@ -71,7 +71,7 @@
             border-top: 4px solid var(--bs-white);
             text-align: center;
             background: rgb(0,0,0);
-            padding: 15px; /* Adjust padding for smaller cards */
+            padding: 15px;
         }
 
         .categories .categories-item-inner .categories-review {
@@ -140,7 +140,7 @@
                      <a class="btn rounded-pill" style="background-color: #e30a23;"><button type="submit" class="btn" style="color: #ffffff;">Log out</button></a>
                     </form>
                     {% else %}
-                    <a class="btn rounded-pill" style="background-color: #e30a23;" href="{% url 'c7_motors:log_in'%}"><button type="submit" class="btn" style="color: #ffffff;">Log in</button></a>
+                    <a class="btn rounded-pill mx-3" style="background-color: #e30a23;" href="{% url 'c7_motors:log_in'%}"><button type="submit" class="btn" style="color: #ffffff;">Log in</button></a>
                     <a class="btn rounded-pill" style="background-color: #e30a23;" href="{% url 'c7_motors:sign_in'%}" style="margin-left: 20px;"><button type="submit" class="btn" style="color: #ffffff;">Sign in</button></a>
                     {% endif %}
                 </div>
