@@ -102,6 +102,12 @@ else:
             'CONN_MAX_AGE': 300
         }
 }
+    
+#Add SSL 
+SECURE_SSL_REDIRECT = True
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
+
 
 # Stripe Payment Configuration
 STRIPE_PUBLIC_KEY = os.environ.get("STRIPE_PUBLIC_KEY")
