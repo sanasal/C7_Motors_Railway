@@ -5,7 +5,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm , AuthenticationForm
 from django.contrib.auth import login , logout
 from django.views.decorators.csrf import csrf_protect , csrf_exempt
-from . import forms , forms2 , forms3
+from . import forms
 from .models import customers_data, Car, CarsCart , Cart , InstallmentsCustomer , InstallmentsCustomerWithoutDP
 from django.http import HttpResponse , JsonResponse , HttpResponseBadRequest
 from django.template import Template , Context
@@ -385,7 +385,7 @@ def add_payment_data(request):
 def add_installments_data(request):
     """Update InstallmentsCustomer with additional details"""
     if request.method == 'POST':
-        form = forms2.Installments_Customers_Data(request.POST, request.FILES)
+        form = forms.Installments_Customers_Data(request.POST, request.FILES)
 
         if form.is_valid():
             # Fix: Get the first record instead of get_or_create() to avoid duplicate errors
@@ -422,7 +422,7 @@ def add_installments_data(request):
 def add_installments_data_without_dp(request):
     """Update InstallmentsCustomerWithoutDP with additional details"""
     if request.method == 'POST':
-        form = forms3.Installments_Customers_Data(request.POST, request.FILES)
+        form = forms.Installments_Customers_Data_Without_DP(request.POST, request.FILES)
 
         if form.is_valid():
             # Fix: Get the first record instead of get_or_create() to avoid duplicate errors
@@ -490,8 +490,8 @@ def create_cash_checkout_session(request):
                     'quantity': 1,
                 }],
                 mode='payment',  # Single full payment mode
-                success_url='https://c7motors-cracgggsbcchenap.uaenorth-01.azurewebsites.net/C7_payment_success/',  # Adjust the URL to your success page
-                cancel_url='https://c7motors-cracgggsbcchenap.uaenorth-01.azurewebsites.net/cash_cancel/',  # Adjust the URL to your cancel page
+                success_url='https://c7motors.up.railway.app/C7_payment_success/',  # Adjust the URL to your success page
+                cancel_url='https://c7motors.up.railway.app/cash_cancel/',  # Adjust the URL to your cancel page
         )
 
         # Return the session ID as JSON response
@@ -522,8 +522,8 @@ def create_deposit_checkout_session(request):
                     'quantity': 1,
                 }],
                 mode='payment',  # Single full payment mode
-                success_url='https://c7motors-cracgggsbcchenap.uaenorth-01.azurewebsites.net/C7_payment_success/',  # Adjust the URL to your success page
-                cancel_url='https://c7motors-cracgggsbcchenap.uaenorth-01.azurewebsites.net/deposit_cancel/',  # Adjust the URL to your cancel page
+                success_url='https://c7motors.up.railway.app/C7_payment_success/',  # Adjust the URL to your success page
+                cancel_url='https://c7motors.up.railway.app/deposit_cancel/',  # Adjust the URL to your cancel page
         )
 
         # Return the session ID as JSON response
@@ -555,8 +555,8 @@ def create_remaining_checkout_session(request):
                 'quantity': 1,
             }],
             mode='payment',  # Single full payment mode
-            success_url='https://c7motors-cracgggsbcchenap.uaenorth-01.azurewebsites.net/C7_remaining_payment_success/',
-            cancel_url='https://c7motors-cracgggsbcchenap.uaenorth-01.azurewebsites.net/remaining_cancel/',
+            success_url='https://c7motors.up.railway.app/C7_remaining_payment_success/',
+            cancel_url='https://c7motors.up.railway.app/remaining_cancel/',
         )
 
         # Return the session ID as JSON response
@@ -587,8 +587,8 @@ def create_installments_checkout_session_dp(request):
                     'quantity': 1,
                 }],
                 mode='payment',  # Single full payment mode
-                success_url='https://c7motors-cracgggsbcchenap.uaenorth-01.azurewebsites.net/C7_installments_deposit_payment_success_dp/',  # Adjust the URL to your success page
-                cancel_url='https://c7motors-cracgggsbcchenap.uaenorth-01.azurewebsites.net/installments_cancel/',  # Adjust the URL to your cancel page
+                success_url='https://c7motors.up.railway.app/C7_installments_deposit_payment_success_dp/',  # Adjust the URL to your success page
+                cancel_url='https://c7motors.up.railway.app/installments_cancel/',  # Adjust the URL to your cancel page
         )
 
         # Return the session ID as JSON response
@@ -619,8 +619,8 @@ def create_installments_checkout_session(request):
                     'quantity': 1,
                 }],
                 mode='payment',  # Single full payment mode
-                success_url='https://c7motors-cracgggsbcchenap.uaenorth-01.azurewebsites.net/C7_installments_deposit_payment_success/',  # Adjust the URL to your success page
-                cancel_url='https://c7motors-cracgggsbcchenap.uaenorth-01.azurewebsites.net/installments_cancel/',  # Adjust the URL to your cancel page
+                success_url='https://c7motors.up.railway.app/C7_installments_deposit_payment_success/',  # Adjust the URL to your success page
+                cancel_url='https://c7motors.up.railway.app/installments_cancel/',  # Adjust the URL to your cancel page
         )
 
         # Return the session ID as JSON response
@@ -895,14 +895,14 @@ def installments_payment_cancel(request):
 def sign_in(request):
     '''Sign in the website for new users'''
     if request.method =='POST':   
-        form = UserCreationForm(request.POST)
+        form = forms.CustomUserCreationForm(request.POST)
         if form.is_valid(): 
             user = form.save()              
             #log the user in
             login(request , user)           
             return redirect('c7_motors:home')
     else:           
-       form = UserCreationForm()     
+       form = forms.CustomUserCreationForm()     
     return render(request, 'sign in.html' , {'form' : form})
 
 @csrf_protect

@@ -10,6 +10,7 @@ from django.core.files.base import ContentFile
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.contrib import messages
+from simple_history.models import HistoricalRecords
 
 # Create your models here
 
@@ -90,6 +91,8 @@ class Cart(models.Model):
     user = models.ForeignKey(User,null = True, on_delete = models.SET_NULL) 
     completed =  models.BooleanField(default=False)
 
+    history = HistoricalRecords()
+    
     def total_price(self):
 
         cartitems = self.cartitems.all()
@@ -149,6 +152,8 @@ class Car(models.Model):
     monthly_installments_price = models.IntegerField(null=True, blank=True)
     description = models.TextField(blank=True)
     selled = models.BooleanField(default=False)
+
+    history = HistoricalRecords()
 
     def delete_selled_car_images(self):
         """Delete all images from storage and database when a car is sold."""

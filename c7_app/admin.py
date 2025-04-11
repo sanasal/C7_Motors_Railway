@@ -2,11 +2,14 @@ from django.contrib import admin
 from django.contrib import messages
 from django.contrib.auth.models import User, Group
 from .models import *
+from django.urls import path
+from django.shortcuts import render
+from simple_history.admin import SimpleHistoryAdmin
 
 class CustomAdminSite(admin.AdminSite):
     site_header = "C7 Motors Administration"
     site_title = "Admin Site"
-    index_title = "C7 Motors"
+    site_index_title = "C7 Motors"
 
     def get_app_list(self, request , app_label = 'C7 Motors'):
         """Customize the display of models in the Django admin index page."""
@@ -31,18 +34,22 @@ class CustomAdminSite(admin.AdminSite):
 
         return [auth_section,car_details_section, customers_section]
 
-# Register the custom admin site
-custom_admin_site = CustomAdminSite(name="custom_admin")
+@admin.action(description="Mark as Selled")
+def mark_as_selled(modeladmin ,requset ,queryset):
+    queryset.update(selled = True)
 
 class CarImagesInline(admin.TabularInline):
     model = CarImages
 
-class CarAdmin(admin.ModelAdmin):
+class CarAdmin(SimpleHistoryAdmin , admin.ModelAdmin):
     list_display = ["brand_name", "model"]
     search_fields = ["brand_name" , "model" , "model_year"]
     list_filter = ["brand_name" ,  "model" , "model_year"]
-
     inlines = [CarImagesInline]
+    actions = [mark_as_selled]
+
+class CarImagesAdmin(admin.ModelAdmin):
+    list_per_page = 30
 
 class CarImageZipAdmin(admin.ModelAdmin):
     list_display = ["car", "zip_file"]
@@ -52,14 +59,18 @@ class CarImageZipAdmin(admin.ModelAdmin):
         super().save_model(request, obj, form, change)
         messages.success(request, "ZIP file uploaded. Images will be extracted soon.")
 
+
+# Register the custom admin site
+custom_admin_site = CustomAdminSite(name="custom_admin")
+
 # Register models under the new admin site
 custom_admin_site.register(CarImageZip , CarImageZipAdmin)
-custom_admin_site.register(CarImages)
+custom_admin_site.register(CarImages , CarImagesAdmin)
 custom_admin_site.register(Car , CarAdmin)
 custom_admin_site.register(CarsCart)
 custom_admin_site.register(InstallmentsCustomer)
 custom_admin_site.register(InstallmentsCustomerWithoutDP)
-custom_admin_site.register(Cart)
+custom_admin_site.register(Cart , SimpleHistoryAdmin)
 custom_admin_site.register(customers_data)
 custom_admin_site.register(Group)
 custom_admin_site.register(User)

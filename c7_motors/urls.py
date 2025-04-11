@@ -25,12 +25,12 @@ from c7_app.admin import custom_admin_site
 
 urlpatterns = [
     path('admin/', custom_admin_site.urls),
-    path('' , include('c7_app.urls')),
-    path('google30eaf36ea9f9767a.html', TemplateView.as_view(template_name="google30eaf36ea9f9767a.html"))
+    path('', include('c7_app.urls')),
 ]
 
-admin.site.index_title = "C7 Motors"
-admin.site.site_header = "C7 Motors Administration"
+
+custom_admin_site.index_title = "C7 Motors"
+custom_admin_site.site_header = "C7 Motors Administration"
 
 urlpatterns += static(settings.MEDIA_URL , document_root = settings.MEDIA_ROOT)
 urlpatterns += staticfiles_urlpatterns()
