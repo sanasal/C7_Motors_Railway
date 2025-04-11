@@ -26,14 +26,15 @@ index_path =  os.path.join(os.path.dirname(os.path.dirname(__file__)),'templates
 SECRET_KEY = 'django-insecure-s!vl(b5$%6q#izpl_oq!y!14gony(_s*o&&13@$=q+7=^)v4)n'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['localhost', '127.0.0.1']
-
 
 # Application definition
 
 INSTALLED_APPS = [
+    'simple_history',
+    'jazzmin',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -45,14 +46,15 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    'simple_history.middleware.HistoryRequestMiddleware',
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware'
 ]
 
 ROOT_URLCONF = 'c7_motors.urls'
@@ -125,7 +127,7 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
-
+STATICFILES_STORAGE = 'whitenoise.storage.StaticFilesStorage'
 STATIC_URL = '/static/'
 STATICFILES_DIRS=[os.path.join(BASE_DIR , 'staticfiles')]
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')  
@@ -137,7 +139,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 MEDIA_URL='/media/'
 MEDIA_ROOT= os.path.join(BASE_DIR , 'media')   
-
 
 #Payment By STRIPE
 STRIPE_PUBLIC_KEY = "pk_test_51PaI022KAcGaNCQ2d8dcAxyj84HdQhBhhGZQ4chI4KSfjYkFZy7S8qIEPjdXv4rkhCzQTSqIcIAlUVKiXZHYWjS000NHd5eImc"

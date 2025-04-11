@@ -12,7 +12,7 @@ CSRF_TRUSTED_ORIGINS = ['https://' + os.environ.get('HOSTNAME')]
 
 
 # Debug Mode
-DEBUG = True 
+DEBUG = os.environ.get("DEBUG") 
 
 # Get the PORT from environment variables (Railway uses 8080)
 PORT = os.environ.get("PORT", 8080)
@@ -45,8 +45,8 @@ TEMPLATES = [
 
 # Middleware
 MIDDLEWARE = [
-    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -57,7 +57,7 @@ MIDDLEWARE = [
 
 
 # Static & Media Files
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+STATICFILES_STORAGE = 'whitenoise.storage.StaticFilesStorage'
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [os.path.join(BASE_DIR , 'staticfiles')]
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
