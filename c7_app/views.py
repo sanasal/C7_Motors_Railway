@@ -1,10 +1,8 @@
 #views.py
-
 from django.shortcuts import render , redirect , get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm , AuthenticationForm
 from django.contrib.auth import login , logout
-from django.views.decorators.csrf import csrf_protect , csrf_exempt
 from . import forms
 from .models import customers_data, Car, CarsCart , Cart , InstallmentsCustomer , InstallmentsCustomerWithoutDP
 from django.http import HttpResponse , JsonResponse , HttpResponseBadRequest
@@ -459,7 +457,6 @@ def add_installments_data_without_dp(request):
 
 stripe.api_key = settings.STRIPE_SECRET_KEY
 
-@csrf_exempt  # You may need to exempt this view from CSRF, or handle it with a middleware
 def create_cash_checkout_session(request):
     '''Create Stripe checkout page for cash pay'''
     try:
@@ -891,7 +888,7 @@ def installments_payment_cancel(request):
 
 
 
-@csrf_protect
+
 def sign_in(request):
     '''Sign in the website for new users'''
     if request.method =='POST':   
@@ -905,7 +902,6 @@ def sign_in(request):
        form = forms.CustomUserCreationForm()     
     return render(request, 'sign in.html' , {'form' : form})
 
-@csrf_protect
 def log_in(request):
     '''Log in the website for old users'''
     if request.method == 'POST' :   
@@ -921,7 +917,6 @@ def log_in(request):
         form = AuthenticationForm()
     return render (request , 'log in.html' , {'form':form})
 
-@csrf_protect
 def log_out(request):
     '''Go outside the website'''
     if request.method == 'POST':
@@ -955,7 +950,6 @@ def delete_item(request):
         cart_items.delete()
     return JsonResponse('Delete Item Done' , safe= False)
 
-@csrf_exempt  
 def calculate_customer_salary(request):
     if not request.user.is_authenticated:
         return JsonResponse({'error': 'User not authenticated'}, status=401)
