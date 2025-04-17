@@ -10,10 +10,17 @@
 		<meta name="keywords" content="sign up for C7 Motors, create car buyer account, used car deals membership, register for car purchases" />
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<link rel="icon" type="image/png" href="{% static 'img/c7.png'%}">
+		
+		<!-- Icon Font Stylesheet -->
+        <link rel="icon" type="image/png" href="{% static 'img/c7_logo.png'%}">
 
 		<!-- MATERIAL DESIGN ICONIC FONT -->
 		<link rel="stylesheet" href="{% static 'fonts/material-design-iconic-font/css/material-design-iconic-font.min.css'%}">
+		
+		<!-- Customized Bootstrap Stylesheet -->
+        <link href="{% static 'css/bootstrap.min.css'%}" rel="stylesheet">
+
+		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
 		
 		<!-- STYLE CSS -->
 		<link rel="stylesheet" href="{% static 'css/style2.css'%}">
@@ -27,10 +34,35 @@
 			}
 			.inner2
 			{
-				backdrop-filter: blur(10px);
+				backdrop-filter: blur(25px);
 				border-radius: 30px;
+				margin: 10%;
+				margin-right: 10%;
+				margin-left: 10%;
 				padding-top: 20px;
 				padding-bottom: 20px;
+				width: fit-content;
+				margin: auto;
+			}
+			
+			label {
+				color: black;
+				font-weight: 500;
+			}
+			
+			input.form-control {
+				border: 1px solid #ccc;
+				padding: 8px;
+				margin-top: 10px;
+				border-radius: 20px;
+				transition: 0.3s;
+			}
+			
+			input.form-control:focus {
+				background-color: white;
+				border-color: #666;
+				outline: none;
+				box-shadow: 0 0 5px rgba(100, 100, 100, 0.2);
 			}
 		</style>
 	</head>
@@ -40,32 +72,40 @@
 			<div class="inner inner2">
 				<form action="/sign_in/" method="post">
 					{% csrf_token %}
-					<h3>Sign in</h3>
-					<div class="form-group">
-						<div class="form-wrapper">
-							<label for="id_username" style="color: black;">User name</label>
-							<input type="text" name="username" class="form-control" autocapitalize="none" autocomplete="username" required id="id_username floatingInput">
-						</div>
-					</div>
-					<div class="form-wrapper">
-						<label for="id_password1" style="color: black;">Password</label>
-						<input type="password" name="password1" autocomplete="new-password" required id="id_password1 floatingPassword" class="form-control">
-					</div>
-					<div class="form-wrapper">
-						<label for="id_password2" style="color: black;">Confirm Password</label>
-						<input type="password" name="password2" autocomplete="new-password" required id="id_password2 floatingPassword" class="form-control">
-					</div>
+					<h3 style="color: black;">Sign Up</h3>
+				
+					{{ form.username.label_tag }}
+					{{ form.username }}
+
+					{{ form.email.label_tag }} 
+					{{ form.email }}
+					
+					{{ form.password1.label_tag }} {{ form.password1 }}
+					{{ form.password2.label_tag }} {{ form.password2 }}
+	
 					<div class="checkbox">
 						<label>
 							<input type="checkbox"><p style="color: black;"> I accept the Terms of Use & Privacy Policy.</p>
 							<span class="checkmark"></span>
 						</label>
-					</div>
-					<button type="submit">Sign in</button>
+					</div>	
+					{% if form.errors %}
+						<div class="alert alert-danger mt-4" role="alert">
+							{% for field in form %}
+								{% for error in field.errors %}
+									<p>{{ error }}</p>
+								{% endfor %}
+							{% endfor %}
+							{% for error in form.non_field_errors %}
+								<p>{{ error }}</p>
+							{% endfor %}
+						</div>
+					{% endif %}
+					<button type="submit">Sign Up</button>
 					{% if request.GET.next %}
 					<input type="hidden" name="next" value="{{ request.GET.next }}">
 				  	{% endif %}
-				</form>
+				</form>	
 			</div>
 		</div>
 		
