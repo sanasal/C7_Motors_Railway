@@ -27,6 +27,19 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SETTINGS_PATH = os.path.dirname(os.path.dirname(__file__))  # MS ADDED
 Temp_Path = os.path.realpath('.')  # MS ADDED
 
+INSTALLED_APPS = [
+    'simple_history',
+    'jazzmin',
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+    'c7_motors',
+    'c7_app.apps.C7AppConfig'
+]
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
