@@ -11,10 +11,9 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.contrib import messages
 from simple_history.models import HistoricalRecords
-
 # Create your models here
 
-class customers_data(models.Model):
+class CustomersData(models.Model):
     user = models.ForeignKey(User,null = True, on_delete = models.SET_NULL) 
     cars = models.TextField(default='', blank=True)
     name = models.TextField(max_length=300, default='', blank=True)
@@ -32,7 +31,7 @@ class customers_data(models.Model):
         # Automatically calculate the remaining amount
         if self.total_amount is not None and self.paid_amount is not None:
             self.remaining_amount = self.total_amount - self.paid_amount
-        super(customers_data, self).save(*args, **kwargs)
+        super(CustomersData, self).save(*args, **kwargs)
 
     def __str__(self):
         return f"cars:{self.cars} - user:{self.user} - name:{self.name}"
@@ -111,6 +110,12 @@ class Cart(models.Model):
 
     def __str__(self):
        return f"{self.id} - {self.user}"
+    
+@receiver(post_save , sender = User)
+def create_cart(sender , instance , created , **kwargs):
+    "Create a cart for the user when he sign up"
+    if created:
+        Cart.objects.create(user = instance)
 
 
 class Car(models.Model):
@@ -174,7 +179,7 @@ class Car(models.Model):
     def __str__(self):
         return f"{self.brand_name} {self.model}"
 
-class CarImages(models.Model):
+class CarImage(models.Model):
     car = models.ForeignKey(Car, related_name="images", on_delete=models.CASCADE)
     image = models.ImageField(upload_to="car_images/" , null=True)
 
@@ -199,7 +204,7 @@ class CarImageZip(models.Model):
                 for filename in zip_ref.namelist():
                     if filename.endswith((".jpg", ".jpeg", ".png")):
                         img_data = zip_ref.read(filename)
-                        new_image = CarImages(car=self.car)
+                        new_image = CarImage(car=self.car)
                         new_image.image.save(filename, ContentFile(img_data))
                         new_image.save()
 

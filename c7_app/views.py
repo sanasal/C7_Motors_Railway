@@ -4,7 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm , AuthenticationForm
 from django.contrib.auth import login , logout
 from . import forms
-from .models import customers_data, Car, CarsCart , Cart , InstallmentsCustomer , InstallmentsCustomerWithoutDP
+from .models import *
 from django.http import HttpResponse , JsonResponse , HttpResponseBadRequest
 from django.template import Template , Context
 import json  
@@ -20,7 +20,7 @@ def home(request):
     cars = Car.objects.all()
   
     try:
-        last_customer_data = customers_data.objects.filter(user=request.user).order_by('-id').first()
+        last_customer_data = CustomersData.objects.filter(user=request.user).order_by('-id').first()
         remaining_price = last_customer_data.remaining_amount
     except:
         remaining_price = 0
@@ -43,7 +43,7 @@ def contact_us(request):
     '''Display the contact us page'''
     
     try:
-        last_customer_data = customers_data.objects.filter(user=request.user).order_by('-id').first()
+        last_customer_data = CustomersData.objects.filter(user=request.user).order_by('-id').first()
         remaining_price = last_customer_data.remaining_amount
     except:
         remaining_price = 0
@@ -63,7 +63,7 @@ def contact_us(request):
 def service(request):
     '''Display the services page'''
     try:
-        last_customer_data = customers_data.objects.filter(user=request.user).order_by('-id').first()
+        last_customer_data = CustomersData.objects.filter(user=request.user).order_by('-id').first()
         remaining_price = last_customer_data.remaining_amount
     except:
         remaining_price = 0
@@ -83,7 +83,7 @@ def service(request):
 def feature(request):
     '''Display the features page'''
     try:
-        last_customer_data = customers_data.objects.filter(user=request.user).order_by('-id').first()
+        last_customer_data = CustomersData.objects.filter(user=request.user).order_by('-id').first()
         remaining_price = last_customer_data.remaining_amount
     except:
         remaining_price = 0
@@ -103,7 +103,7 @@ def feature(request):
 def about(request):
     '''Display the about page'''
     try:
-        last_customer_data = customers_data.objects.filter(user=request.user).order_by('-id').first()
+        last_customer_data = CustomersData.objects.filter(user=request.user).order_by('-id').first()
         remaining_price = last_customer_data.remaining_amount
     except:
         remaining_price = 0
@@ -205,7 +205,7 @@ def cars(request, car_type=None):
 
     # Retrieve customer data (if available)
     try:
-        last_customer_data = customers_data.objects.filter(user=request.user).order_by('-id').first()
+        last_customer_data = CustomersData.objects.filter(user=request.user).order_by('-id').first()
         remaining_price = last_customer_data.remaining_amount
     except:
         remaining_price = 0
@@ -243,7 +243,7 @@ def cars_search(request):
 def car_details(request, car_name, car_model, car_id):
     """Display the details of a car based on brand_name, model, and id."""
     try:
-        last_customer_data = customers_data.objects.filter(user=request.user).order_by('-id').first()
+        last_customer_data = CustomersData.objects.filter(user=request.user).order_by('-id').first()
         remaining_price = last_customer_data.remaining_amount
     except:
         remaining_price = 0
@@ -286,12 +286,12 @@ def car_details(request, car_name, car_model, car_id):
 
 
 def add_customers_data(request):
-    '''Add the customers data to customers_data model'''
+    '''Add the customers data to CustomersData model'''
     if request.method == 'POST':
         # Determine the payment type (deposit or full)
         payment_type = request.POST.get('payment_type', 'deposit')  # Default to 'deposit'
 
-        form = forms.Customers_Data(request.POST)
+        form = forms.CustomersData(request.POST)
 
         if form.is_valid():
             instance = form.save(commit=False)
@@ -349,7 +349,7 @@ def add_payment_data(request):
                 return JsonResponse({'success': False, 'error': 'Invalid payment amount.'}, status=400)
 
             # Get the current user and their customer data
-            customer_data = customers_data.objects.filter(user=request.user).first()
+            customer_data = CustomersData.objects.filter(user=request.user).first()
 
             if customer_data:
                 if payment_type == 'full':
@@ -383,7 +383,7 @@ def add_payment_data(request):
 def add_installments_data(request):
     """Update InstallmentsCustomer with additional details"""
     if request.method == 'POST':
-        form = forms.Installments_Customers_Data(request.POST, request.FILES)
+        form = forms.Installments_CustomersData(request.POST, request.FILES)
 
         if form.is_valid():
             # Fix: Get the first record instead of get_or_create() to avoid duplicate errors
@@ -420,7 +420,7 @@ def add_installments_data(request):
 def add_installments_data_without_dp(request):
     """Update InstallmentsCustomerWithoutDP with additional details"""
     if request.method == 'POST':
-        form = forms.Installments_Customers_Data_Without_DP(request.POST, request.FILES)
+        form = forms.Installments_CustomersData_Without_DP(request.POST, request.FILES)
 
         if form.is_valid():
             # Fix: Get the first record instead of get_or_create() to avoid duplicate errors
@@ -533,7 +533,7 @@ def create_remaining_checkout_session(request):
     try:
         try:
             # Get the request data
-            last_customer_data = customers_data.objects.filter(user=request.user).order_by('-id').first()
+            last_customer_data = CustomersData.objects.filter(user=request.user).order_by('-id').first()
             total_amount = int(last_customer_data.remaining_amount * 100)
         except:
             total_amount = 0
@@ -632,7 +632,7 @@ def send_book_data_after_success(request):
     '''Send the data to email if the payment is successful and mark the car as sold'''
     customer_book_data = None
     if request.user.is_authenticated:
-        customer_book_data = customers_data.objects.filter(user=request.user).order_by('-id').first()
+        customer_book_data = CustomersData.objects.filter(user=request.user).order_by('-id').first()
 
         # Mark the cart as completed
         cart = Cart.objects.filter(user=request.user, completed=False).first()
@@ -670,9 +670,9 @@ def remaining_payment_success(request):
     try:
         # Update customer data
         if request.user.is_authenticated:
-            last_customer_data = customers_data.objects.filter(user=request.user).order_by('-id').first()
+            last_customer_data = CustomersData.objects.filter(user=request.user).order_by('-id').first()
         
-            # Assuming `cars` field in `customers_data` contains the brand and model names of the cars sold
+            # Assuming `cars` field in `CustomersData` contains the brand and model names of the cars sold
             if last_customer_data and last_customer_data.cars:
                 car_names = last_customer_data.cars.split(', ')  # Split the comma-separated string into a list of car names
                 for car_name in car_names:
@@ -712,7 +712,7 @@ def installments_payment_success_dp(request):
         if request.user.is_authenticated:
             last_customer_data = InstallmentsCustomer.objects.filter(user=request.user).order_by('-id').first()
 
-            # Assuming `cars` field in `customers_data` contains the brand and model names of the cars sold
+            # Assuming `cars` field in `CustomersData` contains the brand and model names of the cars sold
             if last_customer_data and last_customer_data.cars:
                 car_names = last_customer_data.cars.split(', ')  # Split the comma-separated string into a list of car names
                 for car_name in car_names:
@@ -765,7 +765,7 @@ def installments_payment_success(request):
         if request.user.is_authenticated:
             last_customer_data = InstallmentsCustomerWithoutDP.objects.filter(user=request.user).order_by('-id').first()
 
-            # Assuming `cars` field in `customers_data` contains the brand and model names of the cars sold
+            # Assuming `cars` field in `CustomersData` contains the brand and model names of the cars sold
             if last_customer_data and last_customer_data.cars:
                 car_names = last_customer_data.cars.split(', ')  # Split the comma-separated string into a list of car names
                 for car_name in car_names:
@@ -855,7 +855,7 @@ def deposit_payment_cancel(request):
 def remaining_payment_cancel(request):
     '''Display cancel page if the remaining payment failed'''
     # Calculate the total amount using total_price()
-    last_customer_data = customers_data.objects.filter(user=request.user).order_by('-id').first()
+    last_customer_data = CustomersData.objects.filter(user=request.user).order_by('-id').first()
     remaining_price = last_customer_data.remaining_amount
 
     try:

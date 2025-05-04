@@ -26,7 +26,7 @@ index_path =  os.path.join(os.path.dirname(os.path.dirname(__file__)),'templates
 SECRET_KEY = 'django-insecure-s!vl(b5$%6q#izpl_oq!y!14gony(_s*o&&13@$=q+7=^)v4)n'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['localhost', '127.0.0.1']
 
@@ -115,10 +115,6 @@ AUTH_PASSWORD_VALIDATORS = [
 
 
 # SECURITY HEADERS
-SECURE_HSTS_SECONDS = 31536000
-SECURE_HSTS_INCLUDE_SUBDOMAINS = True
-SECURE_HSTS_PRELOAD = True
-SECURE_BROWSER_XSS_FILTER = True
 X_FRAME_OPTIONS = 'DENY'
 
 

@@ -5,7 +5,6 @@ from .models import *
 from django.urls import path
 from django.shortcuts import render
 from simple_history.admin import SimpleHistoryAdmin
-
 class CustomAdminSite(admin.AdminSite):
     site_header = "C7 Motors Administration"
     site_title = "Admin Site"
@@ -23,10 +22,10 @@ class CustomAdminSite(admin.AdminSite):
         # Iterate over apps and categorize models
         for app in app_list:
             for model in app["models"]:
-                if model["object_name"] in ["CarImageZip", "CarImages", "Car"]:
+                if model["object_name"] in ["CarImageZip", "CarImage", "Car"]:
                     car_details_section["models"].append(model)
 
-                elif model["object_name"] in ["User", "Group"]:
+                elif model["object_name"] in ["User", "CustomUser" , "Group"]:
                     auth_section["models"].append(model)
 
                 else:
@@ -39,7 +38,7 @@ def mark_as_selled(modeladmin ,requset ,queryset):
     queryset.update(selled = True)
 
 class CarImagesInline(admin.TabularInline):
-    model = CarImages
+    model = CarImage
 
 class CarAdmin(SimpleHistoryAdmin , admin.ModelAdmin):
     list_display = ["brand_name", "model"]
@@ -65,12 +64,12 @@ custom_admin_site = CustomAdminSite(name="custom_admin")
 
 # Register models under the new admin site
 custom_admin_site.register(CarImageZip , CarImageZipAdmin)
-custom_admin_site.register(CarImages , CarImagesAdmin)
+custom_admin_site.register(CarImage , CarImagesAdmin)
 custom_admin_site.register(Car , CarAdmin)
 custom_admin_site.register(CarsCart)
 custom_admin_site.register(InstallmentsCustomer)
 custom_admin_site.register(InstallmentsCustomerWithoutDP)
 custom_admin_site.register(Cart , SimpleHistoryAdmin)
-custom_admin_site.register(customers_data)
+custom_admin_site.register(CustomersData)
 custom_admin_site.register(Group)
 custom_admin_site.register(User)

@@ -1,18 +1,18 @@
 from django import forms
-from . models import customers_data  , InstallmentsCustomer , InstallmentsCustomerWithoutDP 
+from . models import *
 from django.contrib.auth.forms import UserCreationForm , AuthenticationForm 
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User 
 
 class CustomUserCreationForm(UserCreationForm):
     email = forms.EmailField(required=True)
+    age = forms.IntegerField(required=True)
     class Meta:
         model = User
-        fields = ('username' , 'email' , 'password1' , 'password2')
+        fields = ('username' , 'email' , 'age' , 'password1' , 'password2')
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
-        # Add Bootstrap-style classes
         for field in self.fields.values():
             field.widget.attrs.update({
                 'class' : 'form-control', 
@@ -27,7 +27,7 @@ class CustomUserCreationForm(UserCreationForm):
     
 class Customers_Data(forms.ModelForm):
     class Meta:
-        model = customers_data
+        model = CustomersData
         fields = ['cars', 'name', 'email', 'mobile_phone', 'pick_up_location', 'pick_up_date' , 'pick_up_time']
 
 class Installments_Customers_Data(forms.ModelForm):
