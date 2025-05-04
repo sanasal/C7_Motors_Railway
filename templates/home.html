@@ -14,14 +14,11 @@
         <meta name="google-site-verification" content="BJ4CjEtyguRrGuHJdexYqnJmZcU0QHDpW-JubFpbAmQ" />
 
         <!-- Google Web Fonts -->
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;0,700;0,900;1,400;1,700;1,900&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet"> 
 
         <!-- Icon Font Stylesheet -->
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"/>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
         <link rel="icon" type="image/png" href="{% static 'img/c7_logo.png'%}">
 
         <!-- Libraries Stylesheet -->
@@ -335,6 +332,23 @@
                 overflow-y: auto;
                 scroll-behavior: smooth;
             }
+
+
+            .top-banner {
+                background-color: #d32f2f; /* bright red or any highlight color */
+                color: white;
+                text-align: center;
+                padding: 8px 16px;
+                font-weight: bold;
+                font-size: 16px;
+                font-family: 'Arial', sans-serif;
+              }
+              
+            .close-banner {
+                float: right;
+                margin-left: 20px;
+                cursor: pointer;
+              }
         </style>
     </head>
 
@@ -342,7 +356,7 @@
         <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 
         <!-- Spinner Start -->
-        <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+        <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center" id="promoBanner">
             <div class="spinner-border" style="width: 3rem; height: 3rem;color:#e30a23;" role="status">
                 <span class="sr-only">Loading...</span>
             </div>
@@ -355,8 +369,8 @@
                 <div class="row gx-0 align-items-center" style="height: 45px;">
                     <div class="col-lg-6 text-center text-lg-start mb-lg-0">
                         <div class="d-flex flex-wrap">
-                            <a class="text-muted me-4"><i class="fas fa-phone-alt me-2" style="color: #e30a23;"></i>+971562341000</a>
-                            <a class="text-muted me-0"><i class="fas fa-envelope me-2" style="color: #e30a23;"></i>Csev7motors@gmail.com</a>
+                            <a class="me-4" style="color: rgb(0, 0, 0)"><i class="fas fa-phone-alt me-2" style="color: #e30a23;"></i>+971562341000</a>
+                            <a class="me-0" style="color: rgb(0, 0, 0)"><i class="fas fa-envelope me-2" style="color: #e30a23;"></i>Csev7motors@gmail.com</a>
                         </div>
                     </div>
                     <div class="col-lg-6 text-center text-lg-end">
@@ -369,6 +383,12 @@
             </div>
         </div>
         <!-- Topbar End -->
+
+        <!-- Banner strip -->
+        <div class="top-banner">
+            🎉 Get 10% Off This Month on All Electric Vehicles!
+        </div>
+  
 
         <!-- Navbar & Hero Start -->
         <div class="container-fluid nav-bar sticky-top px-0 px-lg-4 py-2 py-lg-0">
@@ -578,10 +598,10 @@
                                 </div>
                                 <div class="row gy-2 gx-0 text-center mb-4">
                                     <div class="col-5 border-end border-white">
-                                        <i class="fa fa-car" style="color: #e30a23;"></i> <span class="text-body ms-1">{{ car.model_year }}</span>
+                                        <i class="fa fa-car" style="color: #e30a23;"></i> <span class="ms-1" style="color:#e0e0e0;">{{ car.model_year }}</span>
                                     </div>
                                     <div class="col-6">
-                                        <i class="fa fa-road" style="color: #e30a23;"></i> <span class="text-body">{{ car.mileage }}KM</span>
+                                        <i class="fa fa-road" style="color: #e30a23;"></i> <span style="color:#e0e0e0;">{{ car.mileage }}KM</span>
                                     </div>
                                 </div>
                                 <!-- Button Logic -->
@@ -601,7 +621,7 @@
 
 
         <!-- Features Start -->
-        <div class="container-fluid mt-5 feature py-5">
+        <div class="container-fluid mt-5 feature py-5" style="color: #e0e0e0;">
             <div class="container py-5">
                 <div class="text-center mx-auto pb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 800px;">
                     <h1 class="display-5 text-capitalize mb-3" style="color: #e30a23;">C7 Motors Features</h1>
@@ -686,7 +706,7 @@
                         <div class="about-item">
                             <div class="pb-5">
                                 <h1 class="display-5 text-capitalize">C7 Motors <span style="color: #e30a23;">About</span></h1>
-                                <p class="mb-0">
+                                <p class="mb-0" style="color: rgb(53, 53, 53)">
                                     “Experience the joy of owning a quality used car with C7 Motors. From family-friendly SUVs to stylish sedans, we provide vehicles that suit every lifestyle and budget”
                                 </p>
                             </div>
@@ -697,7 +717,7 @@
                                             <img src="{% static 'img/bullseye.svg'%}" class="img-fluid h-50 w-50" alt="Icon">
                                         </div>
                                         <h5 class="mb-3" style="color: #e30a23;">Our Vision</h5>
-                                        <p class="mb-0">
+                                        <p class="mb-0" style="color:#e0e0e0;">
                                             To be the trusted choice for used car sales, setting industry standards with our commitment to quality, transparency, and customer satisfaction.
                                         </p>
                                     </div>
@@ -708,7 +728,7 @@
                                             <img src="{% static 'img/list-check.svg'%}" class="img-fluid h-50 w-50" alt="Icon">
                                         </div>
                                         <h5 class="mb-3" style="color:#e30a23">Our Mision</h5>
-                                        <p class="mb-0">
+                                        <p class="mb-0" style="color:#e0e0e0;">
                                             At C7 Motors, we aim to make owning a car simple and accessible for everyone. By offering a diverse selection of high-quality used vehicles with cash or installment payment options.......
                                         </p>
                                     </div>
@@ -801,7 +821,7 @@
             <div class="container py-5">
                 <div class="text-center mx-auto pb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 800px;">
                     <h1 class="display-5 text-capitalize mb-3">C7 Motors <span style="color: #e30a23;">Services</span></h1>
-                    <p class="mb-0">
+                    <p class="mb-0" style="color: rgb(53, 53, 53)">
                         Discover our range of services designed to make buying a used car straightforward and convenient
                     </p>
                 </div>
@@ -812,7 +832,7 @@
                                 <i class="fa fa-phone-alt fa-2x"></i>
                             </div>
                             <h5 class="mb-3">Personalized Consultations</h5>
-                            <p class="mb-0">
+                            <p class="mb-0" style="color: rgb(53, 53, 53)">
                                 Our team of experts is here to guide you through every step of the process. Whether you’re buying your first car or upgrading to a newer model, we ensure you find a vehicle that perfectly suits your needs and preferences
                             </p>
                         </div>
@@ -823,7 +843,7 @@
                                 <i class="fa fa-money-bill-alt fa-2x"></i>
                             </div>
                             <h5 class="mb-3">Flexible Payment Plans</h5>
-                            <p class="mb-0">
+                            <p class="mb-0" style="color: rgb(53, 53, 53)">
                                 Choose the payment option that works best for you. Whether you prefer to pay in full with cash or spread the cost with our flexible installment plans, we make owning a car accessible for everyone
                             </p>
                         </div>
@@ -834,7 +854,7 @@
                                 <i class="fa fa-road fa-2x"></i>
                             </div>
                             <h5 class="mb-3">Trade-Ins</h5>
-                            <p class="mb-0">
+                            <p class="mb-0" style="color: rgb(53, 53, 53)">
                                 Upgrade your ride by trading in your old vehicle. We offer competitive trade-in value, allowing you to apply the credit directly toward your new car purchase, making the process quick and hassle-free
                             </p>
                         </div>
@@ -845,7 +865,7 @@
                                 <i class="fa fa-umbrella fa-2x"></i>
                             </div>
                             <h5 class="mb-3">Insurance Assistance</h5>
-                            <p class="mb-0">
+                            <p class="mb-0" style="color: rgb(53, 53, 53)">
                                 Protect your investment with comprehensive insurance options. We work with trusted insurance providers to help you secure the coverage you need, offering peace of mind for your journey ahead
                             </p>
                         </div>
@@ -856,7 +876,7 @@
                                 <i class="fa fa-building fa-2x"></i>
                             </div>
                             <h5 class="mb-3">Nationwide Delivery</h5>
-                            <p class="mb-0">
+                            <p class="mb-0" style="color: rgb(53, 53, 53)">
                                 Purchase your dream car from anywhere in the country and let us handle the delivery. We ensure that your vehicle is transported safely and arrives right at your doorstep, saving you time and effort
                             </p>
                         </div>
@@ -867,7 +887,7 @@
                                 <i class="fa fa-car-alt fa-2x"></i>
                             </div>
                             <h5 class="mb-3">After-Sales Support</h5>
-                            <p class="mb-0">
+                            <p class="mb-0" style="color: rgb(53, 53, 53)">
                                 Enjoy a worry-free ownership experience with our after-sales services. From maintenance packages and extended warranties to expert support, we are committed to keeping your car in top-notch condition
                             </p>
                         </div>
@@ -913,7 +933,8 @@
             <div class="container pb-5">
                 <div class="text-center mx-auto pb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 800px;">
                     <h1 class="display-5 text-capitalize mb-3">Our Clients<span style="color:#e30a23"> Reviews</span></h1>
-                    <p class="mb-0">“Discover what our valued clients have to say about their unforgettable experiences with us. From seamless bookings to exceptional service, our reviews speak volumes.”! 🌟🚗
+                    <p class="mb-0" style="color: rgb(53, 53, 53)">
+                        “Discover what our valued clients have to say about their unforgettable experiences with us. From seamless bookings to exceptional service, our reviews speak volumes.”! 🌟🚗
                     </p>
                 </div>
                 <div class="owl-carousel testimonial-carousel wow fadeInUp" data-wow-delay="0.1s">
@@ -934,7 +955,7 @@
                             </div>
                         </div>
                         <div class="border-top rounded-bottom p-4">
-                            <p class="mb-0">
+                            <p class="mb-0" style="color:black;">
                                 I had an amazing experience with C7 Motors! The team was incredibly helpful in guiding me to the perfect used car that fit my budget and preferences. 
                                 The flexible installment payment option made it so easy for me to own my dream car without any hassle. Highly recommend!
                             </p>
@@ -957,7 +978,7 @@
                             </div>
                         </div>
                         <div class="border-top rounded-bottom p-4">
-                            <p class="mb-0">
+                            <p class="mb-0" style="color:black;">
                                 C7 Motors made the car-buying process so simple and stress-free. From the personalized consultation to the trade-in process, 
                                 everything was handled professionally. The quality of the used cars is excellent, and I couldn’t be happier with my purchase!
                             </p>
@@ -980,7 +1001,7 @@
                             </div>
                         </div>
                         <div class="border-top rounded-bottom p-4">
-                            <p class="mb-0">
+                            <p class="mb-0" style="color:black;">
                                 What stood out for me was the flexibility in payment options. I was able to choose a convenient installment plan that worked perfectly for my budget. 
                                 The customer service team was responsive, friendly, and knowledgeable. I’m so glad I chose C7 Motors!
                             </p>
@@ -999,7 +1020,7 @@
                         <div class="footer-item d-flex flex-column">
                             <div class="footer-item">
                                 <h4 class="text-white mb-4">About Us</h4>
-                                <p class="mb-3">
+                                <p class="mb-3" style="color: #e0e0e0c1;">
                                     At C7 Motors, we are dedicated to making car ownership accessible and seamless. Our mission is to provide high-quality, pre-owned vehicles paired with exceptional customer service.
                                     We offer flexible payment options, including cash purchases and convenient installment plans, ensuring that everyone can find the right car for their needs. 
                                     At C7 Motors, our goal is to help you drive away with confidence and satisfaction.
@@ -1019,7 +1040,7 @@
                         <div class="footer-item d-flex flex-column">
                             <h4 class="text-white mb-4">Business Hours</h4>
                             <div class="mb-3">
-                                <h6 class="text-muted mb-0">We are open to serve you from 10:00 AM to 10:00 PM every day</h6>
+                                <h6 class="mb-0" style="color: #e0e0e0c1;">We are open to serve you from 10:00 AM to 10:00 PM every day</h6>
                             </div>
                         </div>
                     </div>
@@ -1045,13 +1066,13 @@
             <div class="container">
                 <div class="row g-4 align-items-center">
                     <div class="col text-center text-md-start mb-md-0">
-                        <span class="text-body"><a href="#" class="border-bottom text-white"><i class="fas fa-copyright text-light me-2"></i>C7 Motors</a>, All right reserved.</span>
+                        <span style="color: #e0e0e0c1;"><a href="#" class="border-bottom text-white"><i class="fas fa-copyright text-light me-2"></i>C7 Motors</a>, All right reserved.</span>
                     </div>
                     <div class="col text-center text-md-start mb-md-0">
-                        <span class="text-body"><a href="#" class="border-bottom text-white">Designed & Developed By Sana Salhdar</a> +963968678579</span>
+                        <span style="color: #e0e0e0c1;"><a href="#" class="border-bottom text-white">Designed & Developed By Sana Salhdar</a> +963968678579</span>
                     </div>
                     <div class="col text-center text-md-start mb-md-0">
-                        <span class="text-body">Designed By <a href="https://htmlcodex.com" class="border-bottom text-white">HTML Codex</a></span>
+                        <span style="color: #e0e0e0c1;">Designed By <a href="https://htmlcodex.com" class="border-bottom text-white">HTML Codex</a></span>
                     </div>
                 </div>
             </div>
