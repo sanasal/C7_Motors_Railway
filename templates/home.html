@@ -332,23 +332,6 @@
                 overflow-y: auto;
                 scroll-behavior: smooth;
             }
-
-
-            .top-banner {
-                background-color: #d32f2f; /* bright red or any highlight color */
-                color: white;
-                text-align: center;
-                padding: 8px 16px;
-                font-weight: bold;
-                font-size: 16px;
-                font-family: 'Arial', sans-serif;
-              }
-              
-            .close-banner {
-                float: right;
-                margin-left: 20px;
-                cursor: pointer;
-              }
         </style>
     </head>
 
@@ -369,8 +352,8 @@
                 <div class="row gx-0 align-items-center" style="height: 45px;">
                     <div class="col-lg-6 text-center text-lg-start mb-lg-0">
                         <div class="d-flex flex-wrap">
-                            <a class="me-4" style="color: rgb(0, 0, 0)"><i class="fas fa-phone-alt me-2" style="color: #e30a23;"></i>+971562341000</a>
-                            <a class="me-0" style="color: rgb(0, 0, 0)"><i class="fas fa-envelope me-2" style="color: #e30a23;"></i>Csev7motors@gmail.com</a>
+                            <span class="me-4" style="color: rgb(0, 0, 0)"><i class="fas fa-phone-alt me-2" style="color: #e30a23;"></i>+971562341000</span>
+                            <a class="me-0" style="color: rgb(0, 0, 0)" href="mailto:Csev7motors@gmail.com"><i class="fas fa-envelope me-2" style="color: #e30a23;"></i>Csev7motors@gmail.com</a>
                         </div>
                     </div>
                     <div class="col-lg-6 text-center text-lg-end">
@@ -384,18 +367,12 @@
         </div>
         <!-- Topbar End -->
 
-        <!-- Banner strip -->
-        <div class="top-banner">
-            🎉 Get 10% Off This Month on All Electric Vehicles!
-        </div>
-  
-
         <!-- Navbar & Hero Start -->
         <div class="container-fluid nav-bar sticky-top px-0 px-lg-4 py-2 py-lg-0">
             <div class="container">
                 <nav class="navbar navbar-expand-lg navbar-light">
                     <a href="" class="navbar-logo p-0">
-                        <img src="{% static 'img/c7_logo.png'%}" alt="">
+                        <img src="{% static 'img/c7_logo.png'%}" alt="C7 Motors company logo">
                     </a>
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
                         <span class="fa fa-bars"></span>
@@ -446,7 +423,7 @@
             <div id="carouselId" class="carousel slide" data-bs-ride="carousel" data-bs-interval="false">
                 <div class="carousel-inner" role="listbox">
                     <div class="carousel-item active">
-                        <img src="{% static 'img/car19.jpg' %}" class="img-fluid w-100"/>
+                        <img src="{% static 'img/car19.jpg' %}" class="img-fluid w-100" alt="Nissan Background Img "/>
                         <div class="carousel-caption">
                             <div class="container py-4">
                                 <div class="row g-5">
@@ -544,25 +521,25 @@
         <!-- Cars Logos Start -->
         <div class="logos">
             <div class="logos-slide">
-              <img src="{% static 'logos/bentley.svg' %}" />
-              <img src="{% static 'logos/gmc.svg' %}" />
-              <img src="{% static 'logos/ferrari.svg' %}" />
-              <img src="{% static 'logos/ford.svg' %}" />
-              <img src="{% static 'logos/bmw.svg' %}" />
-              <img src="{% static 'logos/honda.svg' %}" />
-              <img src="{% static 'logos/lamborghini.svg' %}" />
-              <img src="{% static 'logos/rolls_royce.png' %}" />
+              <img src="{% static 'logos/bentley.svg' %}" alt="Bentley logo"/>
+              <img src="{% static 'logos/gmc.svg' %}" alt="GMC logo"/>
+              <img src="{% static 'logos/ferrari.svg' %}" alt="Ferrari logo"/>
+              <img src="{% static 'logos/ford.svg' %}" alt="Ford logo"/>
+              <img src="{% static 'logos/bmw.svg' %}" alt="BMW logo"/>
+              <img src="{% static 'logos/honda.svg' %}" alt="Honda logo"/>
+              <img src="{% static 'logos/lamborghini.svg' %}" alt="Lamborghini logo"/>
+              <img src="{% static 'logos/rolls_royce.png' %}" alt="Rolls Royce logo"/>
             </div>
       
             <div class="logos-slide">
-              <img src="{% static 'logos/nissan.svg' %}" />
-              <img src="{% static 'logos/porsche.svg' %}" />
-              <img src="{% static 'logos/mercedes.svg' %}" />
-              <img src="{% static 'logos/dodge.svg' %}" />
-              <img src="{% static 'logos/kia.svg' %}" />
-              <img src="{% static 'logos/lexus.svg' %}" />
-              <img src="{% static 'logos/range_rover.png' %}" />
-              <img src="{% static 'logos/tesla.png' %}" />
+              <img src="{% static 'logos/nissan.svg' %}" alt="Nissan logo"/>
+              <img src="{% static 'logos/porsche.svg' %}" alt="Porsche logo"/>
+              <img src="{% static 'logos/mercedes.svg' %}" alt="Mercedes logo"/>
+              <img src="{% static 'logos/dodge.svg' %}" alt="Dodge logo"/>
+              <img src="{% static 'logos/kia.svg' %}" alt="Kia logo"/>
+              <img src="{% static 'logos/lexus.svg' %}" alt="Lexus logo"/>
+              <img src="{% static 'logos/range_rover.png' %}" alt="Range Rover logo"/>
+              <img src="{% static 'logos/tesla.png' %}" alt="Tesla logo"/>
             </div>
         </div>
         <!-- Cars Logos End -->
@@ -661,7 +638,7 @@
                         </div>
                     </div>
                     <div class="col-lg-12 col-xl-4 wow fadeInUp" data-wow-delay="0.2s">
-                        <img src="{% static 'img/features-img.png'%}" class="img-fluid w-100" style="object-fit: cover;" alt="Img">
+                        <img src="{% static 'img/features-img.png'%}" class="img-fluid w-100" style="object-fit: cover;" alt="Red Mercedes GT">
                     </div>
                     <div class="col-xl-4">
                         <div class="row gy-4 gx-0">
@@ -750,7 +727,7 @@
                     <div class="col-xl-6 wow fadeInRight" data-wow-delay="0.2s">
                         <div class="about-img">
                             <div class="img-1">
-                                <img src="{% static 'img/car2.jpg'%}" class="img-fluid rounded h-100 w-100" alt="">
+                                <img src="{% static 'img/car2.jpg'%}" class="img-fluid rounded h-100 w-100" alt="Red Lamborghini">
                             </div>
                         </div>
                     </div>
@@ -1048,8 +1025,8 @@
                         <div class="footer-item d-flex flex-column">
                             <h4 class="text-white mb-4">Contact Info</h4>
                             <a href="#"><i class="fa fa-map-marker-alt me-2"></i> 18th St -Al Quoz Industrial Area 1 - Dubai - United Arab Emirates</a>
-                            <a><i class="fas fa-envelope me-2"></i> Csev7motors@gmail.com</a>
-                            <a><i class="fas fa-phone me-2"></i> +971562341000</a>
+                            <a href="mailto:Csev7motors@gmail.com"><i class="fas fa-envelope me-2"></i> Csev7motors@gmail.com</a>
+                            <a href="#"><i class="fas fa-phone me-2"></i> +971562341000</a>
                             <div class="d-flex">
                                 <a class="btn btn-md-square rounded-circle me-3" href="https://www.tiktok.com/@_c7motors"><i class="fab fa-tiktok text-white"></i></a>
                                 <a class="btn btn-md-square rounded-circle me-3" href="https://www.instagram.com/c.7.motors/"><i class="fab fa-instagram text-white"></i></a>

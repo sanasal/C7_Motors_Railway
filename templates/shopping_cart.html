@@ -50,8 +50,8 @@
                 <div class="row gx-0 align-items-center" style="height: 45px;">
                     <div class="col-lg-6 text-center text-lg-start mb-lg-0">
                         <div class="d-flex flex-wrap">
-                            <a class="text-muted me-4"><i class="fas fa-phone-alt me-2" style="color: #e30a23;"></i>+971562341000</a>
-                            <a class="text-muted me-0"><i class="fas fa-envelope me-2" style="color: #e30a23;"></i>Csev7motors@gmail.com</a>
+                            <span class="me-4" style="color: black;"><i class="fas fa-phone-alt me-2" style="color: #e30a23;"></i>+971562341000</span>
+                            <a href="mailto:Csev7motors@gmail.com" class="me-0" style="color: black;"><i class="fas fa-envelope me-2" style="color: #e30a23;"></i>Csev7motors@gmail.com</a>
                         </div>
                     </div>
                     <div class="col-lg-6 text-center text-lg-end">
@@ -70,7 +70,7 @@
             <div class="container">
                 <nav class="navbar navbar-expand-lg navbar-light">
                     <a href="{% url 'c7_motors:home' %}" class="navbar-logo p-0">
-                        <img src="{% static 'img/c7_logo.png'%}" alt="">
+                        <img src="{% static 'img/c7_logo.png'%}" alt="C7 Motors company logo">
                     </a>
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
                         <span class="fa fa-bars"></span>
@@ -105,7 +105,7 @@
             <div id="carouselId" class="carousel slide" data-bs-ride="carousel" data-bs-interval="false">
                 <div class="carousel-inner" role="listbox">
                     <div class="carousel-item active">
-                        <img src="{% static 'img/car21.jpg'%}" class="img-fluid w-100" alt="First slide"/>
+                        <img src="{% static 'img/car21.jpg'%}" class="img-fluid w-100" alt="Nissan Cars Backgroung Img"/>
                         <div class="carousel-caption">
                             <div class="container py-4">
                                 <div class="row g-5">
@@ -185,72 +185,72 @@
         </div>
         <!-- Model End -->
 
-        <!-- Footer Start -->
-        <div class="container-fluid footer py-5 wow fadeIn" data-wow-delay="0.2s">
-            <div class="container py-5">
-                <div class="row g-5">
-                    <div class="col-md-6 col-lg-6 col-xl-3">
-                        <div class="footer-item d-flex flex-column">
-                            <div class="footer-item">
-                                <h4 class="text-white mb-4">About Us</h4>
-                                <p class="mb-3">
-                                    At C7 Motors, we are dedicated to making car ownership accessible and seamless. Our mission is to provide high-quality, pre-owned vehicles paired with exceptional customer service.
-                                    We offer flexible payment options, including cash purchases and convenient installment plans, ensuring that everyone can find the right car for their needs. 
-                                    At C7 Motors, our goal is to help you drive away with confidence and satisfaction.
-                                </p>
-                            </div>
+    <!-- Footer Start -->
+    <div class="container-fluid footer py-5 wow fadeIn" data-wow-delay="0.2s">
+        <div class="container py-5">
+            <div class="row g-5">
+                <div class="col-md-6 col-lg-6 col-xl-3">
+                    <div class="footer-item d-flex flex-column">
+                        <div class="footer-item">
+                            <h4 class="text-white mb-4">About Us</h4>
+                            <p class="mb-3" style="color: #e0e0e0c1;">
+                                At C7 Motors, we are dedicated to making car ownership accessible and seamless. Our mission is to provide high-quality, pre-owned vehicles paired with exceptional customer service.
+                                We offer flexible payment options, including cash purchases and convenient installment plans, ensuring that everyone can find the right car for their needs. 
+                                At C7 Motors, our goal is to help you drive away with confidence and satisfaction.
+                            </p>
                         </div>
                     </div>
-                    <div class="col-md-6 col-lg-6 col-xl-3">
-                        <div class="footer-item d-flex flex-column">
-                            <h4 class="text-white mb-4">Quick Links</h4>
-                            <a href="{% url 'c7_motors:about' %}"><i class="fas fa-angle-right me-2"></i> About</a>
-                            <a href="{% url 'c7_motors:shopping_cart' %}"><i class="fas fa-angle-right me-2"></i> My Cart</a>
-                            <a href="{% url 'c7_motors:contact_us' %}"><i class="fas fa-angle-right me-2"></i> Contact us</a>
+                </div>
+                <div class="col-md-6 col-lg-6 col-xl-3">
+                    <div class="footer-item d-flex flex-column">
+                        <h4 class="text-white mb-4">Quick Links</h4>
+                        <a href="{% url 'c7_motors:about' %}"><i class="fas fa-angle-right me-2"></i> About</a>
+                        <a href="{% url 'c7_motors:shopping_cart' %}"><i class="fas fa-angle-right me-2"></i> My Cart</a>
+                        <a href="{% url 'c7_motors:contact_us' %}"><i class="fas fa-angle-right me-2"></i> Contact us</a>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-6 col-xl-3">
+                    <div class="footer-item d-flex flex-column">
+                        <h4 class="text-white mb-4">Business Hours</h4>
+                        <div class="mb-3">
+                            <h6 class="mb-0" style="color: #e0e0e0c1;">We are open to serve you from 10:00 AM to 10:00 PM every day</h6>
                         </div>
                     </div>
-                    <div class="col-md-6 col-lg-6 col-xl-3">
-                        <div class="footer-item d-flex flex-column">
-                            <h4 class="text-white mb-4">Business Hours</h4>
-                            <div class="mb-3">
-                                <h6 class="text-muted mb-0">We are open to serve you from 10:00 AM to 10:00 PM every day</h6>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-lg-6 col-xl-3">
-                        <div class="footer-item d-flex flex-column">
-                            <h4 class="text-white mb-4">Contact Info</h4>
-                            <a><i class="fa fa-map-marker-alt me-2"></i> 18th St -Al Quoz Industrial Area 1 - Dubai - United Arab Emirates</a>
-                            <a><i class="fas fa-envelope me-2"></i> Csev7motors@gmail.com</a>
-                            <a><i class="fas fa-phone me-2"></i> +971562341000</a>
-                            <div class="d-flex">
-                                <a class="btn btn-md-square rounded-circle me-3" href="https://www.tiktok.com/@_c7motors"><i class="fab fa-tiktok text-white"></i></a>
-                                <a class="btn btn-md-square rounded-circle me-3" href="https://www.instagram.com/c.7.motors/"><i class="fab fa-instagram text-white"></i></a>
-                            </div>
+                </div>
+                <div class="col-md-6 col-lg-6 col-xl-3">
+                    <div class="footer-item d-flex flex-column">
+                        <h4 class="text-white mb-4">Contact Info</h4>
+                        <a href="#"><i class="fa fa-map-marker-alt me-2"></i> 18th St -Al Quoz Industrial Area 1 - Dubai - United Arab Emirates</a>
+                        <a href="mailto:Csev7motors@gmail.com"><i class="fas fa-envelope me-2"></i> Csev7motors@gmail.com</a>
+                        <a href="#"><i class="fas fa-phone me-2"></i> +971562341000</a>
+                        <div class="d-flex">
+                            <a class="btn btn-md-square rounded-circle me-3" href="https://www.tiktok.com/@_c7motors"><i class="fab fa-tiktok text-white"></i></a>
+                            <a class="btn btn-md-square rounded-circle me-3" href="https://www.instagram.com/c.7.motors/"><i class="fab fa-instagram text-white"></i></a>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <!-- Footer End -->
-        
+    </div>
+    <!-- Footer End -->
+    
     <!-- Copyright Start -->
     <div class="container-fluid copyright py-4">
         <div class="container">
             <div class="row g-4 align-items-center">
                 <div class="col text-center text-md-start mb-md-0">
-                    <span class="text-body"><a href="#" class="border-bottom text-white"><i class="fas fa-copyright text-light me-2"></i>C7 Motors</a>, All right reserved.</span>
+                    <span style="color: #e0e0e0c1;"><a href="#" class="border-bottom text-white"><i class="fas fa-copyright text-light me-2"></i>C7 Motors</a>, All right reserved.</span>
                 </div>
                 <div class="col text-center text-md-start mb-md-0">
-                    <span class="text-body"><a href="#" class="border-bottom text-white">Designed & Developed By Sana Salhdar</a> +963968678579</span>
+                    <span style="color: #e0e0e0c1;"><a href="#" class="border-bottom text-white">Designed & Developed By Sana Salhdar</a> +963968678579</span>
                 </div>
                 <div class="col text-center text-md-start mb-md-0">
-                    <span class="text-body">Designed By <a href="https://htmlcodex.com" class="border-bottom text-white">HTML Codex</a></span>
+                    <span style="color: #e0e0e0c1;">Designed By <a href="https://htmlcodex.com" class="border-bottom text-white">HTML Codex</a></span>
                 </div>
             </div>
         </div>
     </div>
-    <!-- Copyright End -->
+    <!-- Copyright End -->    
 
     <!-- Back to Top -->
     <a href="#" class="btn btn-lg-square rounded-circle back-to-top" style="background-color: black; color:#ffffff;"><i class="fa fa-arrow-up"></i></a>  
