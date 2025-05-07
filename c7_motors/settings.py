@@ -12,6 +12,19 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 from pathlib import Path
 import os 
+import base64
+from dotenv import load_dotenv
+load_dotenv()
+
+
+creds_b64 = os.getenv("GOOGLE_CREDENTIALS_B64")
+
+if creds_b64:
+    path = "c7_motors/credentials/sheets.json"
+    os.makedirs(os.path.dirname(path), exist_ok=True)  # Ensure folder exists
+    with open(path, "wb") as f:
+        f.write(base64.b64decode(creds_b64))
+    os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))

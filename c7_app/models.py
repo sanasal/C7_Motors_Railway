@@ -226,3 +226,9 @@ class CarsCart(models.Model):
         car_price = int(self.car.cash_price)
         cars_total_price = car_price
         return cars_total_price
+    
+
+
+class MayNumbers(models.Model):
+    phone_number = models.CharField(max_length=20 , null=True)
+    date = models.DateField(null=True , auto_now_add=True)

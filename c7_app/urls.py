@@ -22,13 +22,15 @@ urlpatterns = [
     path('payment_in_installments/' , views.payments_in_installments , name='payment_in_installments'),
     path('payment_in_installments_without_downpayment/' , views.payment_in_installments_without_dp , name='payment_in_installments_without_dp'),
 
-    path('log_in/' , views.log_in , name= 'log_in'),
+    path('log_in/' , views.log_in , name='log_in'),
     path('sign_in/' , views.sign_in , name='sign_in'), 
     path('log_out/' , views.log_out , name='log_out'),  
     
     path('add_to_cart/' , views.add_to_cart , name='add'),
     path('delete/' , views.delete_item , name = 'delete'),
-    path('calculate_your_salary/' , views.calculate_customer_salary , name = 'calculate_your_salary'),
+    path('calculate_your_salary/' , views.calculate_customer_salary , name='calculate_your_salary'),
+
+    path('add-data-GS/' , views.add_data_GS , name='add-data-GS' ),
 
     path('cash_add_data/' , views.add_customers_data , name = 'cash_add_data'),
     path('deposit_add_data/' , views.add_customers_data , name = 'deposit_add_data'),

@@ -3,7 +3,7 @@ from django.shortcuts import render , redirect , get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm , AuthenticationForm
 from django.contrib.auth import login , logout
-from . import forms
+from .forms import *
 from .models import *
 from django.http import HttpResponse , JsonResponse , HttpResponseBadRequest
 from django.template import Template , Context
@@ -12,8 +12,8 @@ import stripe
 from django.conf import settings
 from django.views import View
 import os
-from django.utils import timezone
-from django.views.decorators.http import require_http_methods
+from django.http import JsonResponse
+from .utils.google_sheets import write_sheet_data
     
 def home(request):
     '''Display the home page'''
@@ -1020,3 +1020,21 @@ def calculate_customer_salary(request):
         return render(request, "calculater.html", {"items": items})
 
     return JsonResponse({'error': 'Invalid request method'}, status=400)
+
+
+def add_data_GS(request):
+    if request.method == 'POST':
+        form = MayNumbersForm(request.POST)
+        if form.is_valid():
+            new_phone_number = form.save()
+            try:
+                write_sheet_data([new_phone_number.phone_number, str(new_phone_number.date)])
+                return redirect('c7_motors:home')
+            except Exception as e:
+                return JsonResponse({'status': 'Failed to write to Google Sheet', 'error': str(e)})
+        else:
+            return JsonResponse({'status': 'Form is invalid', 'errors': form.errors})
+
+    # GET request fallback
+    form = MayNumbersForm()
+    return render(request, 'home.html', {'form': form})

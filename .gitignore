@@ -65,3 +65,8 @@ c7_motors_env/
 ENV/
 env.bak/
 c7_motors_env.bak/
+
+
+
+# Google sheets credentials
+c7_motors/credentials/

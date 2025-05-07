@@ -4,6 +4,20 @@ from .settings import BASE_DIR
 import stripe
 from urllib.parse import urlparse 
 
+import base64
+
+# Load from .env if needed
+from dotenv import load_dotenv
+load_dotenv()
+
+creds_b64 = os.getenv("GOOGLE_CREDENTIALS_B64")
+
+if creds_b64:
+    path = "c7_motors/credentials/sheets.json"
+    os.makedirs(os.path.dirname(path), exist_ok=True)  # Ensure folder exists
+    with open(path, "wb") as f:
+        f.write(base64.b64decode(creds_b64))
+    os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = path
 
 # Security & Allowed Hosts
 SECRET_KEY =  os.environ.get("SECRET")
