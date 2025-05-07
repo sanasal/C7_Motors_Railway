@@ -424,7 +424,7 @@
 
     <body>
         <!-- Spinner Start -->
-        <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+        <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center" id="promoBanner">
             <div class="spinner-border" style="width: 3rem; height: 3rem;color:#e30a23;" role="status">
                 <span class="sr-only">Loading...</span>
             </div>
@@ -437,8 +437,8 @@
                 <div class="row gx-0 align-items-center" style="height: 45px;">
                     <div class="col-lg-6 text-center text-lg-start mb-lg-0">
                         <div class="d-flex flex-wrap">
-                            <span class="me-4"><i class="fas fa-phone-alt me-2" style="color: #e30a23;"></i>+971562341000</span>
-                            <a href="mailto:Csev7motors@gmail.com"><i class="fas fa-envelope me-2" style="color: #e30a23;"></i>Csev7motors@gmail.com</a>
+                            <span class="me-4" style="color: rgb(0, 0, 0)"><i class="fas fa-phone-alt me-2" style="color: #e30a23;"></i>+971562341000</span>
+                            <a class="me-0" style="color: rgb(0, 0, 0)" href="mailto:Csev7motors@gmail.com"><i class="fas fa-envelope me-2" style="color: #e30a23;"></i>Csev7motors@gmail.com</a>
                         </div>
                     </div>
                     <div class="col-lg-6 text-center text-lg-end">
@@ -456,8 +456,8 @@
         <div class="container-fluid nav-bar sticky-top px-0 px-lg-4 py-2 py-lg-0">
             <div class="container">
                 <nav class="navbar navbar-expand-lg navbar-light">
-                    <a href="#" class="navbar-logo p-0">
-                        <img src="{% static 'img/c7_logo.png'%}" alt="C7 Motors logo">
+                    <a href="" class="navbar-logo p-0">
+                        <img src="{% static 'img/c7_logo.png'%}" alt="C7 Motors company logo">
                     </a>
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
                         <span class="fa fa-bars"></span>
@@ -469,7 +469,7 @@
                             <a href="{% url 'c7_motors:service' %}" class="nav-item nav-link"><i class="bi bi-tools"></i> Service</a>
                             <a href="{% url 'c7_motors:feature' %}" class="nav-item nav-link"><i class="bi bi-star-fill"></i> Features</a>
                             <a href="{% url 'c7_motors:shopping_cart' %}" class="nav-item nav-link"><i class="bi bi-basket3"></i> My Cart</a>
-                            <a href="#" class="nav-item nav-link" id="checkout-button" data-bs-toggle="modal" data-bs-target="#exampleModal"><i class="bi bi-cash"></i> Pay</a>
+                            <a href="" class="nav-item nav-link" id="checkout-button" data-bs-toggle="modal" data-bs-target="#exampleModal"><i class="bi bi-cash"></i> Pay</a>
                             <a href="{% url 'c7_motors:contact_us' %}" class="nav-item nav-link"><i class="bi bi-telephone"></i> Contact</a>
                         </div>
                         {% if user.is_authenticated %}
@@ -486,6 +486,40 @@
             </div>
         </div>
         <!-- Navbar & Hero End -->
+
+        <!-- Model Start -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h1 class="modal-title" id="exampleModalLabel" style="color: #e30a23;">Welcome to<h1 class="modal-title" style="color: #323232;margin-left:5px">C</h1> <h1 class="modal-title" style="color: #e30a23;">7</h1></h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Please wait until return to checkout page
+                </div>
+            </div>
+            </div>
+        </div>
+        <!-- Model End -->
+
+        <!-- Modal Popup Start -->
+        <div class="modal-overlay" id="customModal" style="display: none;">
+            <div class="modal-container container">
+                <div class="modal-body-2 img-fluid">
+                    <button type="button" class="close-btn" aria-label="Close"><i class="bi bi-x"></i></button>
+                    <form action="/add-data-GS/" method="post">
+                        {% csrf_token %}
+                        <div class="modal_footer row">
+                            <div class="welcome-text col">Secure Yor Car In May 2025</div>
+                            <input id="may_number" class="form-control col phonenumber-input" name="phone_number" placeholder="Enter Phone Number" required>
+                            <button class="btn btn-primary btn-block btn-md col send_button" type="submit">Send</button>
+                        </div>
+                    </form>
+                </div>   
+            </div>
+        </div>
+        <!-- Modal Popup End -->
 
         <!-- Carousel Start -->
         <div class="header-carousel">
@@ -586,21 +620,6 @@
         </div>
         <!-- Carousel End -->
 
-        <!-- Modal Start -->
-        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h1 class="modal-title" id="exampleModalLabel" style="color: #e30a23;">Welcome to <span style="color: #323232; margin-left: 5px;">C</span><span style="color: #e30a23;">7</span></h1>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        Please wait until return to checkout page.
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Modal End -->
 
         <!-- Cars Logos Start -->
         <div class="logos">
@@ -614,6 +633,7 @@
                 <img src="{% static 'logos/lamborghini.svg' %}" alt="Lamborghini logo"/>
                 <img src="{% static 'logos/rolls_royce.png' %}" alt="Rolls Royce logo"/>
             </div>
+      
             <div class="logos-slide">
                 <img src="{% static 'logos/nissan.svg' %}" alt="Nissan logo"/>
                 <img src="{% static 'logos/porsche.svg' %}" alt="Porsche logo"/>
@@ -627,9 +647,9 @@
         </div>
         <!-- Cars Logos End -->
 
-        <!-- Car Categories Start -->
+        <!-- Car categories Start -->
         <div class="container-fluid categories py-5">
-            <div class="container">
+            <div class="container" style="padding: 0%;">
                 <div class="text-center mx-auto pb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 800px;">
                     <h1 class="display-5 text-capitalize mb-3">Cars <span style="color: #e30a23;">Categories</span></h1>
                 </div>
@@ -638,7 +658,9 @@
                     <div class="categories-item p-4">
                         <div class="categories-item-inner">
                             <div class="categories-img rounded-top position-relative">
-                                <img src="{{ car.main_img.url }}" class="img-fluid w-100 rounded-top" alt="{{ car.model }}">
+                                <!-- Car Image -->
+                                <img src="{{ car.main_img.url }}" class="img-fluid w-100 rounded-top" alt="">
+                                <!-- Sold Overlay Image -->
                                 {% if car.selled %}
                                     <div class="position-absolute" style="z-index: 1; left: 15px; top: 15px;">
                                         <div class="p-2 rounded" style="background-color: #e30a23;">
@@ -650,7 +672,9 @@
                             <div class="categories-content rounded-bottom p-4">
                                 <h4 style="color: #e30a23;">{{ car.brand_name }} {{ car.model }}</h4>
                                 <div class="mb-4">
-                                    <h5 class="bg-white text-dark rounded-pill py-2 px-4 mb-0">{{ car.cash_price }} AED</h5>
+                                    <h5 class="bg-white text-dark rounded-pill py-2 px-4 mb-0">
+                                        {{ car.cash_price }} AED
+                                    </h5>
                                 </div>
                                 <div class="row gy-2 gx-0 text-center mb-4">
                                     <div class="col-5 border-end border-white">
@@ -660,6 +684,7 @@
                                         <i class="fa fa-road" style="color: #e30a23;"></i> <span style="color:#e0e0e0;">{{ car.mileage }}KM</span>
                                     </div>
                                 </div>
+                                <!-- Button Logic -->
                                 {% if car.selled %}
                                     <button class="btn rounded-pill d-flex justify-content-center py-3 w-100" style="background-color: #e30a23; color:rgb(0,0,0); cursor: not-allowed;" disabled>Sold Out</button>
                                 {% else %}
@@ -672,8 +697,7 @@
                 </div>
             </div>
         </div>
-        <!-- Car Categories End -->
-
+        <!-- Car categories End -->
 
 
         <!-- Features Start -->
@@ -686,10 +710,8 @@
                     </p>
                 </div>
                 <div class="row g-4 align-items-center">
-                    <!-- Features Left Column -->
                     <div class="col-xl-4">
                         <div class="row gy-4 gx-0">
-                            <!-- Feature Item 1 -->
                             <div class="col-12 wow fadeInUp" data-wow-delay="0.1s">
                                 <div class="feature-item">
                                     <div class="feature-icon">
@@ -703,7 +725,6 @@
                                     </div>
                                 </div>
                             </div>
-                            <!-- Feature Item 2 -->
                             <div class="col-12 wow fadeInUp" data-wow-delay="0.3s">
                                 <div class="feature-item">
                                     <div class="feature-icon">
@@ -719,14 +740,11 @@
                             </div>
                         </div>
                     </div>
-                    <!-- Features Center Image -->
                     <div class="col-lg-12 col-xl-4 wow fadeInUp" data-wow-delay="0.2s">
                         <img src="{% static 'img/features-img.png'%}" class="img-fluid w-100" style="object-fit: cover;" alt="Red Mercedes GT">
                     </div>
-                    <!-- Features Right Column -->
                     <div class="col-xl-4">
                         <div class="row gy-4 gx-0">
-                            <!-- Feature Item 3 -->
                             <div class="col-12 wow fadeInUp" data-wow-delay="0.1s">
                                 <div class="feature-item justify-content-end">
                                     <div class="text-end me-4">
@@ -740,7 +758,6 @@
                                     </div>
                                 </div>
                             </div>
-                            <!-- Feature Item 4 -->
                             <div class="col-12 wow fadeInUp" data-wow-delay="0.3s">
                                 <div class="feature-item justify-content-end">
                                     <div class="text-end me-4">
@@ -765,7 +782,6 @@
         <div class="container-fluid overflow-hidden about py-5">
             <div class="container py-5">
                 <div class="row g-5">
-                    <!-- About Text Section -->
                     <div class="col-xl-6 wow fadeInLeft" data-wow-delay="0.2s">
                         <div class="about-item">
                             <div class="pb-5">
@@ -775,7 +791,6 @@
                                 </p>
                             </div>
                             <div class="row g-4">
-                                <!-- Vision Section -->
                                 <div class="col-lg-6">
                                     <div class="about-item-inner border p-4">
                                         <div class="about-icon mb-4">
@@ -787,15 +802,14 @@
                                         </p>
                                     </div>
                                 </div>
-                                <!-- Mission Section -->
                                 <div class="col-lg-6">
                                     <div class="about-item-inner border p-4">
                                         <div class="about-icon mb-4">
                                             <img src="{% static 'img/list-check.svg'%}" class="img-fluid h-50 w-50" alt="Icon">
                                         </div>
-                                        <h5 class="mb-3" style="color:#e30a23">Our Mission</h5>
+                                        <h5 class="mb-3" style="color:#e30a23">Our Mision</h5>
                                         <p class="mb-0" style="color:#e0e0e0;">
-                                            At C7 Motors, we aim to make owning a car simple and accessible for everyone. By offering a diverse selection of high-quality used vehicles with cash or installment payment options....
+                                            At C7 Motors, we aim to make owning a car simple and accessible for everyone. By offering a diverse selection of high-quality used vehicles with cash or installment payment options.......
                                         </p>
                                     </div>
                                 </div>
@@ -813,7 +827,6 @@
                             </div>
                         </div>
                     </div>
-                    <!-- About Image Section -->
                     <div class="col-xl-6 wow fadeInRight" data-wow-delay="0.2s">
                         <div class="about-img">
                             <div class="img-1">
@@ -826,11 +839,10 @@
         </div>
         <!-- About End -->
 
-        <!-- Fact Counter Start -->
+        <!-- Fact Counter -->
         <div class="container-fluid counter py-5 fact_background img-fluid">
             <div class="container py-5">
                 <div class="row g-5">
-                    <!-- Counter 1 -->
                     <div class="col-md-6 col-lg-6 col-xl-3 wow fadeInUp" data-wow-delay="0.1s">
                         <div class="counter-item text-center">
                             <div class="counter-item-icon mx-auto">
@@ -843,7 +855,6 @@
                             <h4 class="text-white mb-0">Happy Clients</h4>
                         </div>
                     </div>
-                    <!-- Counter 2 -->
                     <div class="col-md-6 col-lg-6 col-xl-3 wow fadeInUp" data-wow-delay="0.3s">
                         <div class="counter-item text-center">
                             <div class="counter-item-icon mx-auto">
@@ -856,7 +867,6 @@
                             <h4 class="text-white mb-0">Number of Cars</h4>
                         </div>
                     </div>
-                    <!-- Counter 3 -->
                     <div class="col-md-6 col-lg-6 col-xl-3 wow fadeInUp" data-wow-delay="0.5s">
                         <div class="counter-item text-center">
                             <div class="counter-item-icon mx-auto">
@@ -869,7 +879,6 @@
                             <h4 class="text-white mb-0">Verified Dealers</h4>
                         </div>
                     </div>
-                    <!-- Counter 4 -->
                     <div class="col-md-6 col-lg-6 col-xl-3 wow fadeInUp" data-wow-delay="0.7s">
                         <div class="counter-item text-center">
                             <div class="counter-item-icon mx-auto">
@@ -885,8 +894,7 @@
                 </div>
             </div>
         </div>
-        <!-- Fact Counter End -->
-
+        <!-- Fact Counter -->
 
         <!-- Services Start -->
         <div class="container-fluid service py-5">
@@ -894,11 +902,10 @@
                 <div class="text-center mx-auto pb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 800px;">
                     <h1 class="display-5 text-capitalize mb-3">C7 Motors <span style="color: #e30a23;">Services</span></h1>
                     <p class="mb-0" style="color: rgb(53, 53, 53)">
-                        Discover our range of services designed to make buying a used car straightforward and convenient.
+                        Discover our range of services designed to make buying a used car straightforward and convenient
                     </p>
                 </div>
                 <div class="row g-4">
-                    <!-- Service Item -->
                     <div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-delay="0.1s">
                         <div class="service-item p-4">
                             <div class="service-icon mb-4">
@@ -906,11 +913,10 @@
                             </div>
                             <h5 class="mb-3">Personalized Consultations</h5>
                             <p class="mb-0" style="color: rgb(53, 53, 53)">
-                                Our team of experts is here to guide you through every step of the process. Whether you’re buying your first car or upgrading to a newer model, we ensure you find a vehicle that perfectly suits your needs and preferences.
+                                Our team of experts is here to guide you through every step of the process. Whether you’re buying your first car or upgrading to a newer model, we ensure you find a vehicle that perfectly suits your needs and preferences
                             </p>
                         </div>
                     </div>
-                    <!-- Service Item -->
                     <div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-delay="0.3s">
                         <div class="service-item p-4">
                             <div class="service-icon mb-4">
@@ -918,11 +924,10 @@
                             </div>
                             <h5 class="mb-3">Flexible Payment Plans</h5>
                             <p class="mb-0" style="color: rgb(53, 53, 53)">
-                                Choose the payment option that works best for you. Whether you prefer to pay in full with cash or spread the cost with our flexible installment plans, we make owning a car accessible for everyone.
+                                Choose the payment option that works best for you. Whether you prefer to pay in full with cash or spread the cost with our flexible installment plans, we make owning a car accessible for everyone
                             </p>
                         </div>
                     </div>
-                    <!-- Service Item -->
                     <div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-delay="0.5s">
                         <div class="service-item p-4">
                             <div class="service-icon mb-4">
@@ -930,11 +935,10 @@
                             </div>
                             <h5 class="mb-3">Trade-Ins</h5>
                             <p class="mb-0" style="color: rgb(53, 53, 53)">
-                                Upgrade your ride by trading in your old vehicle. We offer competitive trade-in value, allowing you to apply the credit directly toward your new car purchase, making the process quick and hassle-free.
+                                Upgrade your ride by trading in your old vehicle. We offer competitive trade-in value, allowing you to apply the credit directly toward your new car purchase, making the process quick and hassle-free
                             </p>
                         </div>
                     </div>
-                    <!-- Service Item -->
                     <div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-delay="0.1s">
                         <div class="service-item p-4">
                             <div class="service-icon mb-4">
@@ -942,11 +946,10 @@
                             </div>
                             <h5 class="mb-3">Insurance Assistance</h5>
                             <p class="mb-0" style="color: rgb(53, 53, 53)">
-                                Protect your investment with comprehensive insurance options. We work with trusted insurance providers to help you secure the coverage you need, offering peace of mind for your journey ahead.
+                                Protect your investment with comprehensive insurance options. We work with trusted insurance providers to help you secure the coverage you need, offering peace of mind for your journey ahead
                             </p>
                         </div>
                     </div>
-                    <!-- Service Item -->
                     <div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-delay="0.3s">
                         <div class="service-item p-4">
                             <div class="service-icon mb-4">
@@ -954,11 +957,10 @@
                             </div>
                             <h5 class="mb-3">Nationwide Delivery</h5>
                             <p class="mb-0" style="color: rgb(53, 53, 53)">
-                                Purchase your dream car from anywhere in the country and let us handle the delivery. We ensure that your vehicle is transported safely and arrives right at your doorstep, saving you time and effort.
+                                Purchase your dream car from anywhere in the country and let us handle the delivery. We ensure that your vehicle is transported safely and arrives right at your doorstep, saving you time and effort
                             </p>
                         </div>
                     </div>
-                    <!-- Service Item -->
                     <div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-delay="0.5s">
                         <div class="service-item p-4">
                             <div class="service-icon mb-4">
@@ -966,7 +968,7 @@
                             </div>
                             <h5 class="mb-3">After-Sales Support</h5>
                             <p class="mb-0" style="color: rgb(53, 53, 53)">
-                                Enjoy a worry-free ownership experience with our after-sales services. From maintenance packages and extended warranties to expert support, we are committed to keeping your car in top-notch condition.
+                                Enjoy a worry-free ownership experience with our after-sales services. From maintenance packages and extended warranties to expert support, we are committed to keeping your car in top-notch condition
                             </p>
                         </div>
                     </div>
@@ -980,23 +982,21 @@
             <div class="container py-5">
                 <div class="text-center mx-auto pb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 800px;">
                     <h1 class="display-5 text-capitalize text-white mb-3">C7 Motors<span style="color: #e30a23;"> Process</span></h1>
+                    </p>
                 </div>
                 <div class="row g-4">
-                    <!-- Step 1 -->
                     <div class="col-lg-4 wow fadeInUp" data-wow-delay="0.1s">
                         <div class="steps-item p-4 mb-4">
                             <h4>Come In Contact</h4>
                             <div class="setps-number">01.</div>
                         </div>
                     </div>
-                    <!-- Step 2 -->
                     <div class="col-lg-4 wow fadeInUp" data-wow-delay="0.3s">
                         <div class="steps-item p-4 mb-4">
                             <h4>Choose A Car</h4>
                             <div class="setps-number">02.</div>
                         </div>
                     </div>
-                    <!-- Step 3 -->
                     <div class="col-lg-4 wow fadeInUp" data-wow-delay="0.5s">
                         <div class="steps-item p-4 mb-4">
                             <h4>Enjoy Driving</h4>
@@ -1018,9 +1018,9 @@
                     </p>
                 </div>
                 <div class="owl-carousel testimonial-carousel wow fadeInUp" data-wow-delay="0.1s">
-                    <!-- Testimonial Item 1 -->
                     <div class="testimonial-item">
-                        <div class="testimonial-quote"><i class="fa fa-quote-right fa-2x"></i></div>
+                        <div class="testimonial-quote"><i class="fa fa-quote-right fa-2x"></i>
+                        </div>
                         <div class="testimonial-inner p-4">
                             <img src="{% static 'img/testimonial-1.jpg'%}" class="img-fluid" alt="">
                             <div class="ms-4">
@@ -1036,13 +1036,14 @@
                         </div>
                         <div class="border-top rounded-bottom p-4">
                             <p class="mb-0" style="color:black;">
-                                I had an amazing experience with C7 Motors! The team was incredibly helpful in guiding me to the perfect used car that fit my budget and preferences. The flexible installment payment option made it so easy for me to own my dream car without any hassle. Highly recommend!
+                                I had an amazing experience with C7 Motors! The team was incredibly helpful in guiding me to the perfect used car that fit my budget and preferences. 
+                                The flexible installment payment option made it so easy for me to own my dream car without any hassle. Highly recommend!
                             </p>
                         </div>
                     </div>
-                    <!-- Testimonial Item 2 -->
                     <div class="testimonial-item">
-                        <div class="testimonial-quote"><i class="fa fa-quote-right fa-2x"></i></div>
+                        <div class="testimonial-quote"><i class="fa fa-quote-right fa-2x"></i>
+                        </div>
                         <div class="testimonial-inner p-4">
                             <img src="{% static 'img/testimonial-2.jpg'%}" class="img-fluid" alt="">
                             <div class="ms-4">
@@ -1058,7 +1059,31 @@
                         </div>
                         <div class="border-top rounded-bottom p-4">
                             <p class="mb-0" style="color:black;">
-                                C7 Motors made the car-buying process so smooth and stress-free! They were transparent, offered great deals, and made sure I felt confident with my decision. I can’t thank them enough for helping me find the perfect car at a fantastic price!
+                                C7 Motors made the car-buying process so simple and stress-free. From the personalized consultation to the trade-in process, 
+                                everything was handled professionally. The quality of the used cars is excellent, and I couldn’t be happier with my purchase!
+                            </p>
+                        </div>
+                    </div>
+                    <div class="testimonial-item">
+                        <div class="testimonial-quote"><i class="fa fa-quote-right fa-2x"></i>
+                        </div>
+                        <div class="testimonial-inner p-4">
+                            <img src="{% static 'img/testimonial-3.jpg'%}" class="img-fluid" alt="">
+                            <div class="ms-4">
+                                <h4>Simon</h4>
+                                <div class="d-flex text-dark" >
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star text-body"></i>
+                                    <i class="fas fa-star text-body"></i>
+                                    <i class="fas fa-star text-body"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="border-top rounded-bottom p-4">
+                            <p class="mb-0" style="color:black;">
+                                What stood out for me was the flexibility in payment options. I was able to choose a convenient installment plan that worked perfectly for my budget. 
+                                The customer service team was responsive, friendly, and knowledgeable. I’m so glad I chose C7 Motors!
                             </p>
                         </div>
                     </div>
@@ -1066,7 +1091,6 @@
             </div>
         </div>
         <!-- Testimonial End -->
-
 
         <!-- Footer Start -->
         <div class="container-fluid footer py-5 wow fadeIn" data-wow-delay="0.2s">
