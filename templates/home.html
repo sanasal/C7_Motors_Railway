@@ -487,6 +487,105 @@
         </div>
         <!-- Navbar & Hero End -->
 
+        <!-- Carousel Start -->
+        <div class="header-carousel">
+            <div id="carouselId" class="carousel slide" data-bs-ride="carousel" data-bs-interval="false">
+                <div class="carousel-inner" role="listbox">
+                    <div class="carousel-item active">
+                        <img src="{% static 'img/car19.jpg' %}" class="img-fluid w-100" alt="Nissan Background Img "/>
+                        <div class="carousel-caption">
+                            <div class="container py-4">
+                                <div class="row g-5">
+                                    <div class="col-lg-6 fadeInLeft animated" data-animation="fadeInLeft" data-delay="1s" style="animation-delay: 1s;">
+                                        <div class="search-container">
+                                            <div class="row">
+                                                <div class="hero__tab">
+                                                    <div class="tab-content">
+                                                        <div class="tab-pane active" id="tab-1" role="tabpanel">
+                                                            <div class="hero__tab__form">
+                                                                <h2>Find Your Dream Car</h2>
+                                                                <form method="get" action="{% url 'c7_motors:cars_search' %}">
+                                                                    <div class="select-list">
+                                                                        <div class="select-list-item">
+                                                                            <p>Year</p>
+                                                                            <select name="year">
+                                                                                <option data-display=" " value="">Year</option>
+                                                                                <option value="2025">2025</option>
+                                                                                <option value="2024">2024</option>
+                                                                                <option value="2023">2023</option>
+                                                                                <option value="2022">2022</option>
+                                                                                <option value="2021">2021</option>
+                                                                                <option value="2020">2020</option>
+                                                                                <option value="2019">2019</option>
+                                                                                <option value="2018">2018</option>
+                                                                                <option value="2018">2016</option>
+                                                                            </select>
+                                                                        </div>
+                                                                        <div class="select-list-item">
+                                                                            <p>Brand</p>
+                                                                            <select name="brand">
+                                                                                <option data-display=" " value="">Brand</option>
+                                                                                <option value="BMW">BMW</option>
+                                                                                <option value="Audi">Audi</option>
+                                                                                <option value="Lexus">Lexus</option>
+                                                                                <option value="Ferrari">Ferrari</option>
+                                                                                <option value="Tesla">Tesla</option>
+                                                                                <option value="Bentley">Bentley</option>
+                                                                                <option value="Mercedes">Mercedes</option>
+                                                                                <option value="Chevrolet">Chevrolet</option>
+                                                                                <option value="Ford">Ford</option>
+                                                                                <option value="Porsche">Porsche</option>
+                                                                            </select>
+                                                                        </div>
+                                                                    </div>
+                                                                    <button type="submit" class="site-btn">Searching</button>
+                                                                </form>                                                                
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- Buttons for browsing car models -->
+                                        <div class="browse-models mt-4">
+                                            <div class="model-buttons">
+                                                <div class="icon-buttons">                                      
+                                                    <a class="btn model-btn" href="{% url 'c7_motors:cars_filtered' 'SUV' %}">
+                                                        <span class="iconify" data-icon="mdi-car-suv" style="font-size: 27px;"></span> SUV
+                                                    </a>
+                                                    <a class="btn model-btn" href="{% url 'c7_motors:cars_filtered' 'Sedan' %}">
+                                                        <span class="iconify" data-icon="mdi-car-side" style="font-size: 27px;"></span> Sedan
+                                                    </a>
+                                                    <a class="btn model-btn" href="{% url 'c7_motors:cars_filtered' 'Hatchback' %}">
+                                                        <span class="iconify" data-icon="mdi-car-hatchback" style="font-size: 27px;"></span> Hatchback
+                                                    </a>
+                                                    <a class="btn model-btn" href="{% url 'c7_motors:cars_filtered' 'Hybrid' %}">
+                                                        <span class="iconify" data-icon="mdi-car-electric" style="font-size: 27px;"></span> Hybrid
+                                                    </a>
+                                                    <a class="btn model-btn" href="{% url 'c7_motors:cars_filtered' 'Electric' %}">
+                                                        <span class="iconify" data-icon="mdi-charging-station" style="font-size: 27px;"></span> Electric
+                                                    </a>
+                                                    <a class="btn model-btn" href="{% url 'c7_motors:cars_filtered' 'coupe' %}">
+                                                        <span class="iconify" data-icon="mdi-car-sports" style="font-size: 27px;"></span> Coupe
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 d-none d-lg-flex fadeInRight animated" data-animation="fadeInRight" data-delay="1s" style="animation-delay: 1s;">
+                                        <div class="text-start">
+                                            <h1 class="display-5 text-white" style="margin-left:15%; margin-top:5%;">Discover Your Perfect Ride with Our Premium Car Selection</h1>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div> 
+        </div>
+        <!-- Carousel End -->
+
         <!-- Modal Start -->
         <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog">
