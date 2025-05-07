@@ -39,7 +39,6 @@ PyMySQL==1.1.1
 pypng==0.20220715.0
 python-dotenv==1.1.0
 pytz==2024.1
-pywin32==308
 PyYAML==6.0.2
 qrcode==7.4.2
 railway==0.0.4
