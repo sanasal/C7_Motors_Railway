@@ -1,6 +1,8 @@
 {% block content %}
 {% csrf_token %}
 {% load static %}
+{% load compress %}
+{% compress css %}
 
 
 <!DOCTYPE html>
@@ -439,4 +441,6 @@
     <script src="{% static 'js/main1.js'%}"></script>
     </body>
 </html>
+
+{% endcompress %}
 {% endblock %}

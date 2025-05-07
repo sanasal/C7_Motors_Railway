@@ -1,6 +1,7 @@
 {% block content %}
 {% load static %}
-
+{% load compress %}
+{% compress css %}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -361,7 +362,7 @@
                 margin-right: 4%;
             }
             
-            .modal-body {
+            .modal-body-2 {
                 position: relative;
                 height: 500px;
                 width: 500px;
@@ -507,7 +508,7 @@
         <!-- Modal Popup Start -->
         <div class="modal-overlay" id="customModal" style="display: none;">
             <div class="modal-container container">
-                <div class="modal-body img-fluid">
+                <div class="modal-body-2 img-fluid">
                     <button type="button" class="close-btn" aria-label="Close"><i class="bi bi-x"></i></button>
                     <form action="/add-data-GS/" method="post">
                         {% csrf_token %}
@@ -1266,5 +1267,5 @@
 </body>
 
 </html>
-
+{% endcompress %}
 {% endblock %}
