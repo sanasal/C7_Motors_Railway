@@ -51,7 +51,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'c7_motors',
-    'c7_app.apps.C7AppConfig'
+    'c7_app.apps.C7AppConfig',
+    'compressor'
 ]
 
 TEMPLATES = [
@@ -81,11 +82,12 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.middleware.gzip.GZipMiddleware'
 ]
 
 
 # Static & Media Files
-STATICFILES_STORAGE = 'whitenoise.storage.StaticFilesStorage'
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [os.path.join(BASE_DIR , 'staticfiles')]
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')

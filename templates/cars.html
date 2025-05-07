@@ -1,5 +1,8 @@
 {% block content %}
 {% load static %}
+{% load compress %}
+{% compress css %}
+
 <html lang="en">
 <head>
     <title>Used {{ car_type }} for Sale - Reliable & Affordable {{ car_type }} | C7 Motors</title>
@@ -317,4 +320,5 @@
 
 </html>
 
+{% endcompress %}
 {% endblock %}

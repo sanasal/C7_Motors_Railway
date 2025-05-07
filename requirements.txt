@@ -7,6 +7,8 @@ colorama==0.4.6
 cryptography==44.0.0
 dj-database-url==2.3.0
 Django==4.2.5
+django-appconf==1.1.0
+django-compressor==4.5.1
 django-formtools==2.5.1
 django-jazzmin==3.0.1
 django-otp==1.6.0
@@ -40,9 +42,11 @@ pytz==2024.1
 PyYAML==6.0.2
 qrcode==7.4.2
 railway==0.0.4
+rcssmin==1.1.2
 redis==5.2.1
 requests==2.32.3
 requests-oauthlib==2.0.0
+rjsmin==1.2.2
 rsa==4.9.1
 six==1.17.0
 sqlparse==0.5.3

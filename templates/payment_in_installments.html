@@ -1,6 +1,7 @@
 {% block content %}
 {% load static %}
-
+{% load compress %}
+{% compress css %}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -461,4 +462,5 @@
 
 </html>
 
+{% endcompress %}
 {% endblock %}
