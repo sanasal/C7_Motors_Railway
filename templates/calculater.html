@@ -16,7 +16,7 @@
     <!-- Icon Font Stylesheet -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"/>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
-    <link rel="icon" type="image/png" href="{% static 'img/c7_logo.png'%}">
+    <link rel="icon" type="image/png" href="{% static 'img/c7_logo.webp'%}">
 
     <!-- Libraries Stylesheet -->
     <link href="{% static 'lib/animate/animate.min.css'%}" rel="stylesheet">
@@ -65,7 +65,7 @@
         <div class="container">
             <nav class="navbar navbar-expand-lg navbar-light">
                 <a href="{% url 'c7_motors:home' %}" class="navbar-logo p-0">
-                    <img src="{% static 'img/c7_logo.png'%}" alt="C7 Motors company logo">
+                    <img src="{% static 'img/c7_logo.webp'%}" alt="C7 Motors company logo">
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
                     <span class="fa fa-bars"></span>
@@ -94,6 +94,22 @@
         </div>
     </div>
     <!-- Navbar & Hero End -->
+
+    <!-- Model Start -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h1 class="modal-title" id="exampleModalLabel" style="color: #e30a23;">Welcome to<h1 class="modal-title" style="color: #323232;margin-left:5px">C</h1> <h1 class="modal-title" style="color: rgb(255, 215, 0);">7</h1></h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Please wait until return to checkout page
+            </div>
+        </div>
+        </div>
+    </div>
+    <!-- Model End -->
     
     <!-- Calculater Start -->
     <section style="background-color: #eee;">
