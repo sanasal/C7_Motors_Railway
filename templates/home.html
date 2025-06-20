@@ -335,90 +335,6 @@
                 overflow-y: auto;
                 scroll-behavior: smooth;
             }
-
-
-
-            .modal-overlay {
-                position: fixed;
-                top: 0;
-                left: 0;
-                right: 0;
-                bottom: 0;
-                background-color: rgba(0, 0, 0, 0.5);
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                z-index: 100000;
-            }
-            
-            .modal-container {
-                height:500px;
-                width: 500px;
-                background: rgb(227, 227, 227);
-                border-radius: 10px;
-                overflow: hidden;
-                box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-                margin-left: 4%;
-                margin-right: 4%;
-            }
-            
-            .modal-body-2 {
-                position: relative;
-                height: 500px;
-                width: 500px;
-                background-image: url("{% static 'img/may_offer.webp'%}");
-                background-size: cover;
-                background-position: center;
-            }
-            
-            .close-btn {
-                position: absolute;
-                top: 10px;
-                right: 1%;
-                border: none;
-                border-radius: 50%;
-                font-size:40px;
-                cursor: pointer;
-                text-align: center;
-                background:none;
-            }
-
-            .close-btn i{
-                width: 50px;
-                color: rgb(0, 0, 0 , 0.53);                ;
-            }
-            
-            .modal_footer {
-                padding: 25px;
-                text-align: center;
-                z-index: 1111111;
-                
-            }
-            
-            .welcome-text {
-                font-size: 120%;
-                font-weight: bold;
-                color: #e30a23;
-                position: absolute;
-                top: 350px;
-                left:3%;
-    
-            }
-            
-            .phonenumber-input {
-                position: absolute;align-items: center;
-                top: 400px;
-                width: 65%;
-                right: 15%;
-                margin-top: 2px;
-            }
-    
-            .send_button{
-                position: absolute;
-                top: 450px;
-                width: 70%;
-                right: 12%;
-            }
         </style>
     </head>
 
@@ -502,24 +418,6 @@
             </div>
         </div>
         <!-- Model End -->
-
-        <!-- Modal Popup Start -->
-        <div class="modal-overlay" id="customModal" style="display: none;">
-            <div class="modal-container container">
-                <div class="modal-body-2 img-fluid">
-                    <button type="button" class="close-btn" aria-label="Close"><i class="bi bi-x"></i></button>
-                    <form action="/add-data-GS/" method="post">
-                        {% csrf_token %}
-                        <div class="modal_footer row">
-                            <div class="welcome-text col">Secure Yor Car In May 2025</div>
-                            <input id="may_number" class="form-control col phonenumber-input" name="phone_number" placeholder="Enter Phone Number" required>
-                            <button class="btn btn-primary btn-block btn-md col send_button" type="submit">Send</button>
-                        </div>
-                    </form>
-                </div>   
-            </div>
-        </div>
-        <!-- Modal Popup End -->
 
         <!-- Carousel Start -->
         <div class="header-carousel">
