@@ -18,6 +18,16 @@ from .utils.google_sheets import write_sheet_data
 def home(request):
     '''Display the home page'''
     cars = Car.objects.all()
+ 
+    models_years = []
+    for car in cars:
+        if car.model_year not in models_years:
+            models_years.append(car.model_year)
+
+    cars_brands = []
+    for car in cars:
+        if car.brand_name not in cars_brands:
+                cars_brands.append(car.brand_name) 
   
     try:
         last_customer_data = CustomersData.objects.filter(user=request.user).order_by('-id').first()
@@ -34,6 +44,8 @@ def home(request):
         'stripe_remaining': stripe_remaining,
         'STRIPE_PUBLISHABLE_KEY': settings.STRIPE_PUBLIC_KEY,
         'cars': cars,
+        'models_years':models_years,
+        'cars_brands':cars_brands,
     }
 
     return render(request, 'home.html', context)
@@ -228,6 +240,10 @@ def cars_search(request):
     # Retrieve filter parameters
     year = request.GET.get('year')
     brand = request.GET.get('brand')
+    price_from = request.GET.get('price_from')
+    price_to = request.GET.get('price_to')
+    KM_from = request.GET.get('KM_from')
+    KM_to = request.GET.get('KM_to')
 
     # Start with all cars
     cars = Car.objects.all()
@@ -237,6 +253,10 @@ def cars_search(request):
         cars = cars.filter(model_year=year)
     if brand:
         cars = cars.filter(brand_name__icontains=brand)
+    if price_from and price_to:
+        cars = cars.filter(cash_price__range=(price_from,price_to))
+    if KM_from and KM_to:
+        cars = cars.filter(mileage__range=(KM_from,KM_to))
 
     return render(request, 'cars.html', {'cars': cars})
 

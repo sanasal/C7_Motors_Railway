@@ -173,7 +173,7 @@
                 -ms-flex-wrap: wrap;
                 flex-wrap: wrap;
                 margin-right: -20px;
-                margin-bottom: 30px;
+                margin-bottom: 0px;
                 margin-top: 30px;
             }
             
@@ -314,6 +314,103 @@
                 transform: scale(1.05); /* Add hover zoom effect */
             }
 
+            .filter-form {
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                gap: 20px;
+                background: white;
+                padding: 30px;
+                border-radius: 10px;
+                max-width: 500px;
+                margin: auto;
+                margin-bottom: 0%;
+                box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            }
+          
+            .form-group {
+                position: relative;
+            }
+          
+            label {
+                display: block;
+                margin-bottom: 5px;
+                font-weight: 500;
+            }
+          
+            input[type="text"],
+            input[type="number"] {
+                width: 100%;
+                padding: 10px;
+                border: 1px solid #ccc;
+                border-radius: 6px;
+                font-size: 14px;
+            }
+          
+            .price-dropdown {
+                position: absolute;
+                top: 72px;
+                left: 0;
+                width: 50%;
+                background: #fff;
+                padding: 15px;
+                border: 1px solid #ccc;
+                border-radius: 8px;
+                box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+                display: none;
+                z-index: 100;
+            }
+          
+            .price-group:focus-within .price-dropdown {
+                display: block;
+            }
+          
+            .price-dropdown input {
+                width: 100%;
+                margin-bottom: 10px;
+            }
+          
+            .form-actions {
+                grid-column: span 2;
+                text-align: center;
+            }
+          
+            .btn-search {
+                background: #e30613;
+                color: white;
+                padding: 12px 25px;
+                border: none;
+                border-radius: 6px;
+                font-size: 13px;
+                cursor: pointer;
+            }
+          
+            .btn-search:hover {
+                background: #c20010;
+            }
+
+            .KM-dropdown {
+                position: absolute;
+                top: 72px;
+                left: 50%;
+                width: 50%;
+                background: #fff;
+                padding: 15px;
+                border: 1px solid #ccc;
+                border-radius: 8px;
+                box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+                display: none;
+                z-index: 100;
+            }
+          
+            .KM-group:focus-within .KM-dropdown {
+                display: block;
+            }
+          
+            .KM-dropdown input {
+                width: 100%;
+                margin-bottom: 10px;
+            }
+
             /* Styles for laptop view */
             @media (min-width: 992px) {
                 .model-buttons {
@@ -442,35 +539,53 @@
                                                                             <p>Year</p>
                                                                             <select name="year">
                                                                                 <option data-display=" " value="">Year</option>
-                                                                                <option value="2025">2025</option>
-                                                                                <option value="2024">2024</option>
-                                                                                <option value="2023">2023</option>
-                                                                                <option value="2022">2022</option>
-                                                                                <option value="2021">2021</option>
-                                                                                <option value="2020">2020</option>
-                                                                                <option value="2019">2019</option>
-                                                                                <option value="2018">2018</option>
-                                                                                <option value="2018">2016</option>
+                                                                                {% for year in models_years %}
+                                                                                    <option value="{{ year }}">{{ year }}</option>
+                                                                                {% endfor %}
                                                                             </select>
                                                                         </div>
                                                                         <div class="select-list-item">
                                                                             <p>Brand</p>
                                                                             <select name="brand">
                                                                                 <option data-display=" " value="">Brand</option>
-                                                                                <option value="BMW">BMW</option>
-                                                                                <option value="Audi">Audi</option>
-                                                                                <option value="Lexus">Lexus</option>
-                                                                                <option value="Ferrari">Ferrari</option>
-                                                                                <option value="Tesla">Tesla</option>
-                                                                                <option value="Bentley">Bentley</option>
-                                                                                <option value="Mercedes">Mercedes</option>
-                                                                                <option value="Chevrolet">Chevrolet</option>
-                                                                                <option value="Ford">Ford</option>
-                                                                                <option value="Porsche">Porsche</option>
+                                                                                {% for car_brand in cars_brands %}
+                                                                                <option value="{{ car_brand }}">{{ car_brand }}</option>
+                                                                                {% endfor %}
                                                                             </select>
                                                                         </div>
+                                                                        <div class="select-list-item price-group">
+                                                                            <p>Price</p>
+                                                                            <input type="text" id="price-toggle" readonly />
+                                                                        
+                                                                            <div class="price-dropdown">
+                                                                                <label>From</label>
+                                                                                <input type="number" name="price_from" placeholder="0" />
+                                                                        
+                                                                                <label>Upto</label>
+                                                                                <input type="number" name="price_to" placeholder="Any" />
+                                                                        
+                                                                                <div class="price-actions">
+                                                                                    <button type="button" onclick="applyPrice()">Apply</button>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="select-list-item KM-group">
+                                                                            <p>Kilometers</p>
+                                                                            <input type="text" id="KM-toggle" readonly/>        
+                                                                            <div class="KM-dropdown">
+                                                                                <label>From</label>
+                                                                                <input type="number" name="KM_from" placeholder="0" />
+                                                                        
+                                                                                <label>Upto</label>
+                                                                                <input type="number" name="KM_to" placeholder="Any" />
+                                                                        
+                                                                                <div class="KM-actions">
+                                                                                    <button type="button" onclick="applyKM()">Apply</button>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>    
                                                                     </div>
-                                                                    <button type="submit" class="site-btn">Searching</button>
+                                                                    <button type="submit" class="site-btn">Search</button>
                                                                 </form>                                                                
                                                             </div>
                                                         </div>
@@ -1104,6 +1219,49 @@
             });
             }
         });
+
+        // Price Range Functionality
+        const priceToggle = document.getElementById('price-toggle');
+        const dropdown = document.querySelector('.price-dropdown');
+
+        priceToggle.addEventListener('focus', () => {
+            dropdown.style.display = 'block';
+        });
+
+        document.addEventListener('click', function (e) {
+            if (!e.target.closest('.price-group')) {
+            dropdown.style.display = 'none';
+            }
+        });
+
+        function applyPrice() {
+            dropdown.style.display = 'none';
+            const from = document.querySelector('input[name="price_from"]').value;
+            const to = document.querySelector('input[name="price_to"]').value;
+            priceToggle.value = from && to ? `${from} AED - ${to} AED` : from ? `From ${from}` : to ? `Upto ${to}` : '';
+        }
+
+
+        // Kilometers Range Functionality
+        const KMToggle = document.getElementById('KM-toggle');
+        const KMdropdown = document.querySelector('.KM-dropdown');
+
+        KMToggleToggle.addEventListener('focus', () => {
+            KMdropdown.style.display = 'block';
+        });
+
+        document.addEventListener('click', function (e) {
+            if (!e.target.closest('.KM-group')) {
+            KMdropdown.style.display = 'none';
+            }
+        });
+
+        function applyKM() {
+            KMdropdown.style.display = 'none';
+            const from = document.querySelector('input[name="KM_from"]').value;
+            const to = document.querySelector('input[name="KM_to"]').value;
+            KMToggle.value = from && to ? `${from} Km - ${to} Km` : from ? `From ${from}` : to ? `Upto ${to}` : '';
+        }
     </script>
 
     <!-- Checkout Stripe -->
