@@ -5,7 +5,7 @@ from django.contrib.auth.forms import UserCreationForm , AuthenticationForm
 from django.contrib.auth import login , logout
 from .forms import *
 from .models import *
-from django.http import HttpResponse , JsonResponse , HttpResponseBadRequest
+from django.http import HttpResponse , JsonResponse , HttpResponseBadRequest 
 from django.template import Template , Context
 import json  
 import stripe
@@ -15,6 +15,28 @@ import os
 from django.http import JsonResponse
 from .utils.google_sheets import write_sheet_data
     
+import tarfile
+from django.http import FileResponse, Http404
+
+def download_volume(request):
+    volume_path = '/mnt/volume'
+    archive_path = '/mnt/volume/volume-files.tar.gz'
+
+    # Create archive if it doesn't exist
+    try:
+        if not os.path.exists(archive_path):
+            with tarfile.open(archive_path, "w:gz") as tar:
+                tar.add(volume_path, arcname=os.path.basename(volume_path))
+
+        return FileResponse(
+            open(archive_path, 'rb'),
+            as_attachment=True,
+            filename='volume-files.tar.gz',
+            content_type='application/gzip'
+        )
+    except Exception as e:
+        raise Http404(f"Error creating or sending archive: {e}")
+        
 def home(request):
     '''Display the home page'''
     cars = Car.objects.all()
