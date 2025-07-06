@@ -17,29 +17,26 @@ from .utils.google_sheets import write_sheet_data
     
 import os
 import tarfile
+import tempfile
 from django.http import FileResponse, Http404
 
 def download_volume(request):
-    volume_path = '/app/media'  # This is your actual volume path
-    archive_path = os.path.join(volume_path, 'volume-files.tar.gz')
+    volume_path = '/app/media'  # Your Railway volume mount path
 
+    # Create a safe temporary file outside the volume
     try:
-        # Confirm the path exists
         if not os.path.exists(volume_path):
             raise FileNotFoundError(f"Volume path does not exist: {volume_path}")
 
-        # Optional: delete old archive if it exists
-        if os.path.exists(archive_path):
-            os.remove(archive_path)
+        # Create a temp .tar.gz file
+        with tempfile.NamedTemporaryFile(delete=False, suffix=".tar.gz") as tmp:
+            archive_path = tmp.name
 
-        # Create a .tar.gz archive of everything inside /app/media
+        # Create the tar.gz archive from /app/media
         with tarfile.open(archive_path, "w:gz") as tar:
-            for filename in os.listdir(volume_path):
-                full_path = os.path.join(volume_path, filename)
-                if full_path != archive_path:  # Don't include the archive inside itself
-                    tar.add(full_path, arcname=filename)
+            tar.add(volume_path, arcname='media')
 
-        # Serve the archive
+        # Return the file
         return FileResponse(
             open(archive_path, 'rb'),
             as_attachment=True,
@@ -49,6 +46,7 @@ def download_volume(request):
 
     except Exception as e:
         raise Http404(f"Error creating or sending archive: {e}")
+
         
 def home(request):
     '''Display the home page'''
