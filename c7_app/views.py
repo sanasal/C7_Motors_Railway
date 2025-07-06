@@ -19,8 +19,8 @@ import tarfile
 from django.http import FileResponse, Http404
 
 def download_volume(request):
-    volume_path = '/mnt/giraffe-volume'
-    archive_path = '/mnt/giraffe-volume/volume-files.tar.gz'
+    volume_path = '/mnt/lace-volume'
+    archive_path = '/mnt/lace-volume/volume-files.tar.gz'
 
     # Create archive if it doesn't exist
     try:
