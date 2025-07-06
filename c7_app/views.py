@@ -15,25 +15,38 @@ import os
 from django.http import JsonResponse
 from .utils.google_sheets import write_sheet_data
     
+import os
 import tarfile
 from django.http import FileResponse, Http404
 
 def download_volume(request):
-    volume_path = '/mnt/lace-volume'
-    archive_path = '/mnt/lace-volume/volume-files.tar.gz'
+    volume_path = '/app/media'  # This is your actual volume path
+    archive_path = os.path.join(volume_path, 'volume-files.tar.gz')
 
-    # Create archive if it doesn't exist
     try:
-        if not os.path.exists(archive_path):
-            with tarfile.open(archive_path, "w:gz") as tar:
-                tar.add(volume_path, arcname=os.path.basename(volume_path))
+        # Confirm the path exists
+        if not os.path.exists(volume_path):
+            raise FileNotFoundError(f"Volume path does not exist: {volume_path}")
 
+        # Optional: delete old archive if it exists
+        if os.path.exists(archive_path):
+            os.remove(archive_path)
+
+        # Create a .tar.gz archive of everything inside /app/media
+        with tarfile.open(archive_path, "w:gz") as tar:
+            for filename in os.listdir(volume_path):
+                full_path = os.path.join(volume_path, filename)
+                if full_path != archive_path:  # Don't include the archive inside itself
+                    tar.add(full_path, arcname=filename)
+
+        # Serve the archive
         return FileResponse(
             open(archive_path, 'rb'),
             as_attachment=True,
             filename='volume-files.tar.gz',
             content_type='application/gzip'
         )
+
     except Exception as e:
         raise Http404(f"Error creating or sending archive: {e}")
         
