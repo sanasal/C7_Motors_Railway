@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Download Media Archives</title>
+</head>
+<body>
+    <h1>Download Media Files (100MB Archives)</h1>
+    <ul>
+        {% for archive in archives %}
+            <li><a href="{{ archive }}" download>{{ archive|slice:"-25:" }}</a></li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
