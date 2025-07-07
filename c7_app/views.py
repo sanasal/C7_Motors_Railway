@@ -21,7 +21,7 @@ from django.http import Http404
 
 MEDIA_DIR = settings.MEDIA_ROOT  # Typically '/app/media'
 ARCHIVE_DIR = os.path.join(MEDIA_DIR, 'archives')
-MAX_SIZE = 100 * 1024 * 1024  # 100MB
+MAX_SIZE = 400 * 1024 * 1024  # 100MB
 
 
 def download_volume(request):
