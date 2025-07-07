@@ -10,7 +10,7 @@ app_name='c7_motors'
 
 urlpatterns = [          
     path('' , views.home , name='home'),  
-    path('download-files/', views.download_volume, name='download_volume'),
+    path('download-files/<str:filename>/', views.download_volume, name='download_volume'),
     path('search/' , views.cars_search , name='cars_search'),  
     path('about/' , views.about ,name='about'),
     path('services/' , views.service , name='service' ),
