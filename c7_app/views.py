@@ -14,38 +14,72 @@ from django.views import View
 import os
 from django.http import JsonResponse
 from .utils.google_sheets import write_sheet_data
-    
-import os
 import tarfile
-import tempfile
-from django.http import FileResponse, Http404
+from django.shortcuts import render
+from django.conf import settings
+from django.http import Http404
+
+MEDIA_DIR = settings.MEDIA_ROOT  # Typically '/app/media'
+ARCHIVE_DIR = os.path.join(MEDIA_DIR, 'archives')
+MAX_SIZE = 100 * 1024 * 1024  # 100MB
+
 
 def download_volume(request):
-    volume_path = '/app/media'  # Your Railway volume mount path
-
-    # Create a safe temporary file outside the volume
     try:
-        if not os.path.exists(volume_path):
-            raise FileNotFoundError(f"Volume path does not exist: {volume_path}")
+        if not os.path.exists(ARCHIVE_DIR):
+            os.makedirs(ARCHIVE_DIR)
 
-        # Create a temp .tar.gz file
-        with tempfile.NamedTemporaryFile(delete=False, suffix=".tar.gz") as tmp:
-            archive_path = tmp.name
+        # Skip if archives already exist
+        archives = [f for f in os.listdir(ARCHIVE_DIR) if f.endswith('.tar.gz')]
+        if not archives:
+            _create_split_archives()
 
-        # Create the tar.gz archive from /app/media
-        with tarfile.open(archive_path, "w:gz") as tar:
-            tar.add(volume_path, arcname='media')
+        # Generate archive download links
+        archive_links = [
+            f"{settings.MEDIA_URL}archives/{f}" for f in os.listdir(ARCHIVE_DIR)
+            if f.endswith('.tar.gz')
+        ]
 
-        # Return the file
-        return FileResponse(
-            open(archive_path, 'rb'),
-            as_attachment=True,
-            filename='volume-files.tar.gz',
-            content_type='application/gzip'
-        )
+        return render(request, 'archive_list.html', {'archives': archive_links})
 
     except Exception as e:
-        raise Http404(f"Error creating or sending archive: {e}")
+        raise Http404(f"Archive error: {e}")
+
+
+def _create_split_archives():
+    file_paths = []
+    for root, _, files in os.walk(MEDIA_DIR):
+        for file in files:
+            full_path = os.path.join(root, file)
+            if not full_path.startswith(ARCHIVE_DIR):  # Skip old archives
+                file_paths.append(full_path)
+
+    current_batch = []
+    current_size = 0
+    part = 1
+
+    for path in file_paths:
+        size = os.path.getsize(path)
+        if current_size + size > MAX_SIZE and current_batch:
+            _make_archive(current_batch, part)
+            part += 1
+            current_batch = []
+            current_size = 0
+
+        current_batch.append(path)
+        current_size += size
+
+    if current_batch:
+        _make_archive(current_batch, part)
+
+
+def _make_archive(file_list, part_num):
+    archive_path = os.path.join(ARCHIVE_DIR, f"media-part{part_num}.tar.gz")
+    with tarfile.open(archive_path, "w:gz") as tar:
+        for path in file_list:
+            rel_path = os.path.relpath(path, MEDIA_DIR)
+            tar.add(path, arcname=rel_path)
+
 
         
 def home(request):
