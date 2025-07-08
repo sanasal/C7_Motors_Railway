@@ -93,7 +93,7 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR , 'staticfiles')]
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 MEDIA_URL = "/media/"
-MEDIA_ROOT = os.path.join("/app/media")
+MEDIA_ROOT = os.path.join("/app/media/")
 
 connection_string = os.environ.get("DATABASE_URL")
 if connection_string:

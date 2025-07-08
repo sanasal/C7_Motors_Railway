@@ -17,11 +17,17 @@ from .utils.google_sheets import write_sheet_data
 from django.http import FileResponse, HttpResponseNotFound
 import os
 
+# views.py
+import os
+from django.http import FileResponse, HttpResponseNotFound
+from django.conf import settings
+
 def download_part(request, part_name):
-    file_path = f'/{part_name}'
+    file_path = os.path.join(settings.MEDIA_ROOT, part_name)
     if os.path.exists(file_path):
         return FileResponse(open(file_path, 'rb'), as_attachment=True, filename=part_name)
     return HttpResponseNotFound('File not found.')
+
 
 
 
