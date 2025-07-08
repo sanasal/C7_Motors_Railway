@@ -18,7 +18,7 @@ from django.http import FileResponse, HttpResponseNotFound
 import os
 
 def download_part(request, part_name):
-    file_path = f'/app/media_zips/{part_name}'
+    file_path = f'/media_zips/{part_name}'
     if os.path.exists(file_path):
         return FileResponse(open(file_path, 'rb'), as_attachment=True, filename=part_name)
     return HttpResponseNotFound('File not found.')
