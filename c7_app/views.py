@@ -22,10 +22,10 @@ import os
 from django.http import FileResponse, HttpResponseNotFound
 from django.conf import settings
 
-def download_part(request):
-    file_path = '/app/media_backup.tar.gz/'
+def download_part(request, part_name):
+    file_path = os.path.join(settings.MEDIA_ROOT, part_name)
     if os.path.exists(file_path):
-        return FileResponse(open(file_path, 'rb'), as_attachment=True)
+        return FileResponse(open(file_path, 'rb'), as_attachment=True, filename=part_name)
     return HttpResponseNotFound('File not found.')
 
 
