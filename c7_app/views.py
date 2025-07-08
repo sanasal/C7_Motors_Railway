@@ -14,14 +14,15 @@ from django.views import View
 import os
 from django.http import JsonResponse
 from .utils.google_sheets import write_sheet_data
-from django.http import FileResponse, Http404
+from django.http import FileResponse, HttpResponseNotFound
 import os
 
-def download_media_chunk(request, filename):
-    file_path = f"/app/temp_zips/{filename}"
-    if not os.path.exists(file_path):
-        raise Http404("File not found")
-    return FileResponse(open(file_path, "rb"), as_attachment=True)
+def download_part(request, part_name):
+    file_path = f'/app/media_zips/{part_name}'
+    if os.path.exists(file_path):
+        return FileResponse(open(file_path, 'rb'), as_attachment=True, filename=part_name)
+    return HttpResponseNotFound('File not found.')
+
 
 
 
