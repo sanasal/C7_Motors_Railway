@@ -3,7 +3,6 @@ from .settings import *
 from .settings import BASE_DIR
 import stripe
 from urllib.parse import urlparse 
-
 import base64
 
 # Load from .env if needed
@@ -74,6 +73,7 @@ TEMPLATES = [
 # Middleware
 MIDDLEWARE = [
     'simple_history.middleware.HistoryRequestMiddleware',
+    'middleware.exception_middleware.ExceptionMiddleware', 
     'django.middleware.security.SecurityMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -82,7 +82,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'django.middleware.gzip.GZipMiddleware'
+    'django.middleware.gzip.GZipMiddleware',
+    'c7_app.middleware.exception_middleware.ExceptionMiddleware',
 ]
 
 
