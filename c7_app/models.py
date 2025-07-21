@@ -14,108 +14,26 @@ from simple_history.models import HistoricalRecords
 # Create your models here
 
 class CustomersData(models.Model):
-    user = models.ForeignKey(User,null = True, on_delete = models.SET_NULL) 
-    cars = models.TextField(default='', blank=True)
     name = models.TextField(max_length=300, default='', blank=True)
     email = models.TextField(max_length=300, default='', blank=True)
     mobile_phone = models.TextField(blank=True, default='')
-    total_amount =models.IntegerField(null=True)
-    paid_amount = models.IntegerField(null=True)
-    remaining_amount = models.IntegerField(null=True , default='')
-    pick_up_location = models.TextField(max_length=300, default='', blank=True)
-    pick_up_date = models.DateField(null=True, blank=True)
-    pick_up_time = models.TimeField(null=True, blank=True)
-    created_at = models.DateTimeField(auto_now_add=True , null=True)
+    cars = models.TextField(default='', blank=True)  # plural here
 
-    def save(self, *args, **kwargs):
-        # Automatically calculate the remaining amount
-        if self.total_amount is not None and self.paid_amount is not None:
-            self.remaining_amount = self.total_amount - self.paid_amount
-        super(CustomersData, self).save(*args, **kwargs)
+    Salaried = 'Salaried'
+    Self_Employed = 'Self-Employed'
 
-    def __str__(self):
-        return f"cars:{self.cars} - user:{self.user} - name:{self.name}"
+    EMPLOYMENT_TYPE = [
+        (Salaried, 'Salaried'),
+        (Self_Employed, 'Self-Employed'),
+    ]
 
-
-class InstallmentsCustomer(models.Model):
-    user = models.ForeignKey(User,null = True, on_delete = models.SET_NULL) 
-    cars = models.TextField(default='', blank=True)
-    name = models.TextField(max_length=300, default='', blank=True)
-    email = models.TextField(max_length=300, default='', blank=True)
-    mobile_phone = models.TextField(blank=True, default='')
-    deposit = 3000
-    downpayment = models.IntegerField(null=True)
-    monthly_installment = models.IntegerField(null=True)
-    total_amount = models.IntegerField(null=True)
-    bank = models.TextField(max_length=300, default='', blank=True)
-    passport = models.FileField(default = '' , blank=True)
-    driver_license = models.FileField(default = '' , blank=True)
-    personal_identification_card = models.FileField(default = '' , blank=True)
-    salary_certificate = models.FileField(default = '' , blank=True)
-    bank_statement = models.FileField(default = '' , blank=True)
-    pick_up_location = models.TextField(max_length=300, default='', blank=True)
-    pick_up_date = models.DateField(null=True, blank=True)
-    pick_up_time = models.TimeField(null=True, blank=True)
+    employment_type = models.CharField(max_length=20, choices=EMPLOYMENT_TYPE, blank=True)
     created_at = models.DateTimeField(auto_now_add=True , null=True)
 
     def __str__(self):
-        return f"cars:{self.cars} - user:{self.user} - name:{self.name}"
-
-class InstallmentsCustomerWithoutDP(models.Model):
-    user = models.ForeignKey(User,null = True, on_delete = models.SET_NULL) 
-    cars = models.TextField(default='', blank=True)
-    name = models.TextField(max_length=300, default='', blank=True)
-    email = models.TextField(max_length=300, default='', blank=True)
-    mobile_phone = models.TextField(blank=True, default='')
-    deposit = 3000
-    monthly_installment = models.IntegerField(null=True)
-    total_amount = models.IntegerField(null=True)
-    bank = models.TextField(max_length=300, default='', blank=True)
-    passport = models.FileField(default = '' , blank=True)
-    driver_license = models.FileField(default = '' , blank=True)
-    personal_identification_card = models.FileField(default = '' , blank=True)
-    salary_certificate = models.FileField(default = '' , blank=True)
-    bank_statement = models.FileField(default = '' , blank=True)
-    pick_up_location = models.TextField(max_length=300, default='', blank=True)
-    pick_up_date = models.DateField(null=True, blank=True)
-    pick_up_time = models.TimeField(null=True, blank=True)
-    created_at = models.DateTimeField(auto_now_add=True , null=True)
-
-    def __str__(self):
-        return f"cars:{self.cars} - user:{self.user} - name:{self.name}"
+        return f"cars:{self.cars} - name:{self.name}"
 
 
-class Cart(models.Model):
-    id = models.UUIDField(default=uuid.uuid4 , primary_key=True)
-    user = models.ForeignKey(User,null = True, on_delete = models.SET_NULL) 
-    completed =  models.BooleanField(default=False)
-
-    history = HistoricalRecords()
-    
-    def total_price(self):
-
-        cartitems = self.cartitems.all()
-
-        cars_total = sum ([item.cars_cash_price() for item in cartitems])
-
-        total_price_without_discount =  cars_total
-
-        total_dicount = 0
-
-        discount = 0
-
-        total_price_after_discount = total_price_without_discount - (total_price_without_discount * discount)
-
-        return int(total_price_after_discount)
-
-    def __str__(self):
-       return f"{self.id} - {self.user}"
-    
-@receiver(post_save , sender = User)
-def create_cart(sender , instance , created , **kwargs):
-    "Create a cart for the user when he sign up"
-    if created:
-        Cart.objects.create(user = instance)
 
 
 class Car(models.Model):
@@ -215,20 +133,11 @@ def extract_images_after_save(sender, instance, created, **kwargs):
         instance.extract_images()
 
 
-class CarsCart(models.Model):
-    car = models.ForeignKey(Car, on_delete=models.CASCADE , related_name='items')
-    cart = models.ForeignKey(Cart, on_delete = models.CASCADE , related_name='cartitems')
 
-    def __str__(self):
-        return f"{self.car.brand_name} - ${self.car.cash_price} - {self.cart.user}"
-
-    def cars_cash_price(self):
-        car_price = int(self.car.cash_price)
-        cars_total_price = car_price
-        return cars_total_price
-    
-
-
-class MayNumbers(models.Model):
-    phone_number = models.CharField(max_length=20 , null=True)
-    date = models.DateField(null=True , auto_now_add=True)
+class Article(models.Model):
+    user = models.ForeignKey(User,null = True, on_delete = models.SET_NULL) 
+    image = models.ImageField(default='', blank=True)
+    type = models.CharField(blank=True , max_length=100)
+    title = models.CharField(blank=True , max_length=300)
+    header = models.TextField(blank=True)
+    read_more = models.TextField(blank=True)

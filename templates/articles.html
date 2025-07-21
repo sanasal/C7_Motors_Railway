@@ -5,7 +5,7 @@
 
 <html lang="en">
 <head>
-    <title>Used {{ car_type }} for Sale - Reliable & Affordable {{ car_type }} | C7 Motors</title>
+    <title>Car Tips & Articles | C7 Motors</title>
     <meta name="description" content="Browse our selection of high-quality used {{ car_type }} for sale. Find reliable, affordable, and well-maintained {{ car_type }} at the best prices. Check out our inventory today!" />
     <meta name="keywords" content="used {{ car_type }} for sale, best SUV deals, pre-owned {{ car_type }}, buy an SUV online" />
     <meta charset="UTF-8">
@@ -30,62 +30,29 @@
     <!-- Template Stylesheet -->
     <link href="{% static 'css/style.css'%}" rel="stylesheet">
 
-    <style>
-        /*** Cars Categories Start ***/
-        .categories {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); 
-            gap: 20px;
-            padding: 20px;
-        }
+  <style>
 
-        .categories .categories-item {
-            position: relative;
-            border: 1px solid linear-gradient(rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.9));
-            border-radius: 10px;
-            transition: 0.5s;
-            background: #fff;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
-        }
-
-        .categories .categories-item:hover {
-            border: 1px solid #e30a23;
-            transform: translateY(-5px);
-        }
-
-        .categories .categories-item .categories-item-inner {
-            position: relative;
-            overflow: hidden;
-            border-radius: 10px;
-            transition: 0.5s;
-        }
-
-        .categories .categories-item .categories-item-inner:hover {
-            box-shadow: 0 0 50px #e30a23;
-        }
-
-        .categories .categories-item-inner .categories-img {
-            background: linear-gradient(rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.9));
-        }
-
-        .categories .categories-item-inner .categories-content {
-            border-top: 4px solid var(--bs-white);
-            text-align: center;
-            background: rgb(0,0,0);
-            padding: 15px;
-        }
-
-        .categories .categories-item-inner .categories-review {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        /*** Cars Categories End ***/
-    </style>
+    .article-card {
+      border: none;
+      border-radius: 15px;
+      transition: all 0.3s ease;
+    }
+    .article-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+    }
+    .article-img {
+      border-top-left-radius: 15px;
+      border-top-right-radius: 15px;
+      height: 200px;
+      object-fit: cover;
+    }
+    .badge-red {
+      background-color: #e50914;
+    }
+  </style>
 </head>
 <body>
-    <!-- Cars -->
-
     <!-- Spinner Start -->
     <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
         <div class="spinner-border" style="width: 3rem; height: 3rem;color:#e30a23" role="status">
@@ -149,54 +116,34 @@
     </div>
     <!-- Navbar & Hero End -->
 
-    <!-- Cars Start -->
-    <div class="container-fluid py-5">
-        <div class="container" style="padding: 0%;">
-            <div id="car_categories" class="categories wow fadeInUp" data-wow-delay="0.1s">
-                {% for car in cars %}
-                <div class="categories-item p-4">
-                    <div class="categories-item-inner">
-                        <div class="categories-img rounded-top position-relative">
-                            <!-- Car Image -->
-                            <img src="{{ car.main_img.url }}" class="img-fluid w-100 rounded-top" alt="">
-                            <!-- Sold Overlay Image -->
-                            {% if car.selled %}
-                            <div class="position-absolute" style="z-index: 1; left: 15px; top: 15px;">
-                                <div class="p-2 rounded" style="background-color: #e30a23;">
-                                    <h5 class="text-white mb-0">Sold out</h5>
-                                </div>
-                            </div>
-                            {% endif %}
-                        </div>
-                        <div class="categories-content rounded-bottom p-4">
-                            <h4 style="color: #e30a23;">{{ car.brand_name }} {{ car.model }}</h4>
-                            <div class="mb-4">
-                                <h5 class="bg-white text-dark rounded-pill py-2 px-4 mb-0">
-                                    {{ car.cash_price }} AED
-                                </h5>
-                            </div>
-                            <div class="row gy-2 gx-0 text-center mb-4">
-                                <div class="col-5 border-end border-white">
-                                    <i class="fa fa-car" style="color: #e30a23;"></i> <span class="ms-1" style="color: white;">{{ car.model_year }}</span>
-                                </div>
-                                <div class="col-6">
-                                    <i class="fa fa-road" style="color: #e30a23;"></i> <span class="ms-1" style="color: white;">{{ car.mileage }}KM</span>
-                                </div>
-                            </div>
-                            <!-- Button Logic -->
-                            {% if car.selled %}
-                                <button class="btn rounded-pill d-flex justify-content-center py-3 w-100" style="background-color: #e30a23; color:rgb(0,0,0); cursor: not-allowed;" disabled>Sold Out</button>
-                            {% else %}
-                                <a href="{% url 'c7_motors:car_details' car_name=car.brand_name car_model=car.model car_id=car.id %}" class="btn rounded-pill d-flex justify-content-center py-3" style="background-color: #e30a23; color:rgb(0,0,0)">Show Details</a>
-                            {% endif %}
-                        </div>
-                    </div>
-                </div>
-                {% endfor %}
+  <section class="container my-5">
+    <div class="row g-4">
+        <div class="text-center mx-auto pb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 800px;">
+            <h1 class="display-5 text-capitalize mb-3" style="color: #e30a23;">Articles</h1>
+            <p class="mb-0" style="color: rgb(53,53,53);">All the articles on this page are written by our dedicated team at C7 Motors to keep you informed, inspired, and confident when it comes to car ownership in the UAE. From expert tips to the latest trends, everything here is crafted to support your journey on the road</p>
+        </div>
+      <!-- Article Card -->
+      {% for article in articles %}
+      <div class="col-md-4">
+        <div class="card article-card shadow-sm">
+            <img src="{{ articel.image.url }}" class="article-img" alt="Article Image">
+            <div class="card-body">
+            <span class="badge badge-red text-white mb-2">{{ article.type }}</span>
+            <h5 class="card-title">{{ article.title }}</h5>
+            <p class="card-text">
+                {{ article.header }}
+                <span class="more-text" style="display: none;">
+                {{ article.read_more }}
+                </span>
+            </p>
+            <a href="javascript:void(0);" onclick="toggleReadMore(this)" class="btn btn-outline-dark btn-sm">Read More</a>
             </div>
         </div>
+       </div>
+       {% endfor %}
+      </div>
     </div>
-    <!-- Cars End -->
+  </section>
 
     <!-- Footer Start -->
     <div class="container-fluid footer py-5 wow fadeIn" data-wow-delay="0.2s">
@@ -260,7 +207,6 @@
     </div>
     <!-- Copyright End -->
 
-
     <!-- JavaScript Libraries -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
@@ -288,6 +234,17 @@
             return cookieValue;
         }
         const csrftoken = getCookie('csrftoken');
+
+        function toggleReadMore(button) {
+            const moreText = button.parentElement.querySelector(".more-text");
+            if (moreText.style.display === "none" || moreText.style.display === "") {
+            moreText.style.display = "inline";
+            button.textContent = "Read Less";
+            } else {
+            moreText.style.display = "none";
+            button.textContent = "Read More";
+            }
+        }
     </script>
 
     <!-- Template Javascript -->
@@ -297,8 +254,6 @@
     <script src="{% static 'js/bootstrap.min.js' %}"></script>
     <script src="{% static 'js/jquery.nice-select.min.js' %}"></script>
     <script src="{% static 'js/owl.carousel.min.js' %}"></script>
-    <!-- Iconify Script -->
-    <script src="https://code.iconify.design/2/2.2.1/iconify.min.js"></script>
 </body>
 
 </html>

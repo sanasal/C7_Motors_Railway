@@ -25,7 +25,7 @@ class CustomAdminSite(admin.AdminSite):
                 if model["object_name"] in ["CarImageZip", "CarImage", "Car"]:
                     car_details_section["models"].append(model)
 
-                elif model["object_name"] in ["User", "CustomUser" , "Group" , "MayNumbers"]:
+                elif model["object_name"] in ["User", "CustomUser" , "Group"]:
                     auth_section["models"].append(model)
 
                 else:
@@ -66,11 +66,6 @@ custom_admin_site = CustomAdminSite(name="custom_admin")
 custom_admin_site.register(CarImageZip , CarImageZipAdmin)
 custom_admin_site.register(CarImage , CarImagesAdmin)
 custom_admin_site.register(Car , CarAdmin)
-custom_admin_site.register(CarsCart)
-custom_admin_site.register(InstallmentsCustomer)
-custom_admin_site.register(InstallmentsCustomerWithoutDP)
-custom_admin_site.register(Cart , SimpleHistoryAdmin)
 custom_admin_site.register(CustomersData)
 custom_admin_site.register(Group)
 custom_admin_site.register(User)
-custom_admin_site.register(MayNumbers)

@@ -100,10 +100,9 @@
                         <div class="navbar-nav mx-auto mt-3 py-0">
                             <a href="{% url 'c7_motors:home' %}" class="nav-item nav-link"><i class="bi bi-house-door"></i> Home</a>
                             <a href="{% url 'c7_motors:about' %}" class="nav-item nav-link"><i class="bi bi-info-circle"></i> About</a>
-                            <a href="{% url 'c7_motors:service' %}" class="nav-item nav-link"><i class="bi bi-tools"></i> Service</a>
-                            <a href="{% url 'c7_motors:feature' %}" class="nav-item nav-link"><i class="bi bi-star-fill"></i> Features</a>
-                            <a href="{% url 'c7_motors:shopping_cart' %}" class="nav-item nav-link"><i class="bi bi-basket3"></i> My Cart</a>
-                            <a href="" class="nav-item nav-link" id="checkout-button" data-bs-toggle="modal" data-bs-target="#exampleModal"><i class="bi bi-cash"></i> Pay</a>
+                            <a href="{% url 'c7_motors:financing' %}" class="nav-item nav-link"><i class="bi bi-cash"></i> Financing</a>
+                            <a href="{% url 'c7_motors:inventory' %}" class="nav-item nav-link"><span class="iconify" data-icon="mdi-car-side" style="font-size: 27px;"></span> Inventory</a>
+                            <a href="{% url 'c7_motors:articles'%}" class="nav-item nav-link"><i class="bi bi-file-earmark-text"></i> Articles</a>
                             <a href="{% url 'c7_motors:contact_us' %}" class="nav-item nav-link active"><i class="bi bi-telephone"></i> Contact</a>
                         </div>
                         {% if user.is_authenticated %}
@@ -120,22 +119,6 @@
             </div>
         </div>
         <!-- Navbar & Hero End -->
-
-        <!-- Model Start -->
-        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                <h1 class="modal-title" id="exampleModalLabel" style="color: #e30a23;">Welcome to<h1 class="modal-title" style="color: #323232;margin-left:5px">C</h1> <h1 class="modal-title" style="color: #e30a23;">7</h1></h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    Please wait until return to checkout page
-                </div>
-            </div>
-            </div>
-        </div>
-        <!-- Model End -->
 
         <!-- Header Start -->
         <div class="container-fluid bg-breadcrumb">
@@ -240,7 +223,7 @@
                     </div>
                     <div class="col-12">
                         <div class="rounded">
-                            <iframe class="rounded w-100" src="https://maps.app.goo.gl/dsu1MEMQ8PYc7j5z9" width="100%" height="400px" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>  
+                            <iframe class="rounded w-100" src="https://maps.app.goo.gl/BZzhkZxu2umWPi629" width="100%" height="400px" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>  
                         </div>
                     </div>
 
@@ -256,12 +239,7 @@
                     <div class="col-md-6 col-lg-6 col-xl-3">
                         <div class="footer-item d-flex flex-column">
                             <div class="footer-item">
-                                <h4 class="text-white mb-4">About Us</h4>
-                                <p class="mb-3" style="color: #e0e0e0c1;">
-                                    At C7 Motors, we are dedicated to making car ownership accessible and seamless. Our mission is to provide high-quality, pre-owned vehicles paired with exceptional customer service.
-                                    We offer flexible payment options, including cash purchases and convenient installment plans, ensuring that everyone can find the right car for their needs. 
-                                    At C7 Motors, our goal is to help you drive away with confidence and satisfaction.
-                                </p>
+                                <img src="{% static 'img/C7-white-logo.png'%}" alt="C7 Logo" width="60%" height="60%">
                             </div>
                         </div>
                     </div>
@@ -269,15 +247,15 @@
                         <div class="footer-item d-flex flex-column">
                             <h4 class="text-white mb-4">Quick Links</h4>
                             <a href="{% url 'c7_motors:about' %}"><i class="fas fa-angle-right me-2"></i> About</a>
-                            <a href="{% url 'c7_motors:shopping_cart' %}"><i class="fas fa-angle-right me-2"></i> My Cart</a>
-                            <a href="{% url 'c7_motors:contact_us' %}"><i class="fas fa-angle-right me-2"></i> Contact us</a>
+                            <a href="{% url 'c7_motors:inventory' %}"><i class="fas fa-angle-right me-2"></i> Inventory</a>
+                            <a href="{% url 'c7_motors:financing' %}"><i class="fas fa-angle-right me-2"></i> Financing</a>
                         </div>
                     </div>
                     <div class="col-md-6 col-lg-6 col-xl-3">
                         <div class="footer-item d-flex flex-column">
                             <h4 class="text-white mb-4">Business Hours</h4>
                             <div class="mb-3">
-                                <h6 class="mb-0" style="color: #e0e0e0c1;">We are open to serve you from 10:00 AM to 10:00 PM every day</h6>
+                                <h6 class="mb-0" style="color: #e0e0e0c1;">We are open to serve you 24/7 with extended showroom hours from 11 AM to 10 PM every day</h6>
                             </div>
                         </div>
                     </div>
@@ -306,10 +284,10 @@
                         <span style="color: #e0e0e0c1;"><a href="#" class="border-bottom text-white"><i class="fas fa-copyright text-light me-2"></i>C7 Motors</a>, All right reserved.</span>
                     </div>
                     <div class="col text-center text-md-start mb-md-0">
-                        <span style="color: #e0e0e0c1;"><a href="#" class="border-bottom text-white">Designed & Developed By Sana Salhdar</a> +963968678579</span>
+                        <span style="color: #e0e0e0c1;">Designed By <a href="https://htmlcodex.com" class="border-bottom text-white">HTML Codex</a></span>
                     </div>
                     <div class="col text-center text-md-start mb-md-0">
-                        <span style="color: #e0e0e0c1;">Designed By <a href="https://htmlcodex.com" class="border-bottom text-white">HTML Codex</a></span>
+                        <span style="color: #e0e0e0c1;"><a href="mailto:sanasalhdar@gmail.com" class="border-bottom text-white">sanasalhdar@gmail.com</a> <br>Designed & Developed By Sana Salhdar</span>
                     </div>
                 </div>
             </div>
@@ -318,52 +296,6 @@
 
     <!-- Back to Top -->
     <a href="#" class="btn btn-lg-square rounded-circle back-to-top" style="background-color: black; color:#ffffff"><i class="fa fa-arrow-up"></i></a>  
-    
-    <!-- Checkout Stripe -->
-    <script src="https://js.stripe.com/v3/"></script>
-    <script type="text/javascript">
-        // Initialize Stripe with the publishable key passed from Django
-        var stripe = Stripe('{{ STRIPE_PUBLISHABLE_KEY }}');  
-    
-        // Assign total_price from the Django template to a JavaScript variable
-        var remainingPrice = "{{ stripe_remaining }}";  // This will be output as a string
-    
-        // Convert the string to a number (in case it's a decimal or string)
-        var remainingPriceFloat = parseFloat(remainingPrice);
-    
-        // Make sure the checkout button is clicked before starting the Stripe process
-        var checkoutButton = document.getElementById('checkout-button');
-    
-        checkoutButton.addEventListener('click', function() {
-            // Send a POST request to create the checkout session
-            fetch('/create-remaining-checkout-session/', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRFToken': '{{ csrf_token }}',  // Include CSRF token for security
-                },
-                body: JSON.stringify({
-                    stripe_remaining: remainingPriceFloat  // Pass the correctly parsed total price as a number
-                }),
-            })
-            .then(function(response) {
-                return response.json();
-            })
-            .then(function(session) {
-                // Redirect to the Stripe Checkout session
-                return stripe.redirectToCheckout({ sessionId: session.id });
-            })
-            .then(function(result) {
-                if (result.error) {
-                    // If there's an error, alert the user
-                    alert(result.error.message);
-                }
-            })
-            .catch(function(error) {
-                console.error('Error:', error);
-            });
-        });
-    </script>
         
     <!-- JavaScript Libraries -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
@@ -373,6 +305,8 @@
     <script src="{% static 'lib/waypoints/waypoints.min.js'%}"></script>
     <script src="{% static 'lib/counterup/counterup.min.js'%}"></script>
     <script src="{% static 'lib/owlcarousel/owl.carousel.min.js'%}"></script>
+    <!-- Iconify Script -->
+    <script src="https://code.iconify.design/2/2.2.1/iconify.min.js"></script>
     
 
     <!-- Template Javascript -->

@@ -1,0 +1,539 @@
+{% block content %}
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        {% load compress %}
+        {% compress css %}
+        <title>C7 Motors | Car Financing in Dubai</title>
+        <meta charset="utf-8">
+        <meta name="description" content="Find high-quality used cars for sale at competitive prices. Browse our wide selection of well-maintained vehicles with flexible financing options. Explore now!" />
+        <meta name="keywords" content="c7 motors , used cars for sale, buy a used car, best used car prices, second-hand cars, pre-owned vehicles, used cars in Dubai" />
+        <meta content="width=device-width, initial-scale=1.0" name="viewport">
+        <meta name="google-site-verification" content="BJ4CjEtyguRrGuHJdexYqnJmZcU0QHDpW-JubFpbAmQ" />
+
+        <!-- Google Web Fonts -->
+        <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;0,700;0,900;1,400;1,700;1,900&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet"> 
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>    
+
+        <!-- Icon Font Stylesheet -->
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"/>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+        <link rel="preload" type="image/png" href="{% static 'img/c7_logo.webp'%}">
+
+        <!-- Libraries Stylesheet -->
+        <link href="{% static 'lib/animate/animate.min.css'%}" rel="stylesheet">
+        <link href="{% static 'lib/owlcarousel/assets/owl.carousel.min.css'%}" rel="stylesheet">
+
+
+        <!-- Customized Bootstrap Stylesheet -->
+        <link href="{% static 'css/bootstrap.min.css'%}" rel="stylesheet">
+
+        <!-- Template Stylesheet -->
+        <link href="{% static 'css/style.css'%}" rel="stylesheet">
+        <link rel="stylesheet" href="{% static 'css/nice-select.css' %}" type="text/css">
+        {% endcompress %}
+    </head>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    <script type="text/javascript">
+        (function() {
+            // https://dashboard.emailjs.com/admin/account
+            emailjs.init({
+              publicKey: "sLqDm49VYqLQbcqrV",
+            });
+        })();
+    </script>
+    <script type="text/javascript">
+        window.onload = function() {
+        document.getElementById('finance-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const form = this;
+
+            const formData = new FormData(this);
+            for (let pair of formData.entries()) {
+            console.log(pair[0] + ': ' + pair[1]);
+            }
+
+            emailjs.sendForm('service_bxwmkdj', 'template_xt5y7l5', form)
+                .then(() => {
+                    alert('Thank you, your message has been sent.');
+                    form.submit();  // Now submit the form normally to Django
+                }, (error) => {
+                    alert('Your message has not been sent, please try again.');
+                    console.error(error);
+                });
+        });
+        }
+    </script>
+    <body>
+        <!-- Spinner Start -->
+        <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center" id="promoBanner">
+            <div class="spinner-border" style="width: 3rem; height: 3rem;color:#e30a23;" role="status">
+                <span class="sr-only">Loading...</span>
+            </div>
+        </div>
+        <!-- Spinner End -->
+
+        <!-- Topbar Start -->
+        <div class="container-fluid topbar d-none d-xl-block w-100" style="background:#ffffff;">
+            <div class="container">
+                <div class="row gx-0 align-items-center" style="height: 45px;">
+                    <div class="col-lg-6 text-center text-lg-start mb-lg-0">
+                        <div class="d-flex flex-wrap">
+                            <span class="me-4" style="color: rgb(0, 0, 0)"><i class="fas fa-phone-alt me-2" style="color: #e30a23;"></i>+971562341000</span>
+                            <a class="me-0" style="color: rgb(0, 0, 0)" href="mailto:Csev7motors@gmail.com"><i class="fas fa-envelope me-2" style="color: #e30a23;"></i>Csev7motors@gmail.com</a>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 text-center text-lg-end">
+                        <div class="d-flex align-items-center justify-content-end">
+                            <a href="https://www.tiktok.com/@_c7motors" class="btn btn-light btn-sm-square rounded-circle me-3"><i class="fab fa-tiktok"></i></a>
+                            <a href="https://www.instagram.com/c.7.motors/" class="btn btn-light btn-sm-square rounded-circle me-3"><i class="fab fa-instagram"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Topbar End -->
+
+        <!-- Navbar & Hero Start -->
+        <div class="container-fluid nav-bar sticky-top px-0 px-lg-4 py-2 py-lg-0">
+            <div class="container">
+                <nav class="navbar navbar-expand-lg navbar-light">
+                    <a href="" class="navbar-logo p-0">
+                        <img src="{% static 'img/c7_logo.webp'%}" alt="C7 Motors company logo" loading="eager">
+                    </a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+                        <span class="fa fa-bars"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarCollapse">
+                        <div class="navbar-nav mx-auto py-0 mt-3">
+                            <a href="{% url 'c7_motors:home' %}" class="nav-item nav-link"><i class="bi bi-house-door"></i> Home</a>
+                            <a href="{% url 'c7_motors:about' %}" class="nav-item nav-link"><i class="bi bi-info-circle"></i> About</a>
+                            <a href="{% url 'c7_motors:financing' %}" class="nav-item nav-link active"><i class="bi bi-tools"></i> Financing</a>
+                            <a href="{% url 'c7_motors:inventory' %}" class="nav-item nav-link"><span class="iconify" data-icon="mdi-car-side" style="font-size: 27px;"></span> Inventory</a>
+                            <a href="{% url 'c7_motors:articles'%}" class="nav-item nav-link"><i class="bi bi-file-earmark-text"></i> Articles</a>
+                            <a href="{% url 'c7_motors:contact_us' %}" class="nav-item nav-link"><i class="bi bi-telephone"></i> Contact</a>
+                        </div>
+                        {% if user.is_authenticated %}
+                            <form action="/log_out/" method="post" class="main_nav">
+                                {% csrf_token %}
+                                <a class="btn rounded-pill" style="background-color: #e30a23;"><button type="submit" class="btn" style="color: #ffffff;">Log out</button></a>
+                            </form>
+                        {% else %}
+                            <a class="btn rounded-pill mx-3" style="background-color: #e30a23;" href="{% url 'c7_motors:log_in'%}"><button type="submit" class="btn" style="color: #ffffff;">Log in</button></a>
+                            <a class="btn rounded-pill" style="background-color: #e30a23;" href="{% url 'c7_motors:sign_in'%}"><button type="submit" class="btn" style="color: #ffffff;">Sign in</button></a>
+                        {% endif %}
+                    </div>
+                </nav>
+            </div>
+        </div>
+        <!-- Navbar & Hero End -->
+
+        <div class="container py-5 px-3 px-md-5">
+
+            <!-- HERO INTRO -->
+            <div class="text-center mb-5">
+                <h1 class="display-5 fw-bold text-dark mb-3">💸 Car Financing in Dubai 💸</h1>
+                <p class="lead text-muted fs-5">Everything You Need to Know</p>
+                <p class="text-muted" style="font-size: 20px;">
+                    Car financing in Dubai has become an increasingly popular option for residents and expats looking to purchase their dream car without having to make a full upfront payment. 
+                    With the rapid growth of the automotive sector in the UAE and the availability of a wide variety of financing options, buying a car—especially a premium pre-owned one—has never been easier.
+                    Whether you're a salaried employee or self-employed, there are flexible solutions that can match your income level and lifestyle. 
+                    Major local banks and financial institutions offer tailored car loan packages that are both Shariah-compliant and conventional, giving buyers freedom to choose what best suits their needs.
+                </p>
+            </div>
+
+            <!-- Financing Start -->
+                <div class="container py-5 wow fadeInUp">
+                <!-- Service Item 1 -->
+                <div class="d-flex flex-wrap align-items-center mb-4 wow fadeInUp">
+                    <img src="{% static 'img/zero-downpayment.png'%}" alt="Learn" style="max-width: 250px; height: auto; margin-right: 0;">
+                    <div class="ps-3">
+                    <h4 class="mb-2" style="color:#e30a23">Zero Down Payment</h4>
+                    <p class="mb-0" style="font-size: 17px;">
+                        One of the standout features of car financing in Dubai is the "Zero Down Payment" option, 
+                        <br>
+                        where qualified applicants can get approval without needing to pay anything upfront.
+                        <br> 
+                        This is ideal for first-time buyers or anyone who prefers to maintain liquidity.
+                        <br>
+                        At C7 Motors, we’ve partnered with multiple leading banks in the UAE to offer our  
+                        <br>
+                        customers highly competitive interest rates, fast approvals, and a smooth, hassle-free experience. 
+                        <br>
+                        You can even trade in your old car and use it as a down payment for your new one.
+                    </p>
+                    </div>
+                </div>
+
+                <!-- Service Item 2 (image on right) -->
+                <div class="d-flex flex-wrap align-items-center mb-4 flex-row-reverse text-end wow fadeInUp">
+                    <img src="{% static 'img/car_financing.png'%}" alt="Post" style="max-width: 250px; height: auto; margin-left: 0;">
+                    <div class="pe-3">
+                    <h4 class="mb-2" style="color:#e30a23;">Used Car Financing</h4>
+                    <p class="mb-0" style="font-size: 17px;">
+                        Car financing is not only limited to brand-new vehicles.Thanks to improved
+                        <br>
+                        regulations and bank policies, certified used cars are also eligible
+                        <br>
+                        for full or partial financing—depending on the car’s age, condition, and valuation
+                        <br>
+                        Most banks provide financing terms ranging from 12 to 60 months, and your monthly installment
+                        <br>
+                        can be calculated easily using our in-house Financing Calculator below.
+                    </p>
+                    </div>
+                </div>
+
+                    <!-- Service Item 3 -->
+                    <div class="d-flex flex-wrap align-items-center mb-4 wow fadeInUp">
+                        <img src="{% static 'img/financing_journey.png'%}" alt="Financing Journey" style="max-width: 250px; height: auto; margin-right: 0;">
+                        <div class="ps-3">
+                        <h4 class="mb-2" style="color:#e30a23;">Financing Journey Starts Here</h4>
+                        <p class="mb-0" style="font-size: 17px;">
+                            Whether you’re looking for a luxury sedan, SUV, or even an electric or hybrid vehicle, 
+                            <br>
+                            our sales and financing advisors are ready to guide you through every step—from  
+                            <br>
+                            vehicle selection to loan approval. Below you’ll find everything you need to get started, 
+                            <br>
+                            including the required documents, a financing calculator, and a quick application form
+                        </p>
+                        </div>
+                    </div>
+                </div>
+            <!-- Financing End -->
+
+            <!-- BASIC REQUIREMENTS -->
+            <div class="bg-white p-4 p-md-5 rounded-4 shadow-sm mb-5 border">
+                <h3 class="fw-bold text-danger mb-4"><i class="fas fa-clipboard-list me-2"></i>📝 Basic Requirements for Car Financing in the UAE</h3>
+                <ul class="fs-5 text-muted">
+                    <li><i class="bi bi-check-circle-fill text-success me-2"></i> Emirates ID (UAE Nationals) or Passport & Visa Copy (Expats)</li>
+                    <li><i class="bi bi-check-circle-fill text-success me-2"></i> Valid UAE Driving License</li>
+                    <li><i class="bi bi-check-circle-fill text-success me-2"></i> Salary Certificate or 3–6 months Bank Statement</li>
+                    <li><i class="bi bi-check-circle-fill text-success me-2"></i> Minimum Monthly Salary: 5,000 AED</li>
+                    <li><i class="bi bi-check-circle-fill text-success me-2"></i> Car should be less than 10 years old (most banks)</li>
+                </ul>
+            </div>
+
+            <!-- CALCULATOR & FORM SECTION -->
+            <div class="row g-4 mb-5" id="calculator">
+                <!-- Calculator -->
+                <div class="col-lg-6">
+                    <div class="bg-white p-4 rounded-4 shadow-sm h-100">
+                        <h4 class="fw-bold mb-4"><i class="fas fa-calculator text-primary me-2"></i>🔢 Financing Calculator</h4>
+                        <form> 
+                        {% csrf_token %}    
+                            <div class="mb-3">
+                                <label class="form-label">Car Price (AED)</label>
+                                <input type="number" name="car_price" id="car_price" class="form-control" placeholder="e.g. 60000">
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Down Payment (%)</label>
+                                <input type="number" name="downpayment" id="downpayment" class="form-control" placeholder="e.g. 10">
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Loan Duration (Months)</label>
+                                <input type="number" name="loan_duration" id="loan_duration" class="form-control" placeholder="e.g. 60">
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Estimated Monthly Payment</label>
+                                <input type="text" class="form-control" id="estimated_monthly_payment" name="estimated_monthly_payment" disabled>
+                            </div>
+                        </form>   
+                    </div>
+                </div>
+
+                <!-- Quick Apply -->
+                <div class="col-lg-6">
+                    <div class="bg-white p-4 rounded-4 shadow-sm h-100">
+                        <h4 class="fw-bold mb-4"><i class="fas fa-paper-plane text-primary me-2"></i>📩 Quick Financing Request</h4>
+                        <form id="finance-form" action="{% url 'c7_motors:add_data' %}" method="post">
+                        {% csrf_token %}
+                        <div class="mb-3">
+                                <label class="form-label">Name</label>
+                                <input type="text" class="form-control" name="name" id="name" placeholder="e.g. John Doe" value="{{ form.name.value|default_if_none:'' }}">
+                        </div>
+                        <div class="mb-3">
+                                <label class="form-label">Email</label>
+                                <input type="email" class="form-control" name="email" id="email" placeholder="e.g. JohnDoe@gmail.com" value="{{ form.email.value|default_if_none:'' }}">
+                        </div>
+                        <div class="mb-3">
+                                <label class="form-label">Phone Number</label>
+                                <input type="text" name="mobile_phone" id="mobile_phone" class="form-control" placeholder="+971 50 123 4567" value="{{ mobile_phone }}">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Car Interested In</label>
+                            <select class="form-select" name="car" id="car">
+                                    {% for car in cars %}
+                                    <option value="{{ car.brand_name }} {{ car.model }}">
+                                        {{ car.brand_name }} {{ car.model }}
+                                    </option>
+                                    {% endfor %}
+                            </select>
+                        </div>
+                        <div class="mb-4">
+                                <label class="form-label">Employment Type</label>
+                                <select class="form-select" name="employment_type" id="employment_type">
+                                    <option value="Salaried">Salaried</option>
+                                    <option value="Self-Employed">Self-Employed</option>
+                                </select>
+                        </div>
+                        <button type="submit" class="btn btn-danger w-100 rounded-pill">Submit Financing Request</button>
+                    </form>
+
+                    </div>
+                </div>
+            </div>
+
+            <!-- FAQ SECTION -->
+            <div class="text-center mb-4">
+                <h2 class="fw-bold"><i class="fas fa-question-circle text-danger me-2"></i>❓ Frequently Asked Questions</h2>
+            </div>
+
+            <div class="accordion shadow-sm rounded-4" id="faqAccordion">
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="heading1">
+                        <button class="accordion-button collapsed fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#collapse1">
+                            Can I finance a used car in Dubai?
+                        </button>
+                    </h2>
+                    <div id="collapse1" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                        <div class="accordion-body text-muted">
+                            Yes, many banks offer financing options for used cars up to a certain age, typically 8–10 years depending on the car's condition and value.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="heading2">
+                        <button class="accordion-button collapsed fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#collapse2">
+                            Is it possible to get financing with no down payment?
+                        </button>
+                    </h2>
+                    <div id="collapse2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                        <div class="accordion-body text-muted">
+                            Absolutely. If your credit profile is strong and your salary meets the criteria, we can help you secure a loan with 0% down payment.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="heading3">
+                        <button class="accordion-button collapsed fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#collapse3">
+                            How long does loan approval take?
+                        </button>
+                    </h2>
+                    <div id="collapse3" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                        <div class="accordion-body text-muted">
+                            Typically, it takes 24 to 48 hours once all documents are submitted.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="heading4">
+                        <button class="accordion-button collapsed fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#collapse4">
+                            What if I have an existing loan or credit card?
+                        </button>
+                    </h2>
+                    <div id="collapse4" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                        <div class="accordion-body text-muted">
+                            That’s not a problem. Banks will evaluate your Debt-to-Income ratio (DTI) to determine your eligibility.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="heading5">
+                        <button class="accordion-button collapsed fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#collapse5">
+                            Can I use my current car as a trade-in?
+                        </button>
+                    </h2>
+                    <div id="collapse5" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                        <div class="accordion-body text-muted">
+                            Yes. We offer trade-in evaluations, and the value can be used as part of your down payment.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="heading6">
+                        <button class="accordion-button collapsed fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#collapse6">
+                            What interest rates should I expect?
+                        </button>
+                    </h2>
+                    <div id="collapse6" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                        <div class="accordion-body text-muted">
+                            Rates vary by bank, but typically range from 2.5% to 4.5% annually for qualified applicants.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="heading7">
+                        <button class="accordion-button collapsed fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#collapse7">
+                            Do you assist with the bank application?
+                        </button>
+                    </h2>
+                    <div id="collapse7" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                        <div class="accordion-body text-muted">
+                            Yes, our team handles the entire process on your behalf—saving you time and paperwork.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- Footer Start -->
+        <div class="container-fluid footer py-5 wow fadeIn" data-wow-delay="0.2s">
+            <div class="container py-5">
+                <div class="row g-5">
+                    <div class="col-md-6 col-lg-6 col-xl-3">
+                        <div class="footer-item d-flex flex-column">
+                            <div class="footer-item">
+                                <img src="{% static 'img/C7-white-logo.png'%}" alt="C7 Logo" width="60%" height="60%">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-6 col-xl-3">
+                        <div class="footer-item d-flex flex-column">
+                            <h4 class="text-white mb-4">Quick Links</h4>
+                            <a href="{% url 'c7_motors:about' %}"><i class="fas fa-angle-right me-2"></i> About</a>
+                            <a href="{% url 'c7_motors:inventory' %}"><i class="fas fa-angle-right me-2"></i> Inventory</a>
+                            <a href="{% url 'c7_motors:financing' %}"><i class="fas fa-angle-right me-2"></i> Financing</a>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-6 col-xl-3">
+                        <div class="footer-item d-flex flex-column">
+                            <h4 class="text-white mb-4">Business Hours</h4>
+                            <div class="mb-3">
+                                <h6 class="mb-0" style="color: #e0e0e0c1;">We are open to serve you from 10:00 AM to 10:00 PM every day</h6>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-6 col-xl-3">
+                        <div class="footer-item d-flex flex-column">
+                            <h4 class="text-white mb-4">Contact Info</h4>
+                            <a href="#"><i class="fa fa-map-marker-alt me-2"></i> 18th St -Al Quoz Industrial Area 1 - Dubai - United Arab Emirates</a>
+                            <a href="mailto:Csev7motors@gmail.com"><i class="fas fa-envelope me-2"></i> Csev7motors@gmail.com</a>
+                            <a href="#"><i class="fas fa-phone me-2"></i> +971562341000</a>
+                            <div class="d-flex">
+                                <a class="btn btn-md-square rounded-circle me-3" href="https://www.tiktok.com/@_c7motors"><i class="fab fa-tiktok text-white"></i></a>
+                                <a class="btn btn-md-square rounded-circle me-3" href="https://www.instagram.com/c.7.motors/"><i class="fab fa-instagram text-white"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Footer End -->
+        
+        <!-- Copyright Start -->
+        <div class="container-fluid copyright py-4">
+            <div class="container">
+                <div class="row g-4 align-items-center">
+                    <div class="col text-center text-md-start mb-md-0">
+                        <span style="color: #e0e0e0c1;"><a href="#" class="border-bottom text-white"><i class="fas fa-copyright text-light me-2"></i>C7 Motors</a>, All right reserved.</span>
+                    </div>
+                    <div class="col text-center text-md-start mb-md-0">
+                        <span style="color: #e0e0e0c1;"><a href="#" class="border-bottom text-white">Designed & Developed By Sana Salhdar</a> +963968678579</span>
+                    </div>
+                    <div class="col text-center text-md-start mb-md-0">
+                        <span style="color: #e0e0e0c1;">Designed By <a href="https://htmlcodex.com" class="border-bottom text-white">HTML Codex</a></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Copyright End -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        // CSRF token helper 
+        function getCSRFToken() {
+            let cookieValue = null;
+            const name = 'csrftoken';
+            if (document.cookie && document.cookie !== '') {
+                const cookies = document.cookie.split(';');
+                for (let cookie of cookies) {
+                    cookie = cookie.trim();
+                    if (cookie.startsWith(name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+    
+        // Function to update salary overview dynamically
+        function updateSalaryOverview(action) {
+            const car_price = $('#car_price').val();
+            const downpayment = $('#downpayment').val();
+            const  loan_duration = $('#loan_duration').val();
+
+            if (!car_price || !downpayment || !loan_duration) {
+                // Ensure that we don't make a request with incomplete data
+                return;
+            }
+
+            $.ajax({
+                url: "{% url 'c7_motors:financing' %}",
+                method: "POST",
+                contentType: "application/json",
+                data: JSON.stringify({
+                    car_price: car_price,
+                    downpayment: downpayment,
+                    loan_duration: loan_duration,
+                    action: action
+                }),
+                headers: {
+                    'X-CSRFToken': getCSRFToken()
+                },
+                success: function (response) {
+                    // Update the DOM with the results
+                    $('#estimated_monthly_payment').val(response.estimated_monthly_payment || "AED 0.00");
+                },
+                error: function (error) {
+                    console.error("Error:", error.responseJSON || error.responseText);
+                    alert("An error occurred. Please try again.");
+                }
+            });
+        }
+
+        // Event listener for input changes
+        $('#car_price, #downpayment, #loan_duration').on('input', function () {
+            // Optionally, you can set the action based on which field changed or use a default action.
+            updateSalaryOverview();
+        });
+    </script>
+
+    <!-- JavaScript Libraries -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="{% static 'lib/wow/wow.min.js'%}"></script>
+    <script src="{% static 'lib/easing/easing.min.js'%}"></script>
+    <script src="{% static 'lib/waypoints/waypoints.min.js'%}"></script>
+    <script src="{% static 'lib/counterup/counterup.min.js'%}"></script>
+    <script src="{% static 'lib/owlcarousel/owl.carousel.min.js'%}"></script>
+    <script src="https://code.iconify.design/2/2.2.1/iconify.min.js"></script>
+   
+
+    <!-- Template Javascript -->
+    {% load compress %}
+    {% compress js %}
+    <script src="{% static 'js/main1.js'%}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'js/jquery.nice-select.min.js' %}"></script>
+    <script src="{% static 'js/owl.carousel.min.js' %}"></script>
+    {% endcompress %}
+</body>
+
+</html>
+{% endblock %}

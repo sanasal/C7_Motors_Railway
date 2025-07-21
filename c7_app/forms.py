@@ -28,27 +28,4 @@ class CustomUserCreationForm(UserCreationForm):
 class Customers_Data(forms.ModelForm):
     class Meta:
         model = CustomersData
-        fields = ['cars', 'name', 'email', 'mobile_phone', 'pick_up_location', 'pick_up_date' , 'pick_up_time']
-
-class Installments_Customers_Data(forms.ModelForm):
-    class Meta:
-        model = InstallmentsCustomer
-        fields =['cars', 'name', 'email', 'mobile_phone',
-                 'passport', 'driver_license' , 'personal_identification_card',
-                 'salary_certificate','bank_statement' ,
-                 'pick_up_location', 'pick_up_date' , 'pick_up_time']
-
-class Installments_Customers_Data_Without_DP(forms.ModelForm):
-    class Meta:
-        model = InstallmentsCustomerWithoutDP
-        fields =['cars', 'name', 'email', 'mobile_phone',
-                 'passport', 'driver_license' , 'personal_identification_card',
-                 'salary_certificate','bank_statement' ,
-                 'pick_up_location', 'pick_up_date' , 'pick_up_time']
-        
-
-
-class MayNumbersForm(forms.ModelForm):
-    class Meta:
-        model = MayNumbers
-        fields = ['phone_number']
+        fields = ['name', 'email', 'mobile_phone', 'cars', 'employment_type']
