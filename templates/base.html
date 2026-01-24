@@ -1,0 +1,254 @@
+{% load static %}
+{% load i18n %}
+
+<!DOCTYPE html>
+<html lang="{{ LANGUAGE_CODE }}">
+
+    <head>
+        {% load compress %}
+        {% compress css %}
+        <meta charset="utf-8">
+        <meta content="width=device-width, initial-scale=1.0" name="viewport">
+        <meta name="google-site-verification" content="BJ4CjEtyguRrGuHJdexYqnJmZcU0QHDpW-JubFpbAmQ" />
+    
+        {% block meta %}
+        {% endblock %}
+        
+        <!-- SEO -->
+        <script type="application/ld+json">
+            {
+            "@context": "https://schema.com",
+            "@type": "Company",
+            "name": "{% trans 'C7 Motors Team' %}",
+            "url": "https://c7motors.com",
+            "logo": "https://c7motors.com/static/img/c7_logo.webp",
+            "sameAs": [
+                "https://www.facebook.com/C7.motors",
+                "https://www.instagram.com/c7.motors",
+                "https://www.tiktok.com/@c7motors",
+            ]
+            }
+        </script>
+    
+        <!-- Google Web Fonts -->
+        <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;0,700;0,900;1,400;1,700;1,900&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet"> 
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>    
+
+        <!-- Icon Font Stylesheet -->
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"/>
+        <link rel="icon" type="image/webp" href="{% static 'img/c7_logo.webp'%}">
+
+        <!-- Libraries Stylesheet -->
+        <link href="{% static 'lib/animate/animate.min.css'%}" rel="preload" as="style" onload="this.rel='stylesheet'">
+        <link href="{% static 'lib/owlcarousel/assets/owl.carousel.min.css'%}" rel="preload" as="style" onload="this.rel='stylesheet'">
+
+        <!-- Customized Bootstrap Stylesheet -->
+        <link href="{% static 'css/bootstrap.min.css'%}" rel="stylesheet">
+
+        <!-- Template Stylesheet -->
+        <link href="{% static 'css/style.css'%}" rel="stylesheet">
+        <link rel="preload" href="{% static 'css/nice-select.css' %}" type="text/css" as="style" onload="this.rel='stylesheet'">
+        {% endcompress %}
+
+<body>
+    <!-- ChatBot -->
+    <script src="//code.tidio.co/lcsi0sr22jnevnflmtrd2jmepa7m6f1q.js" async></script>
+    
+    <!-- Spinner Start -->
+        <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+            <div class="spinner-border" style="width: 3rem; height: 3rem; color:#e30a23" role="status">
+                <span class="sr-only">{% trans 'Loading...' %}</span>
+            </div>
+        </div>
+        <!-- Spinner End -->
+
+        <!-- Topbar Start -->
+        <div class="container-fluid topbar d-none d-xl-block w-100" style="background:#ffffff;">
+            <div class="container">
+                <div class="row gx-0 align-items-center" style="height: 45px;">
+                    <div class="col-lg-6 text-center text-lg-start mb-lg-0">
+                        <div class="d-flex flex-wrap">
+                            <span class="me-4" style="color: rgb(0, 0, 0)"><i class="fas fa-phone-alt me-2" style="color: #e30a23;"></i>+971 50 256 4677</span>
+                            <a class="me-0" style="color: rgb(0, 0, 0)" href="mailto:admin@c7motors.com"><i class="fas fa-envelope me-2" style="color: #e30a23;"></i>admin@c7motors.com</a>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 text-center text-lg-end">
+                        <div class="d-flex align-items-center justify-content-end">
+                            <a href="https://www.tiktok.com/@c7motors" aria-label="{% trans 'C7 Motors TikTok Account'%}" class="btn btn-light btn-sm-square rounded-circle me-3"><i class="fab fa-tiktok"></i></a>
+                            <a href="https://www.instagram.com/c7.motors/" aria-label="{% trans 'C7 Motors Instgram Account'%}" class="btn btn-light btn-sm-square rounded-circle me-3"><i class="fab fa-instagram"></i></a>
+                            <a href="https://www.facebook.com/C7.motors/" aria-label="{% trans 'C7 Motors Facebook Account'%}" class="btn btn-light btn-sm-square rounded-circle me-3"><i class="fab fa-facebook"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Topbar End -->
+
+        <!-- Navbar Start -->
+        <div class="container-fluid nav-bar sticky-top px-0 px-lg-2">
+        <div class="container">
+            <nav class="navbar navbar-expand-lg navbar-dark">
+            <!-- Logo -->
+            <a href="{% url 'c7_motors:home' %}" class="navbar-logo p-0 me-1">
+                <img src="{% static 'img/c7_logo.webp' %}" alt="{% trans 'C7 Motors company logo' %}" width="auto">
+            </a>
+
+            <!-- Mobile toggler -->
+            <button class="navbar-toggler" aria-label="{% trans 'navbar button'%}" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+                <span class="fa fa-bars"></span>
+            </button>
+
+            <!-- Navbar links -->
+            <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
+                <ul class="navbar-nav mx-auto align-items-center text-center gap-3 gap-lg-3 flex-wrap">
+                    <li class="nav-item">
+                        <a href="{% url 'c7_motors:home' %}"  style="font-size: 17px;" class="nav-link fw-semibold active">
+                        <i class="fas fa-home me-1"></i> {% trans "Home" %}
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{% url 'c7_motors:about' %}" style="font-size: 17px;" class="nav-link text-light fw-semibold">
+                        <i class="fas fa-info-circle me-1"></i> {% trans "About" %}
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{% url 'c7_motors:financing' %}" style="font-size: 17px;" class="nav-link text-light fw-semibold">
+                        <i class="fas fa-hand-holding-usd me-1"></i> {% trans "Financing" %}
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{% url 'c7_motors:inventory' %}" style="font-size: 17px;" class="nav-link text-light fw-semibold">
+                        <i class="fas fa-car-side me-1"></i> {% trans "Inventory" %}
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{% url 'c7_motors:articles' %}" style="font-size: 17px;" class="nav-link text-light fw-semibold">
+                        <i class="fas fa-file-alt me-1"></i> {% trans "Articles" %}
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{% url 'c7_motors:contact_us' %}" style="font-size: 17px;" class="nav-link text-light fw-semibold">
+                        <i class="fas fa-phone-alt me-1"></i> {% trans "Contact" %}
+                        </a>
+                    </li>
+
+                    <!-- Language Dropdown -->
+                    <li class="nav-item dropdown">
+                        <a style="font-size: 17px;" class="nav-link dropdown-toggle fw-semibold d-flex align-items-center justify-content-center text-light" 
+                         id="languageDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="fas fa-globe me-1"></i>
+                        {% get_current_language as LANGUAGE_CODE %}
+                        {% if LANGUAGE_CODE == 'ar' %}
+                            العربية
+                        {% elif LANGUAGE_CODE == 'ru' %}
+                            Русский
+                        {% else %}
+                            English
+                        {% endif %}
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end shadow-sm border-0" aria-labelledby="languageDropdown" style="background-color: #e0e0e0;">
+                        <li><a class="dropdown-item" href="{% url 'c7_motors:switch_language' lang_code='en' %}">English</a></li>
+                        <li><a class="dropdown-item" href="{% url 'c7_motors:switch_language' lang_code='ar' %}">العربية</a></li>
+                        <li><a class="dropdown-item" href="{% url 'c7_motors:switch_language' lang_code='ru' %}">Русский</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            </nav>
+        </div>
+        </div>
+        <!-- Navbar End --> 
+    
+
+    <!-- المحتوى الرئيسي -->
+    <main>
+        {% block content %}
+        
+        {% endblock %}
+    </main>
+
+
+    <!-- Footer Start -->
+        <div class="container-fluid footer py-5">
+            <div class="container py-5">
+                <div class="row g-5">
+                    <div class="col-md-6 col-lg-6 col-xl-3">
+                        <div class="footer-item d-flex flex-column">
+                            <div class="footer-item">
+                                <img src="{% static 'img/C7-white-logo.png'%}" alt="{% trans 'C7 Logo' %}" width="60%" height="60%">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-6 col-xl-3">
+                        <div class="footer-item d-flex flex-column">
+                            <h4 class="text-white mb-4">{% trans 'Quick Links' %}</h4>
+                            <a href="{% url 'c7_motors:about' %}"><i class="fas fa-angle-right me-2"></i> {% trans 'About' %}</a>
+                            <a href="{% url 'c7_motors:inventory' %}"><i class="fas fa-angle-right me-2"></i> {% trans 'Inventory' %}</a>
+                            <a href="{% url 'c7_motors:financing' %}"><i class="fas fa-angle-right me-2"></i> {% trans 'Financing' %}</a>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-6 col-xl-3">
+                        <div class="footer-item d-flex flex-column">
+                            <h4 class="text-white mb-4">{% trans 'Business Hours' %}</h4>
+                            <div class="mb-3">
+                                <h6 class="mb-0" style="color: #e0e0e0c1;">{% trans 'We are open to serve you 24/7 with extended showroom hours from 11 AM to 10 PM every day' %}</h6>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-6 col-xl-3">
+                        <div class="footer-item d-flex flex-column">
+                            <h4 class="text-white mb-4">{% trans 'Contact Info' %}</h4>
+                            <a href="#"><i class="fa fa-map-marker-alt me-2"></i> {% trans '18th St -Al Quoz Industrial Area 1 - Dubai - United Arab Emirates' %}</a>
+                            <a href="mailto:Csev7motors@gmail.com"><i class="fas fa-envelope me-2"></i> admin@c7motors.com</a>
+                            <a href="#"><i class="fas fa-phone me-2"></i> +971562341000</a>
+                            <div class="d-flex">
+                                <a class="btn btn-md-square rounded-circle me-3" href="https://www.tiktok.com/@c7motors"><i class="fab fa-tiktok text-white"></i></a>
+                                <a class="btn btn-md-square rounded-circle me-3" href="https://www.instagram.com/c7.motors/"><i class="fab fa-instagram text-white"></i></a>
+                                <a class="btn btn-md-square rounded-circle me-3" href="https://www.facebook.com/C7.motors"><i class="fab fa-facebook text-white"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Footer End -->
+        
+        <!-- Copyright Start -->
+        <div class="container-fluid copyright py-4">
+            <div class="container">
+                <div class="row g-4 align-items-center">
+                    <div class="col text-center text-md-start mb-md-0">
+                        <span style="color: #e0e0e0c1;"><a href="#" class="border-bottom text-white"><i class="fas fa-copyright text-light me-2"></i>{% trans 'C7 Motors' %}</a>, {% trans 'All right reserved.' %}</span>
+                    </div>
+                    <div class="col text-center text-md-start mb-md-0">
+                        <span style="color: #e0e0e0c1;"><a href="mailto:sanasalhdar@gmail.com" class="border-bottom text-white">sanasalhdar@gmail.com</a> <br>{% trans 'Designed & Developed By Sana Salhdar' %}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Copyright End -->
+
+    <!-- Whatsapp Button -->
+    <a href="https://wa.me/971502564677"
+        aria-label="{% trans 'Contact Via Whatsapp' %}"
+        class="whatsapp-btn">
+       <i class="fab fa-whatsapp"></i>
+    </a>
+    
+    <!-- JavaScript Libraries -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <script src="{% static 'lib/wow/wow.min.js'%}" defer></script>
+    <script src="{% static 'lib/owlcarousel/owl.carousel.min.js'%}" defer></script>
+    <script src="https://code.iconify.design/2/2.2.1/iconify.min.js" defer></script>
+
+    <!-- Template Javascript -->
+    {% load compress %}
+    {% compress js %}
+    <script src="{% static 'js/main1.js'%}" defer></script>
+    <script src="{% static 'js/owl.carousel.min.js' %}" defer></script>
+    {% endcompress %}
+</body>
+</html>

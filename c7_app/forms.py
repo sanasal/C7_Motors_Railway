@@ -3,6 +3,23 @@ from . models import *
 from django.contrib.auth.forms import UserCreationForm , AuthenticationForm 
 from django.contrib.auth.models import User 
 
+class CarForm(forms.ModelForm):
+    extra_features = forms.ModelMultipleChoiceField(
+        queryset=ExtraFeature.objects.all(),
+        required=False,
+        widget=forms.TypedMultipleChoiceField
+    )
+
+    technical_features = forms.ModelMultipleChoiceField(
+        queryset=TechnicalFeature.objects.all(),
+        required=False,
+        widget=forms.CheckboxSelectMultiple
+    )
+    class Meta:
+        model = Car
+        fields = '__all__'
+
+
 class CustomUserCreationForm(UserCreationForm):
     email = forms.EmailField(required=True)
     age = forms.IntegerField(required=True)
@@ -24,8 +41,8 @@ class CustomUserCreationForm(UserCreationForm):
         if User.objects.filter(email=email).exists():
             raise ValidationError("Email already exists.")
         return email
-    
-class Customers_Data(forms.ModelForm):
+
+class RequestsForm(forms.ModelForm):
     class Meta:
-        model = CustomersData
-        fields = ['name', 'email', 'mobile_phone', 'cars', 'employment_type']
+        model = RequestsData
+        fields = [ 'car' ,'name', 'mobile_phone' , 'language' , 'payment_method']

@@ -1,493 +1,47 @@
-{% block content %}
+{% extends 'base.html' %}
 {% load static %}
+{% load i18n %}
 
-<!DOCTYPE html>
-<html lang="en">
-
-    <head>
+{% block meta %}
         {% load compress %}
         {% compress css %}
-        <title>C7 Motors | Used Cars for Sale at the Best Prices</title>
-        <meta charset="utf-8">
-        <meta name="description" content="Find high-quality used cars for sale at competitive prices. Browse our wide selection of well-maintained vehicles with flexible financing options. Explore now!" />
-        <meta name="keywords" content="c7 motors , used cars for sale, buy a used car, best used car prices, second-hand cars, pre-owned vehicles, used cars in Dubai" />
-        <meta content="width=device-width, initial-scale=1.0" name="viewport">
-        <meta name="google-site-verification" content="BJ4CjEtyguRrGuHJdexYqnJmZcU0QHDpW-JubFpbAmQ" />
+        <title>{% trans 'C7 Motors | Used Cars for Sale at the Best Prices' %}</title>
+        <meta name="description" content="{% trans 'Find high-quality used cars for sale at competitive prices. Browse our wide selection of well-maintained vehicles with flexible financing options. Explore now!' %}" />
+        <meta name="keywords" content="{% trans 'c7 motors , used cars for sale, buy a used car, best used car prices, second-hand cars, pre-owned vehicles, used cars in Dubai' %}" />
+        <meta name="author" content="C7 Motors Team">
+        <meta name="robots" content="index, follow">
+        <link rel="canonical" href="https://c7motors.com/">
 
-        <!-- Google Web Fonts -->
-        <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;0,700;0,900;1,400;1,700;1,900&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet"> 
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>    
-
-        <!-- Icon Font Stylesheet -->
-        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"/>
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
-        <link rel="preload" type="image/png" href="{% static 'img/c7_logo.webp'%}">
-
-        <!-- Libraries Stylesheet -->
-        <link href="{% static 'lib/animate/animate.min.css'%}" rel="stylesheet">
-        <link href="{% static 'lib/owlcarousel/assets/owl.carousel.min.css'%}" rel="stylesheet">
-
-
-        <!-- Customized Bootstrap Stylesheet -->
-        <link href="{% static 'css/bootstrap.min.css'%}" rel="stylesheet">
-
+        <!-- Open Graph -->
+        <meta property="og:title" content="{% trans 'C7 Motors | Used Cars for Sale at the Best Prices' %}">
+        <meta property="og:description" content="{% trans 'Find high-quality used cars for sale at competitive prices. Browse our wide selection of well-maintained vehicles with flexible financing options. Explore now!' %}">
+        <meta property="og:image" content="{% static 'img/c7_logo.webp' %}">
+        <meta property="og:type" content="website">
+        <meta property="og:locale" content="en_US">
+        
         <!-- Template Stylesheet -->
-        <link href="{% static 'css/style.css'%}" rel="stylesheet">
+        <link href="{% static 'css/home.css'%}" rel="stylesheet">
         <link rel="stylesheet" href="{% static 'css/nice-select.css' %}" type="text/css">
         {% endcompress %}
-        <!-- Styling -->
-        <style>
-            .search-container {
-                background: #fff;
-                padding: 20px;
-                border-radius: 8px;
-                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-                width: 100%;
-                max-width: 600px;
-            }
-    
-            .search-container h2 {
-                margin-bottom: 20px;
-                text-align: center;
-                font-size: 24px;
-                color: black;
-            }
-    
-            .search-container button {
-                width: 100%;
-                padding: 10px;
-                background-color: #e30a23;
-                color: white;
-                font-size: 18px;
-                border: none;
-                border-radius: 4px;
-                cursor: pointer;
-                margin-top: 15px;
-            }
-    
-            .search-container button:hover {
-                background-color: #e30a23;
-            }
+{% endblock %}
 
-            .nav-item.nav-link:active
-            .nav-item.nav-link:hover
-            {
-                color: #e30a23;
-            }
-            .hero {
-                padding: 140px 0;
-            }
-            
-            .hero__text {
-                padding-top: 110px;
-            }
-            
-            .hero__text .primary-btn {
-                margin-right: 16px;
-            }
-            
-            .hero__text .primary-btn img {
-                position: relative;
-                top: -2px;
-            }
-            
-            .hero__text .primary-btn.more-btn {
-                background: transparent;
-                border: 1px solid #fff;
-            }
-            
-            .hero__text__title {
-                margin-bottom: 28px;
-            }
-            
-            .hero__text__title span {
-                font-size: 20px;
-                color: #fff;
-                font-weight: 700;
-                text-transform: uppercase;
-            }
-            
-            .hero__text__title h2 {
-                font-size: 60px;
-                color: #fff;
-                font-weight: 700;
-                margin-top: 10px;
-            }
-            
-            .hero__tab .nav-tabs {
-                border-bottom: none;
-            }
-            
-            .hero__tab .nav-tabs .nav-item {
-                margin-bottom: 5px;
-                margin-right: 5px;
-            }
-            
-            .hero__tab .nav-tabs .nav-item .nav-link {
-                position: relative;
-                font-size: 15px;
-                font-weight: 700;
-                color: #323232;
-                display: inline-block;
-                padding: 7px 20px;
-                border: none;
-                border-radius: 2px;
-                background: #fff;
-            }
-            
-            .hero__tab .nav-tabs .nav-item .nav-link:after {
-                position: absolute;
-                content: "";
-                width: 100%;
-                height: 10px;
-                left: 0;
-                bottom: -7px;
-                opacity: 0;
-                background: #fff;
-                -webkit-transition: 0.3s;
-                -o-transition: 0.3s;
-                transition: 0.3s;
-            }
-            
-            .hero__tab .nav-tabs .nav-item .nav-link.active:after {
-                opacity: 1;
-                bottom: -7px;
-            }
-
-            .hero__tab__form {
-                position: relative;
-                z-index: 10;
-            }
-            
-            .hero__tab__form h2 {
-                color: #323232;
-                font-weight: 700;
-                margin-bottom: 35px;
-            }
-            
-            .hero__tab__form form .select-list {
-                display: -webkit-box;
-                display: -ms-flexbox;
-                display: flex;
-                -ms-flex-wrap: wrap;
-                flex-wrap: wrap;
-                margin-right: -20px;
-                margin-bottom: 0px;
-                margin-top: 30px;
-            }
-            
-            .hero__tab__form form .select-list .select-list-item {
-                max-width: calc(50% - 20px);
-                float: left;
-                -webkit-box-flex: 0;
-                -ms-flex: 0 0 50%;
-                flex: 0 0 50%;
-                margin-right: 20px;
-                margin-bottom: 20px;
-            }
-            
-            .hero__tab__form form .select-list .select-list-item p {
-                color: #323232;
-                margin-bottom: 5px;
-            }
-            
-            .hero__tab__form form .select-list .select-list-item .nice-select {
-                width: 100%;
-                height: 50px; /* Adjust height */
-                line-height: 50px; /* Align text properly */
-                font-size: 16px; /* Adjust font size */
-                padding: 0 15px; /* Add padding for better spacing */
-                border: 1px solid #ccc; /* Improve border visibility */
-            }
-            
-            .hero__tab__form form .select-list .select-list-item .nice-select .list {
-                width: 100%; /* Ensure dropdown matches input width */
-                max-height: 250px; /* Set max height with scroll */
-                overflow-y: auto; /* Enable scrolling */
-                background: white;
-                border: 1px solid #ccc;
-            }
-
-            .hero__tab__form form .select-list .select-list-item .nice-select .option {
-                padding: 10px; /* Improve spacing */
-                font-size: 16px; /* Make text more readable */
-            }
-            
-            .hero__tab__form form .select-list .select-list-item .nice-select .option:hover {
-                background: #f5f5f5; /* Add hover effect */
-            }
-            
-            .hero__tab__form form .select-list .select-list-item .nice-select.open span {
-                display: block !important;
-            }
-            
-            .hero__tab__form form .select-list .select-list-item .nice-select:after {
-                display: none;
-            }
-
-            .carousel-caption {
-                position: absolute;
-                right: 15%;
-                bottom: 1.25rem;
-                left: 15%;
-                padding-top: 1.25rem;
-                padding-bottom: 1.25rem;
-                color: black;
-                text-align: center;
-            }
-            
-            @keyframes slide {
-                from {
-                  transform: translateX(0);
-                }
-                to {
-                  transform: translateX(-100%);
-                }
-            }
-              
-            .logos {
-                overflow: hidden;
-                padding: 60px 0;
-                background: white;
-                white-space: nowrap;
-                position: relative;
-                margin-top: 10%;
-            }
-              
-            .logos:before,
-            .logos:after {
-              position: absolute;
-              top: 0;
-              width: 250px;
-              height: 100%;
-              content: "";
-              z-index: 2;
-            }
-
-            .logos:hover .logos-slide {
-              animation-play-state: paused;
-            }
-            
-            .logos-slide {
-              display: inline-block;
-              animation: 35s slide infinite linear;
-            }
-            
-            .logos-slide img {
-              height: 100px;
-              width: 100px;
-              margin: 0 40px;
-            }  
-            
-            .navbar-light .navbar-nav .nav-link:hover,
-            .navbar-light .navbar-nav .nav-link.active {
-                color: #e30a23;
-            }
-
-           /* General styles for buttons */
-            .model-buttons {
-                display: flex;
-                gap: 10px;
-                flex-wrap: wrap;
-            }
-
-            .model-btn {
-                color: white; /* Adjust text color for better contrast */
-                border: none;
-                padding: 10px 20px;
-                border-radius: 10px;
-                font-size: 15px;
-                cursor: pointer;
-                margin-bottom: 7px;
-                margin-right: 7px;
-                transition: background-color 0.3s ease, transform 0.2s ease;
-                background-color: rgba(0, 0, 0, 0.4); /* Semi-transparent background */
-                backdrop-filter: blur(10px); /* Adds the blur effect */
-                -webkit-backdrop-filter: blur(10px); /* Safari support */
-                box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3); /* Optional shadow for better contrast */
-            }
-
-            .model-btn:hover {
-                color: #ffffff;
-                background-color: rgba(227, 10, 35, 0.8); /* Slightly transparent red background */
-                transform: scale(1.05); /* Add hover zoom effect */
-            }
-
-            .filter-form {
-                display: grid;
-                grid-template-columns: repeat(2, 1fr);
-                gap: 20px;
-                background: white;
-                padding: 30px;
-                border-radius: 10px;
-                max-width: 500px;
-                margin: auto;
-                margin-bottom: 0%;
-                box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-            }
-          
-            .form-group {
-                position: relative;
-            }
-          
-            label {
-                display: block;
-                margin-bottom: 5px;
-                font-weight: 500;
-            }
-          
-            input[type="text"],
-            input[type="number"] {
-                width: 100%;
-                padding: 10px;
-                border: 1px solid #ccc;
-                border-radius: 6px;
-                font-size: 14px;
-            }
-          
-            .price-dropdown {
-                position: absolute;
-                top: 72px;
-                left: 50%;
-                width: 50%;
-                background: #fff;
-                padding: 15px;
-                border: 1px solid #ccc;
-                border-radius: 8px;
-                box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-                display: none;
-                z-index: 100;
-            }
-          
-            .price-group:focus-within .price-dropdown {
-                display: block;
-            }
-          
-            .price-dropdown input {
-                width: 100%;
-                margin-bottom: 10px;
-            }
-          
-            .form-actions {
-                grid-column: span 2;
-                text-align: center;
-            }
-          
-            .btn-search {
-                background: #e30613;
-                color: white;
-                padding: 12px 25px;
-                border: none;
-                border-radius: 6px;
-                font-size: 13px;
-                cursor: pointer;
-            }
-          
-            .btn-search:hover {
-                background: #c20010;
-            }
-
-            /* Styles for laptop view */
-            @media (min-width: 992px) {
-                .model-buttons {
-                    flex-direction: row;
-                }
-            }
-
-            @media (min-width: 1200px) {
-                .owl-nav {
-                    display: flex !important;
-                }
-            }
-
-            .fact_background{
-                background-image: url("/static/img/bmw1.webp");
-                background-repeat: no-repeat;
-                background-size: cover;
-                background-attachment: scroll !important;
-                overflow-y: auto;
-                scroll-behavior: smooth;
-            }
-        </style>
-    </head>
-
-    <body>
-        <!-- Spinner Start -->
-        <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center" id="promoBanner">
-            <div class="spinner-border" style="width: 3rem; height: 3rem;color:#e30a23;" role="status">
-                <span class="sr-only">Loading...</span>
-            </div>
-        </div>
-        <!-- Spinner End -->
-
-        <!-- Topbar Start -->
-        <div class="container-fluid topbar d-none d-xl-block w-100" style="background:#ffffff;">
-            <div class="container">
-                <div class="row gx-0 align-items-center" style="height: 45px;">
-                    <div class="col-lg-6 text-center text-lg-start mb-lg-0">
-                        <div class="d-flex flex-wrap">
-                            <span class="me-4" style="color: rgb(0, 0, 0)"><i class="fas fa-phone-alt me-2" style="color: #e30a23;"></i>+971562341000</span>
-                            <a class="me-0" style="color: rgb(0, 0, 0)" href="mailto:Csev7motors@gmail.com"><i class="fas fa-envelope me-2" style="color: #e30a23;"></i>Csev7motors@gmail.com</a>
-                        </div>
-                    </div>
-                    <div class="col-lg-6 text-center text-lg-end">
-                        <div class="d-flex align-items-center justify-content-end">
-                            <a href="https://www.tiktok.com/@_c7motors" class="btn btn-light btn-sm-square rounded-circle me-3"><i class="fab fa-tiktok"></i></a>
-                            <a href="https://www.instagram.com/c.7.motors/" class="btn btn-light btn-sm-square rounded-circle me-3"><i class="fab fa-instagram"></i></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Topbar End -->
-
-        <!-- Navbar & Hero Start -->
-        <div class="container-fluid nav-bar sticky-top px-0 px-lg-4 py-2 py-lg-0">
-            <div class="container">
-                <nav class="navbar navbar-expand-lg navbar-light">
-                    <a href="" class="navbar-logo p-0">
-                        <img src="{% static 'img/c7_logo.webp'%}" alt="C7 Motors company logo" loading="eager">
-                    </a>
-                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
-                        <span class="fa fa-bars"></span>
-                    </button>
-                    <div class="collapse navbar-collapse" id="navbarCollapse">
-                        <div class="navbar-nav mx-auto py-0 mt-3">
-                            <a href="{% url 'c7_motors:home' %}" class="nav-item nav-link active"><i class="bi bi-house-door"></i> Home</a>
-                            <a href="{% url 'c7_motors:about' %}" class="nav-item nav-link"><i class="bi bi-info-circle"></i> About</a>
-                            <a href="{% url 'c7_motors:financing' %}" class="nav-item nav-link"><i class="bi bi-cash"></i> Financing</a>
-                            <a href="{% url 'c7_motors:inventory' %}" class="nav-item nav-link"><span class="iconify" data-icon="mdi-car-side" style="font-size: 27px;"></span> Inventory</a>
-                            <a href="{% url 'c7_motors:articles'%}" class="nav-item nav-link"><i class="bi bi-file-earmark-text"></i> Articles</a>
-                            <a href="{% url 'c7_motors:contact_us' %}" class="nav-item nav-link"><i class="bi bi-telephone"></i> Contact</a>
-                        </div>
-                        {% if user.is_authenticated %}
-                            <form action="/log_out/" method="post" class="main_nav">
-                                {% csrf_token %}
-                                <a class="btn rounded-pill" style="background-color: #e30a23;"><button type="submit" class="btn" style="color: #ffffff;">Log out</button></a>
-                            </form>
-                        {% else %}
-                            <a class="btn rounded-pill mx-3" style="background-color: #e30a23;" href="{% url 'c7_motors:log_in'%}"><button type="submit" class="btn" style="color: #ffffff;">Log in</button></a>
-                            <a class="btn rounded-pill" style="background-color: #e30a23;" href="{% url 'c7_motors:sign_in'%}"><button type="submit" class="btn" style="color: #ffffff;">Sign in</button></a>
-                        {% endif %}
-                    </div>
-                </nav>
-            </div>
-        </div>
-        <!-- Navbar & Hero End -->
-
+{% block content %}
         <!-- Carousel Start -->
         <div class="header-carousel">
             <div id="carouselId" class="carousel slide" data-bs-ride="carousel" data-bs-interval="false">
-                <div class="carousel-inner" role="listbox">
+                <div class="carousel-inner">
+                    <!-- First Slide -->
                     <div class="carousel-item active">
-                        <img loading="eager" src="{% static 'img/car19.webp' %}" class="img-fluid w-100" alt="Nissan Background Img "/>
+                        <video autoplay muted loop playsinline class="img-fluid w-100"
+                            style="height:100vh; object-fit:cover;">
+                            <source src="https://c7motors.com/media/about-vid.mp4" type="video/mp4">
+                        </video>
                         <div class="carousel-caption justify-content-center">
                             <div class="container py-3">
                                 <div class="row g-1 justify-content-center">
-                                    <div class="col-lg-6 fadeInLeft animated" data-animation="fadeInLeft" data-delay="1s" style="animation-delay: 1s;">
+                                    <div class="col-lg-6" data-animation="fadeInLeft" data-delay="1s" style="animation-delay: 1s;">
                                         <div class="text-center">
-                                            <h1 class="display-5 text-white"  style="margin-top:5%;">Finest Used Cars In Dubai</h1>
+                                            <h1 class="display-5 text-white" style="margin-top:5%;">{% trans 'Finest Used Cars In Dubai'%}</h1>
                                         </div>
                                         <div class="search-container">
                                             <div class="row">
@@ -495,11 +49,11 @@
                                                     <div class="tab-content">
                                                         <div class="tab-pane active" id="tab-1" role="tabpanel">
                                                             <div class="hero__tab__form">
-                                                                <h2>Find Your Dream Car</h2>
+                                                                <h2>{% trans 'Find Your Dream Car'%}</h2>
                                                                 <form method="get" action="{% url 'c7_motors:cars_search' %}">
                                                                     <div class="select-list">
                                                                         <div class="select-list-item">
-                                                                            <p>Year</p>
+                                                                            <p>{% trans 'Year'%}</p>
                                                                             <select name="year">
                                                                                 <option data-display=" " value="">Year</option>
                                                                                 {% for year in models_years %}
@@ -508,16 +62,16 @@
                                                                             </select>
                                                                         </div>
                                                                         <div class="select-list-item">
-                                                                            <p>Brand</p>
+                                                                            <p>{% trans 'Brand'%}</p>
                                                                             <select name="brand">
                                                                                 <option data-display=" " value="">Brand</option>
                                                                                 {% for car_brand in cars_brands %}
-                                                                                <option value="{{ car_brand }}">{{ car_brand }}</option>
+                                                                                    <option style="color: black;" value="{{ car_brand }}">{{ car_brand }}</option>
                                                                                 {% endfor %}
                                                                             </select>
                                                                         </div>
                                                                         <div class="select-list-item">
-                                                                            <p>Body Style</p>
+                                                                            <p>{% trans 'Body Style'%}</p>
                                                                             <select name="style">
                                                                                 <option data-display=" " value="">Body Style</option>
                                                                                 <option value="SUV">SUV</option>
@@ -529,16 +83,14 @@
                                                                             </select>
                                                                         </div>
                                                                         <div class="select-list-item price-group">
-                                                                            <p>Price</p>
+                                                                            <p>{% trans 'Price'%}</p>
+                                                                            <label for="price-toggle" class="visually-hidden">Price range</label>
                                                                             <input type="text" id="price-toggle" readonly />
-                                                                        
                                                                             <div class="price-dropdown">
                                                                                 <label>From</label>
                                                                                 <input type="number" name="price_from" placeholder="0" />
-                                                                        
                                                                                 <label>Upto</label>
                                                                                 <input type="number" name="price_to" placeholder="Any" />
-                                                                        
                                                                                 <div class="price-actions">
                                                                                     <button type="button" onclick="applyPrice()">Apply</button>
                                                                                 </div>
@@ -546,7 +98,7 @@
                                                                         </div>
                                                                     </div>
                                                                     <button type="submit" class="site-btn">Search</button>
-                                                                </form>                                                                
+                                                                </form>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -556,23 +108,23 @@
                                         <!-- Buttons for browsing car models -->
                                         <div class="browse-models mt-4">
                                             <div class="model-buttons">
-                                                <div class="icon-buttons">                                      
-                                                    <a class="btn model-btn" href="{% url 'c7_motors:cars_filtered' 'SUV' %}">
+                                                <div class="icon-buttons">
+                                                    <a class="btn model-btn text-light" href="{% url 'c7_motors:cars_filtered' 'SUV' %}">
                                                         <span class="iconify" data-icon="mdi-car-suv" style="font-size: 27px;"></span> SUV
                                                     </a>
-                                                    <a class="btn model-btn" href="{% url 'c7_motors:cars_filtered' 'Sedan' %}">
+                                                    <a class="btn model-btn text-light" href="{% url 'c7_motors:cars_filtered' 'Sedan' %}">
                                                         <span class="iconify" data-icon="mdi-car-side" style="font-size: 27px;"></span> Sedan
                                                     </a>
-                                                    <a class="btn model-btn" href="{% url 'c7_motors:cars_filtered' 'Hatchback' %}">
+                                                    <a class="btn model-btn text-light" href="{% url 'c7_motors:cars_filtered' 'Hatchback' %}">
                                                         <span class="iconify" data-icon="mdi-car-hatchback" style="font-size: 27px;"></span> Hatchback
                                                     </a>
-                                                    <a class="btn model-btn" href="{% url 'c7_motors:cars_filtered' 'Hybrid' %}">
+                                                    <a class="btn model-btn text-light" href="{% url 'c7_motors:cars_filtered' 'Hybrid' %}">
                                                         <span class="iconify" data-icon="mdi-car-electric" style="font-size: 27px;"></span> Hybrid
                                                     </a>
-                                                    <a class="btn model-btn" href="{% url 'c7_motors:cars_filtered' 'Electric' %}">
+                                                    <a class="btn model-btn text-light" href="{% url 'c7_motors:cars_filtered' 'Electric' %}">
                                                         <span class="iconify" data-icon="mdi-charging-station" style="font-size: 27px;"></span> Electric
                                                     </a>
-                                                    <a class="btn model-btn" href="{% url 'c7_motors:cars_filtered' 'coupe' %}">
+                                                    <a class="btn model-btn text-light" href="{% url 'c7_motors:cars_filtered' 'coupe' %}">
                                                         <span class="iconify" data-icon="mdi-car-sports" style="font-size: 27px;"></span> Coupe
                                                     </a>
                                                 </div>
@@ -584,7 +136,7 @@
                         </div>
                     </div>
                 </div>
-            </div> 
+            </div>
         </div>
         <!-- Carousel End -->
 
@@ -592,25 +144,23 @@
         <!-- Cars Logos Start -->
         <div class="logos">
             <div class="logos-slide">
-                <img loading="eager" src="{% static 'logos/bentley.svg' %}" alt="Bentley logo"/>
-                <img loading="eager" src="{% static 'logos/gmc.svg' %}" alt="GMC logo"/>
-                <img loading="eager" src="{% static 'logos/ferrari.svg' %}" alt="Ferrari logo"/>
-                <img loading="eager" src="{% static 'logos/ford.svg' %}" alt="Ford logo"/>
-                <img loading="eager" src="{% static 'logos/bmw.svg' %}" alt="BMW logo"/>
-                <img loading="eager" src="{% static 'logos/honda.svg' %}" alt="Honda logo"/>
-                <img loading="eager" src="{% static 'logos/lamborghini.svg' %}" alt="Lamborghini logo"/>
-                <img loading="eager" src="{% static 'logos/rolls_royce.png' %}" alt="Rolls Royce logo"/>
+                <img loading="eager" src="{% static 'logos/bentley.webp' %}" alt="{% trans 'Bentley logo' %}"/>
+                <img loading="eager" src="{% static 'logos/gmc.webp' %}" alt="{% trans 'GMC logo' %}"/>
+                <img loading="eager" src="{% static 'logos/ferrari.webp' %}" alt="{% trans 'Ferrari logo' %}"/>
+                <img loading="eager" src="{% static 'logos/ford.webp' %}" alt="{% trans 'Ford logo' %}"/>
+                <img loading="eager" src="{% static 'logos/bmw.webp' %}" alt="{% trans 'BMW logo' %}"/>
+                <img loading="eager" src="{% static 'logos/lamborghini.webp' %}" alt="{% trans 'Lamborghini logo' %}"/>
+                <img loading="eager" src="{% static 'logos/rolls_royce.webp' %}" alt="{% trans 'Rolls Royce logo' %}"/>
             </div>
       
             <div class="logos-slide">
-                <img loading="eager" src="{% static 'logos/nissan.svg' %}" alt="Nissan logo"/>
-                <img loading="eager" src="{% static 'logos/porsche.svg' %}" alt="Porsche logo"/>
-                <img loading="eager" src="{% static 'logos/mercedes.svg' %}" alt="Mercedes logo"/>
-                <img loading="eager" src="{% static 'logos/dodge.svg' %}" alt="Dodge logo"/>
-                <img loading="eager" src="{% static 'logos/kia.svg' %}" alt="Kia logo"/>
-                <img loading="eager" src="{% static 'logos/lexus.svg' %}" alt="Lexus logo"/>
-                <img loading="eager" src="{% static 'logos/range_rover.png' %}" alt="Range Rover logo"/>
-                <img loading="eager" src="{% static 'logos/tesla.png' %}" alt="Tesla logo"/>
+                <img loading="eager" src="{% static 'logos/nissan.webp' %}" alt="{% trans 'Nissan logo' %}"/>
+                <img loading="eager" src="{% static 'logos/porsche.webp' %}" alt="{% trans 'Porsche logo' %}"/>
+                <img loading="eager" src="{% static 'logos/mercedes.webp' %}" alt="{% trans 'Mercedes logo' %}"/>
+                <img loading="eager" src="{% static 'logos/dodge.webp' %}" alt="{% trans 'Dodge logo' %}"/>
+                <img loading="eager" src="{% static 'logos/kia.webp' %}" alt="{% trans 'Kia logo' %}"/>
+                <img loading="eager" src="{% static 'logos/lexus.webp' %}" alt="{% trans 'Lexus logo' %}"/>
+                <img loading="eager" src="{% static 'logos/tesla.webp' %}" alt="{% trans 'Tesla logo' %}"/>
             </div>
         </div>
         <!-- Cars Logos End -->
@@ -618,21 +168,26 @@
         <!-- Car categories Start -->
         <div class="container-fluid categories py-5">
             <div class="container" style="padding: 0%;">
-                <div class="text-center mx-auto pb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 800px;">
-                    <h1 class="display-5 text-capitalize mb-3">Cars <span style="color: #e30a23;">Categories</span></h1>
+                <div class="text-center mx-auto pb-5" style="max-width: 800px;">
+                    <h1 class="display-5 text-capitalize mb-3">{% trans 'Cars' %} <span style="color: #e30a23;">{% trans 'Inventory' %}</span></h1>
                 </div>
-                <div id="car_categories" class="categories-carousel owl-carousel wow fadeInUp" data-wow-delay="0.1s">
+                <div id="car_categories" class="categories-carousel owl-carousel">
                     {% for car in cars %}
                     <div class="categories-item p-4">
                         <div class="categories-item-inner">
                             <div class="categories-img rounded-top position-relative">
-                                <!-- Car Image -->
                                 <img loading="lazy" src="{{ car.main_img.url }}" class="img-fluid w-100 rounded-top" alt="">
-                                <!-- Sold Overlay Image -->
                                 {% if car.selled %}
                                     <div class="position-absolute" style="z-index: 1; left: 15px; top: 15px;">
                                         <div class="p-2 rounded" style="background-color: #e30a23;">
-                                            <h5 class="text-white mb-0">Sold out</h5>
+                                            <h5 class="text-white mb-0">{% trans 'Sold out' %}</h5>
+                                        </div>
+                                    </div>
+                                {% endif %}
+                                {% if car.not_available %}
+                                    <div class="position-absolute" style="z-index: 1; left: 15px; top: 15px;">
+                                        <div class="p-2 rounded" style="background-color: #e30a23;">
+                                            <h5 class="text-white mb-0">{% trans 'Not available' %}</h5>
                                         </div>
                                     </div>
                                 {% endif %}
@@ -641,7 +196,7 @@
                                 <h4 style="color: #e30a23;">{{ car.brand_name }} {{ car.model }}</h4>
                                 <div class="mb-4">
                                     <h5 class="bg-white text-dark rounded-pill py-2 px-4 mb-0">
-                                        {{ car.cash_price }} AED
+                                        {{ car.cash_price }} {% trans 'AED' %}
                                     </h5>
                                 </div>
                                 <div class="row gy-2 gx-0 text-center mb-4">
@@ -649,93 +204,144 @@
                                         <i class="fa fa-car" style="color: #e30a23;"></i> <span class="ms-1" style="color:#e0e0e0;">{{ car.model_year }}</span>
                                     </div>
                                     <div class="col-6">
-                                        <i class="fa fa-road" style="color: #e30a23;"></i> <span style="color:#e0e0e0;">{{ car.mileage }}KM</span>
+                                        <i class="fa fa-road" style="color: #e30a23;"></i> <span style="color:#e0e0e0;">{{ car.mileage }}{% trans 'KM' %}</span>
                                     </div>
                                 </div>
-                                <!-- Button Logic -->
                                 {% if car.selled %}
-                                    <button class="btn rounded-pill d-flex justify-content-center py-3 w-100" style="background-color: #e30a23; color:rgb(0,0,0); cursor: not-allowed;" disabled>Sold Out</button>
+                                    <button class="btn rounded-pill d-flex justify-content-center py-3 w-100" style="background-color: #e30a23; color:rgb(0,0,0); cursor: not-allowed;" disabled>{% trans 'Sold Out' %}</button>
+                                {% elif car.not_available %}
+                                    <button class="btn rounded-pill d-flex justify-content-center py-3 w-100" style="background-color: #e30a23; color:rgb(0,0,0); cursor: not-allowed;" disabled>{% trans 'Not Available' %}</button>
                                 {% else %}
-                                    <a href="{% url 'c7_motors:car_details' car_name=car.brand_name car_model=car.model car_id=car.id %}" class="btn rounded-pill d-flex justify-content-center py-3" style="background-color: #e30a23; color:rgb(0,0,0)">Show Details</a>
+                                    <a href="{% url 'c7_motors:car_details' car_slug=car.slug %}" class="btn rounded-pill d-flex justify-content-center py-3" style="background-color: #e30a23; color:rgb(0,0,0)">{% trans 'Show Details' %}</a>
                                 {% endif %}
                             </div>
                         </div>
                     </div>
                     {% endfor %}
+
+                    <!-- last-slide -->
+                    <div class="categories-item p-4 view-all-card last-slide" style="margin-top: 50%;">
+                        <div class="d-flex align-items-center justify-content-center">
+                            <a href="{% url 'c7_motors:inventory' %}" class="btn view-all-btn rounded-pill d-flex justify-content-center py-4 px-4" style="background-color: #e30a23; color:rgb(255, 255, 255)">{% trans 'View All Car' %}</a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
         <!-- Car categories End -->
+        
+        <!-- About Start -->
+        <div class="container-fluid overflow-hidden about py-5 mt-5">
+            <div class="container py-5">
+                <div class="row g-5">
+                    <!-- LEFT CONTENT -->
+                    <div class="col-xl-6">
+                        <div class="about-item">
+                            <div class="pb-5">
+                                <h1 class="display-5 text-capitalize">{% trans 'About' %} 
+                                    <span style="color: #e30a23;">{% trans 'C7 Motors' %}</span>
+                                </h1>
+                                <p class="mb-0" style="color: rgb(53, 53, 53)">
+                                    {% blocktrans %} '''Based in Dubai, we specialize in offering high-quality used cars that go through rigorous inspections to ensure safety, performance, and value. Our dedicated team is committed to providing transparent pricing, honest advice, and flexible payment options tailored to suit each customer’s needs.
+                                                We understand that buying a car is more than just a transaction — it’s an experience. That’s why we go the extra mile to guide our clients at every step, from selecting the perfect vehicle to completing all necessary paperwork. With years of experience in the automotive industry, C7 Motors has built a reputation for trust, professionalism, and exceptional customer service.'''{% endblocktrans %}
+                                </p>
+                            </div>
+
+                            <div class="row g-4">
+                                <div class="col-lg-5 d-flex align-items-center">
+                                    <a href="{% url 'c7_motors:about' %}" class="btn rounded py-3 px-5" style="background-color: #e30a23; color:#ffffff">
+                                        {% trans 'More About Us' %}
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                <!-- RIGHT PHOTOS -->
+                <div class="col-xl-6 position-relative">
+                    <!-- الصور -->
+                    <div class="about-photo about-photo-1">
+                        <img src="{% static 'img/about-1.webp' %}" alt="">
+                    </div>
+                    <div class="about-photo about-photo-2">
+                        <img src="{% static 'img/about-2.webp' %}" alt="">
+                    </div>
+                </div>
+
+                </div>
+            </div>
+        </div>
+        <!-- About End -->
 
 
         <!-- Features Start -->
         <div class="container-fluid mt-5 feature py-5" style="color: #e0e0e0;">
             <div class="container py-5">
-                <div class="text-center mx-auto pb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 800px;">
-                    <h1 class="display-5 text-capitalize mb-3" style="color: #e30a23;">C7 Motors Features</h1>
+                <div class="text-center mx-auto pb-5" style="max-width: 800px;">
+                    <h1 class="display-5 text-capitalize mb-3" style="color: #e30a23;">{% trans 'Why C7 Motors' %}</h1>
                     <p class="mb-0">
-                        Explore the standout offerings of C7 Motors, where quality meets affordability to bring you the best in used cars
+                        {% trans 'Discover our range of services designed to make buying a used car straightforward and convenient' %}
                     </p>
                 </div>
                 <div class="row g-4 align-items-center">
                     <div class="col-xl-4">
                         <div class="row gy-4 gx-0">
-                            <div class="col-12 wow fadeInUp" data-wow-delay="0.1s">
+                            <div class="col-12 wow fadeInLeft" data-wow-delay="0.1s">
                                 <div class="feature-item">
                                     <div class="feature-icon">
                                         <span class="fa fa-trophy fa-2x"></span>
                                     </div>
                                     <div class="ms-4">
-                                        <h5 class="mb-3" style="color:#e30a23;">First Class services</h5>
+                                        <h5 class="mb-3" style="color:#e30a23;">{% trans 'High-Quality Used Cars' %}</h5>
                                         <p class="mb-0">
-                                            Explore the standout offerings of C7 Motors, where quality meets affordability to bring you the best in used cars
+                                            {% trans 'We provide a wide selection of high-quality used cars at competitive prices, ensuring you get the best value for your money' %}
                                         </p>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-12 wow fadeInUp" data-wow-delay="0.3s">
+                            <div class="col-12 wow fadeInLeft" data-wow-delay="0.3s">
                                 <div class="feature-item">
                                     <div class="feature-icon">
-                                        <span class="fa fa-road fa-2x"></span>
+                                        <span class="fa fa-phone-alt fa-2x"></span>
                                     </div>
                                     <div class="ms-4">
-                                        <h5 class="mb-3" style="color:#e30a23;">Great Team</h5>
+                                        <h5 class="mb-3" style="color:#e30a23;">{% trans 'Great Team' %}</h5>
                                         <p class="mb-0">
-                                            Our dedicated team is here to guide you, offering expert advice to help you find the perfect used car for your needs and budget
+                                            {% trans 'Our dedicated team is here to guide you, offering expert advice to help you find the perfect used car for your needs and budget' %}
                                         </p>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-12 col-xl-4 wow fadeInUp" data-wow-delay="0.2s">
-                        <img loading="eager" src="{% static 'img/features-img.webp'%}" class="img-fluid w-100" style="object-fit: cover;" alt="Red Mercedes GT">
+                    <div class="col-lg-12 col-xl-4">
+                        <img loading="eager" src="{% static 'img/features-img.webp'%}" class="img-fluid w-100" style="object-fit: cover;" alt="{% trans 'Red Mercedes GT' %}">
                     </div>
                     <div class="col-xl-4">
                         <div class="row gy-4 gx-0">
-                            <div class="col-12 wow fadeInUp" data-wow-delay="0.1s">
+                            <div class="col-12 wow fadeInRight" data-wow-delay="0.1s">
                                 <div class="feature-item justify-content-end">
                                     <div class="text-end me-4">
-                                        <h5 class="mb-3" style="color:#e30a23;">Quality</h5>
+                                        <h5 class="mb-3" style="color:#e30a23;">{% trans 'Flexible Payment Options' %}</h5>
                                         <p class="mb-0">
-                                            Browse a wide range of thoroughly inspected and reliable used cars, ensuring your purchase meets the highest standards of safety and performance
+                                            {% trans 'Enjoy various payment choices, including monthly installments with no down payment, tailored to fit your budget and convenience' %}
                                         </p>
                                     </div>
                                     <div class="feature-icon">
-                                        <span class="fa fa-tag fa-2x"></span>
+                                        <span class="fa fa-money-bill-alt fa-2x"></span>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-12 wow fadeInUp" data-wow-delay="0.3s">
+                            <div class="col-12 wow fadeInRight" data-wow-delay="0.3s">
                                 <div class="feature-item justify-content-end">
                                     <div class="text-end me-4">
-                                        <h5 class="mb-3" style="color:#e30a23;">Best Deals</h5>
+                                        <h5 class="mb-3" style="color:#e30a23;">{% trans 'Online Financing Calculator' %}</h5>
                                         <p class="mb-0">
-                                            Discover exceptional prices and payment flexibility, with options for cash purchases or affordable installment plans tailored to your preferences
+                                            {% trans 'Easily calculate your financing options directly on our website, giving you full control over your car purchase planning' %}
                                         </p>
                                     </div>
                                     <div class="feature-icon">
-                                        <span class="fa fa-map-pin fa-2x"></span>
+                                        <span><i class="fas fa-calculator fa-2x"></i></span>
                                     </div>
                                 </div>
                             </div>
@@ -745,463 +351,63 @@
             </div>
         </div>
         <!-- Features End -->
-
-        <!-- About Start -->
-        <div class="container-fluid overflow-hidden about py-5">
-            <div class="container py-5">
-                <div class="row g-5">
-                    <div class="col-xl-6 wow fadeInLeft" data-wow-delay="0.2s">
-                        <div class="about-item">
-                            <div class="pb-5">
-                                <h1 class="display-5 text-capitalize">C7 Motors <span style="color: #e30a23;">About</span></h1>
-                                <p class="mb-0" style="color: rgb(53, 53, 53)">
-                                    “Experience the joy of owning a quality used car with C7 Motors. From family-friendly SUVs to stylish sedans, we provide vehicles that suit every lifestyle and budget”
-                                </p>
-                            </div>
-                            <div class="row g-4">
-                                <div class="col-lg-6">
-                                    <div class="about-item-inner border p-4">
-                                        <div class="about-icon mb-4">
-                                            <img src="{% static 'img/bullseye.svg'%}" class="img-fluid h-50 w-50" alt="Icon">
-                                        </div>
-                                        <h5 class="mb-3" style="color: #e30a23;">Our Vision</h5>
-                                        <p class="mb-0" style="color:#e0e0e0;">
-                                            To be the trusted choice for used car sales, setting industry standards with our commitment to quality, transparency, and customer satisfaction.
-                                        </p>
-                                    </div>
-                                </div>
-                                <div class="col-lg-6">
-                                    <div class="about-item-inner border p-4">
-                                        <div class="about-icon mb-4">
-                                            <img src="{% static 'img/list-check.svg'%}" class="img-fluid h-50 w-50" alt="Icon">
-                                        </div>
-                                        <h5 class="mb-3" style="color:#e30a23">Our Mision</h5>
-                                        <p class="mb-0" style="color:#e0e0e0;">
-                                            At C7 Motors, we aim to make owning a car simple and accessible for everyone. By offering a diverse selection of high-quality used vehicles with cash or installment payment options.......
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row g-4">
-                                <div class="col-lg-6">
-                                    <div class="text-center rounded p-4" style="background-color: #e30a23; color:#ffffff">
-                                        <h1 class="display-6 text-white">3</h1>
-                                        <h5 class="text-light mb-0">Years Of Experience</h5>
-                                    </div>
-                                </div>
-                                <div class="col-lg-5 d-flex align-items-center">
-                                    <a href="{% url 'c7_motors:about' %}" class="btn rounded py-3 px-5" style="background-color: #e30a23; color:#ffffff">More About Us</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-6 wow fadeInRight" data-wow-delay="0.2s">
-                        <div class="about-img">
-                            <div class="img-1">
-                                <img src="{% static 'img/car2.webp'%}" class="img-fluid rounded h-100 w-100" alt="Red Lamborghini">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- About End -->
-
-        <!-- Fact Counter -->
-        <div class="container-fluid counter py-5 fact_background img-fluid">
-            <div class="container py-5">
-                <div class="row g-5">
-                    <div class="col-md-6 col-lg-6 col-xl-3 wow fadeInUp" data-wow-delay="0.1s">
-                        <div class="counter-item text-center">
-                            <div class="counter-item-icon mx-auto">
-                                <i class="fas fa-thumbs-up fa-2x"></i>
-                            </div>
-                            <div class="counter-counting my-3">
-                                <span class="text-white fs-2 fw-bold" data-toggle="counter-up">829</span>
-                                <span class="h1 fw-bold text-white">+</span>
-                            </div>
-                            <h4 class="text-white mb-0">Happy Clients</h4>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-lg-6 col-xl-3 wow fadeInUp" data-wow-delay="0.3s">
-                        <div class="counter-item text-center">
-                            <div class="counter-item-icon mx-auto">
-                                <i class="fas fa-car-alt fa-2x"></i>
-                            </div>
-                            <div class="counter-counting my-3">
-                                <span class="text-white fs-2 fw-bold" data-toggle="counter-up">56</span>
-                                <span class="h1 fw-bold text-white">+</span>
-                            </div>
-                            <h4 class="text-white mb-0">Number of Cars</h4>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-lg-6 col-xl-3 wow fadeInUp" data-wow-delay="0.5s">
-                        <div class="counter-item text-center">
-                            <div class="counter-item-icon mx-auto">
-                                <i class="fas fa-building fa-2x"></i>
-                            </div>
-                            <div class="counter-counting my-3">
-                                <span class="text-white fs-2 fw-bold" data-toggle="counter-up">127</span>
-                                <span class="h1 fw-bold text-white">+</span>
-                            </div>
-                            <h4 class="text-white mb-0">Verified Dealers</h4>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-lg-6 col-xl-3 wow fadeInUp" data-wow-delay="0.7s">
-                        <div class="counter-item text-center">
-                            <div class="counter-item-icon mx-auto">
-                                <i class="fas fa-clock fa-2x"></i>
-                            </div>
-                            <div class="counter-counting my-3">
-                                <span class="text-white fs-2 fw-bold" data-toggle="counter-up">589</span>
-                                <span class="h1 fw-bold text-white">+</span>
-                            </div>
-                            <h4 class="text-white mb-0">Visitors Per Day</h4>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Fact Counter -->
-
-        <!-- Services Start -->
-        <div class="container-fluid service py-5">
-            <div class="container py-5">
-                <div class="text-center mx-auto pb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 800px;">
-                    <h1 class="display-5 text-capitalize mb-3">C7 Motors <span style="color: #e30a23;">Services</span></h1>
-                    <p class="mb-0" style="color: rgb(53, 53, 53)">
-                        Discover our range of services designed to make buying a used car straightforward and convenient
-                    </p>
-                </div>
-                <div class="row g-4">
-                    <div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-delay="0.1s">
-                        <div class="service-item p-4">
-                            <div class="service-icon mb-4">
-                                <i class="fa fa-phone-alt fa-2x"></i>
-                            </div>
-                            <h5 class="mb-3">Personalized Consultations</h5>
-                            <p class="mb-0" style="color: rgb(53, 53, 53)">
-                                Our team of experts is here to guide you through every step of the process. Whether you’re buying your first car or upgrading to a newer model, we ensure you find a vehicle that perfectly suits your needs and preferences
-                            </p>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-delay="0.3s">
-                        <div class="service-item p-4">
-                            <div class="service-icon mb-4">
-                                <i class="fa fa-money-bill-alt fa-2x"></i>
-                            </div>
-                            <h5 class="mb-3">Flexible Payment Plans</h5>
-                            <p class="mb-0" style="color: rgb(53, 53, 53)">
-                                Choose the payment option that works best for you. Whether you prefer to pay in full with cash or spread the cost with our flexible installment plans, we make owning a car accessible for everyone
-                            </p>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-delay="0.5s">
-                        <div class="service-item p-4">
-                            <div class="service-icon mb-4">
-                                <i class="fa fa-road fa-2x"></i>
-                            </div>
-                            <h5 class="mb-3">Trade-Ins</h5>
-                            <p class="mb-0" style="color: rgb(53, 53, 53)">
-                                Upgrade your ride by trading in your old vehicle. We offer competitive trade-in value, allowing you to apply the credit directly toward your new car purchase, making the process quick and hassle-free
-                            </p>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-delay="0.1s">
-                        <div class="service-item p-4">
-                            <div class="service-icon mb-4">
-                                <i class="fa fa-umbrella fa-2x"></i>
-                            </div>
-                            <h5 class="mb-3">Insurance Assistance</h5>
-                            <p class="mb-0" style="color: rgb(53, 53, 53)">
-                                Protect your investment with comprehensive insurance options. We work with trusted insurance providers to help you secure the coverage you need, offering peace of mind for your journey ahead
-                            </p>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-delay="0.3s">
-                        <div class="service-item p-4">
-                            <div class="service-icon mb-4">
-                                <i class="fa fa-building fa-2x"></i>
-                            </div>
-                            <h5 class="mb-3">Nationwide Delivery</h5>
-                            <p class="mb-0" style="color: rgb(53, 53, 53)">
-                                Purchase your dream car from anywhere in the country and let us handle the delivery. We ensure that your vehicle is transported safely and arrives right at your doorstep, saving you time and effort
-                            </p>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-delay="0.5s">
-                        <div class="service-item p-4">
-                            <div class="service-icon mb-4">
-                                <i class="fa fa-car-alt fa-2x"></i>
-                            </div>
-                            <h5 class="mb-3">After-Sales Support</h5>
-                            <p class="mb-0" style="color: rgb(53, 53, 53)">
-                                Enjoy a worry-free ownership experience with our after-sales services. From maintenance packages and extended warranties to expert support, we are committed to keeping your car in top-notch condition
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Services End -->
-
-        <!-- Car Steps Start -->
-        <div class="container-fluid steps py-5">
-            <div class="container py-5">
-                <div class="text-center mx-auto pb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 800px;">
-                    <h1 class="display-5 text-capitalize text-white mb-3">C7 Motors<span style="color: #e30a23;"> Process</span></h1>
-                    </p>
-                </div>
-                <div class="row g-4">
-                    <div class="col-lg-4 wow fadeInUp" data-wow-delay="0.1s">
-                        <div class="steps-item p-4 mb-4">
-                            <h4>Come In Contact</h4>
-                            <div class="setps-number">01.</div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 wow fadeInUp" data-wow-delay="0.3s">
-                        <div class="steps-item p-4 mb-4">
-                            <h4>Choose A Car</h4>
-                            <div class="setps-number">02.</div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 wow fadeInUp" data-wow-delay="0.5s">
-                        <div class="steps-item p-4 mb-4">
-                            <h4>Enjoy Driving</h4>
-                            <div class="setps-number">03.</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Car Steps End -->
-
-        <!-- Testimonial Start -->
-        <div class="container-fluid testimonial pb-5" style="margin-top: 10%;">
-            <div class="container pb-5">
-                <div class="text-center mx-auto pb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 800px;">
-                    <h1 class="display-5 text-capitalize mb-3">Our Clients<span style="color:#e30a23"> Reviews</span></h1>
-                    <p class="mb-0" style="color: rgb(53, 53, 53)">
-                        “Discover what our valued clients have to say about their unforgettable experiences with us. From seamless bookings to exceptional service, our reviews speak volumes.”! 🌟🚗
-                    </p>
-                </div>
-                <div class="owl-carousel testimonial-carousel wow fadeInUp" data-wow-delay="0.1s">
-                    <div class="testimonial-item">
-                        <div class="testimonial-quote"><i class="fa fa-quote-right fa-2x"></i>
-                        </div>
-                        <div class="testimonial-inner p-4">
-                            <img src="{% static 'img/testimonial-1.webp'%}" class="img-fluid" alt="">
-                            <div class="ms-4">
-                                <h4>Sara</h4>
-                                <div class="d-flex text-dark">
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star text-body"></i>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="border-top rounded-bottom p-4">
-                            <p class="mb-0" style="color:black;">
-                                I had an amazing experience with C7 Motors! The team was incredibly helpful in guiding me to the perfect used car that fit my budget and preferences. 
-                                The flexible installment payment option made it so easy for me to own my dream car without any hassle. Highly recommend!
-                            </p>
-                        </div>
-                    </div>
-                    <div class="testimonial-item">
-                        <div class="testimonial-quote"><i class="fa fa-quote-right fa-2x"></i>
-                        </div>
-                        <div class="testimonial-inner p-4">
-                            <img src="{% static 'img/testimonial-2.webp'%}" class="img-fluid" alt="">
-                            <div class="ms-4">
-                                <h4>Raya</h4>
-                                <div class="d-flex text-dark">
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star text-body"></i>
-                                    <i class="fas fa-star text-body"></i>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="border-top rounded-bottom p-4">
-                            <p class="mb-0" style="color:black;">
-                                C7 Motors made the car-buying process so simple and stress-free. From the personalized consultation to the trade-in process, 
-                                everything was handled professionally. The quality of the used cars is excellent, and I couldn’t be happier with my purchase!
-                            </p>
-                        </div>
-                    </div>
-                    <div class="testimonial-item">
-                        <div class="testimonial-quote"><i class="fa fa-quote-right fa-2x"></i>
-                        </div>
-                        <div class="testimonial-inner p-4">
-                            <img src="{% static 'img/testimonial-3.webp'%}" class="img-fluid" alt="">
-                            <div class="ms-4">
-                                <h4>Simon</h4>
-                                <div class="d-flex text-dark" >
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star text-body"></i>
-                                    <i class="fas fa-star text-body"></i>
-                                    <i class="fas fa-star text-body"></i>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="border-top rounded-bottom p-4">
-                            <p class="mb-0" style="color:black;">
-                                What stood out for me was the flexibility in payment options. I was able to choose a convenient installment plan that worked perfectly for my budget. 
-                                The customer service team was responsive, friendly, and knowledgeable. I’m so glad I chose C7 Motors!
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Testimonial End -->
-
-        <!-- Footer Start -->
-        <div class="container-fluid footer py-5 wow fadeIn" data-wow-delay="0.2s">
-            <div class="container py-5">
-                <div class="row g-5">
-                    <div class="col-md-6 col-lg-6 col-xl-3">
-                        <div class="footer-item d-flex flex-column">
-                            <div class="footer-item">
-                                <img src="{% static 'img/C7-white-logo.png'%}" alt="C7 Logo" width="60%" height="60%">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-lg-6 col-xl-3">
-                        <div class="footer-item d-flex flex-column">
-                            <h4 class="text-white mb-4">Quick Links</h4>
-                            <a href="{% url 'c7_motors:about' %}"><i class="fas fa-angle-right me-2"></i> About</a>
-                            <a href="{% url 'c7_motors:inventory' %}"><i class="fas fa-angle-right me-2"></i> Inventory</a>
-                            <a href="{% url 'c7_motors:financing' %}"><i class="fas fa-angle-right me-2"></i> Financing</a>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-lg-6 col-xl-3">
-                        <div class="footer-item d-flex flex-column">
-                            <h4 class="text-white mb-4">Business Hours</h4>
-                            <div class="mb-3">
-                                <h6 class="mb-0" style="color: #e0e0e0c1;">We are open to serve you 24/7 with extended showroom hours from 11 AM to 10 PM every day</h6>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-lg-6 col-xl-3">
-                        <div class="footer-item d-flex flex-column">
-                            <h4 class="text-white mb-4">Contact Info</h4>
-                            <a href="#"><i class="fa fa-map-marker-alt me-2"></i> 18th St -Al Quoz Industrial Area 1 - Dubai - United Arab Emirates</a>
-                            <a href="mailto:Csev7motors@gmail.com"><i class="fas fa-envelope me-2"></i> Csev7motors@gmail.com</a>
-                            <a href="#"><i class="fas fa-phone me-2"></i> +971562341000</a>
-                            <div class="d-flex">
-                                <a class="btn btn-md-square rounded-circle me-3" href="https://www.tiktok.com/@_c7motors"><i class="fab fa-tiktok text-white"></i></a>
-                                <a class="btn btn-md-square rounded-circle me-3" href="https://www.instagram.com/c.7.motors/"><i class="fab fa-instagram text-white"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Footer End -->
         
-        <!-- Copyright Start -->
-        <div class="container-fluid copyright py-4">
-            <div class="container">
-                <div class="row g-4 align-items-center">
-                    <div class="col text-center text-md-start mb-md-0">
-                        <span style="color: #e0e0e0c1;"><a href="#" class="border-bottom text-white"><i class="fas fa-copyright text-light me-2"></i>C7 Motors</a>, All right reserved.</span>
-                    </div>
-                    <div class="col text-center text-md-start mb-md-0">
-                        <span style="color: #e0e0e0c1;">Designed By <a href="https://htmlcodex.com" class="border-bottom text-white">HTML Codex</a></span>
-                    </div>
-                    <div class="col text-center text-md-start mb-md-0">
-                        <span style="color: #e0e0e0c1;"><a href="mailto:sanasalhdar@gmail.com" class="border-bottom text-white">sanasalhdar@gmail.com</a> <br>Designed & Developed By Sana Salhdar</span>
-                    </div>
+        <!-- Articles Start -->
+        <section class="container" style="margin-top:10%; margin-bottom:10%;">
+          <div class="text-center mx-auto pb-5" data-wow-delay="0.1s" style="max-width: 800px;">
+              <h1 class="display-5 text-capitalize mb-3" style="color: #e30a23;">{% trans "Articles" %}</h1>
+              <p class="mb-0" style="color: rgb(53,53,53);">
+                  {% trans "All the articles on this page are written by our dedicated team at C7 Motors to keep you informed, inspired, and confident when it comes to car ownership in the UAE. From expert tips to the latest trends, everything here is crafted to support your journey on the road" %}
+              </p>
+          </div>
+        
+          <div class="row row-cols-1 row-cols-md-3 g-4">
+              {% for article in articles %}
+              <div class="col d-flex">
+                  <div class="card article-card shadow-sm position-relative">
+                      <img src="{{ article.image.url }}" class="article-img" alt="{% trans 'Article Image' %}">
+                      <span class="badge badge-red text-white position-absolute" style="top: 15px; left: 15px;">{{ article.type }}</span>
+                      <div class="card-body d-flex flex-column mt-4">
+                          <h5 class="card-title">{{ article.title }}</h5>
+                            <p class="card-text">
+                                {{ article.header }}
+                                <span class="more-text">
+                                    {{ article.read_more }}
+                                </span>
+                            </p>
+                            
+                            <button
+                              type="button"
+                              onclick="toggleReadMore(this)"
+                              class="btn btn-outline-dark btn-sm mt-3"
+                              data-more-text="Read More"
+                              data-less-text="Read Less">
+                              Read More
+                            </button>
+
+                      </div>
+                  </div>
+              </div>
+              {% endfor %}
+          </div>
+            <div class="row g-4 mt-4">
+                <div class="col-12 text-center">
+                    <a href="{% url 'c7_motors:articles' %}" 
+                     class="btn btn-lg px-4 py-2 rounded-pill shadow text-light" style='background-color:#e30a23;'>
+                     {% trans 'More Articles' %}
+                    </a>
                 </div>
-            </div>
-        </div>
-        <!-- Copyright End -->
+            </div>  
+        </section>
+        <!-- Articles End -->
         
     <!-- JavaScript Libraries -->
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="{% static 'lib/wow/wow.min.js'%}"></script>
-    <script src="{% static 'lib/easing/easing.min.js'%}"></script>
-    <script src="{% static 'lib/waypoints/waypoints.min.js'%}"></script>
-    <script src="{% static 'lib/counterup/counterup.min.js'%}"></script>
-    <script src="{% static 'lib/owlcarousel/owl.carousel.min.js'%}"></script>
-    <!-- Iconify Script -->
-    <script src="https://code.iconify.design/2/2.2.1/iconify.min.js"></script>
-    <script>
-        function getCookie(name) {
-            let cookieValue = null;
-            if (document.cookie && document.cookie !== '') {
-                const cookies = document.cookie.split(';');
-                for (let i = 0; i < cookies.length; i++) {
-                    const cookie = cookies[i].trim();
-                    // Does this cookie string begin with the name we want?
-                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
-                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                        break;
-                    }
-                }
-            }
-            return cookieValue;
-        }
-        const csrftoken = getCookie('csrftoken');
-
-        // Show modal after 5 seconds
-        window.addEventListener('load', function () {
-            setTimeout(function () {
-            document.getElementById('customModal').style.display = 'flex';
-            }, 2000);
-        });
-
-        // Close button functionality
-        document.addEventListener('DOMContentLoaded', function () {
-            const closeBtn = document.querySelector('.close-btn');
-            const modal = document.getElementById('customModal');
-
-            if (closeBtn && modal) {
-            closeBtn.addEventListener('click', () => {
-                modal.style.display = 'none';
-            });
-            }
-        });
-
-        // Price Range Functionality
-        const priceToggle = document.getElementById('price-toggle');
-        const dropdown = document.querySelector('.price-dropdown');
-
-        priceToggle.addEventListener('focus', () => {
-            dropdown.style.display = 'block';
-        });
-
-        document.addEventListener('click', function (e) {
-            if (!e.target.closest('.price-group')) {
-            dropdown.style.display = 'none';
-            }
-        });
-
-        function applyPrice() {
-            dropdown.style.display = 'none';
-            const from = document.querySelector('input[name="price_from"]').value;
-            const to = document.querySelector('input[name="price_to"]').value;
-            priceToggle.value = from && to ? `${from} AED - ${to} AED` : from ? `From ${from}` : to ? `Upto ${to}` : '';
-        }
-    </script>
-
+    
     <!-- Template Javascript -->
     {% load compress %}
     {% compress js %}
-    <script src="{% static 'js/main1.js'%}"></script>
-    <script src="{% static 'js/bootstrap.min.js' %}"></script>
     <script src="{% static 'js/jquery.nice-select.min.js' %}"></script>
-    <script src="{% static 'js/owl.carousel.min.js' %}"></script>
-    <script src="{% static 'js/main2.js'%}"></script>
+    <script src="{% static 'js/main3.js'%}"></script>
     {% endcompress %}
-</body>
-
-</html>
 {% endblock %}

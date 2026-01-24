@@ -26,6 +26,7 @@ from c7_app.admin import custom_admin_site
 urlpatterns = [
     path('admin/', custom_admin_site.urls),
     path('', include('c7_app.urls')),
+    path('i18n/', include('django.conf.urls.i18n')),
 ]
 
 

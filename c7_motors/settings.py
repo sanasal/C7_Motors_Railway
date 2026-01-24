@@ -14,6 +14,9 @@ from pathlib import Path
 import os 
 import base64
 from dotenv import load_dotenv
+from pathlib import Path
+from django.utils.translation import gettext_lazy as _
+
 load_dotenv()
 
 
@@ -54,23 +57,25 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
     'c7_motors',
     'c7_app.apps.C7AppConfig',
     'compressor'
 ]
 
 MIDDLEWARE = [
-    'simple_history.middleware.HistoryRequestMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
+    'django.middleware.gzip.GZipMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
     'django.middleware.common.CommonMiddleware',
+    'simple_history.middleware.HistoryRequestMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'c7_app.middleware.exception_middleware.ExceptionMiddleware',
-    'django.middleware.gzip.GZipMiddleware',
 ]
 
 ROOT_URLCONF = 'c7_motors.urls'
@@ -129,22 +134,42 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 
+REST_FRAMEWORK={
+    'DEFAULT_RENDERER_CLASSES':(
+        'rest_framework.renderers'
+    )
+}
 
 # SECURITY HEADERS
 X_FRAME_OPTIONS = 'DENY'
 
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
-
 TIME_ZONE = 'UTC'
 
-USE_I18N = True
+LANGUAGE_CODE = 'en-us'
 
+USE_I18N = True
+USE_L10N = True
 USE_TZ = True
+
+# اللغات التي تريد دعمها
+LANGUAGES = [
+    ('en', _('English')),
+    ('ar', _('العربية')),
+    ('ru', _('Русский')),
+]
+
+# مكان حفظ ملفات الترجمة
+LOCALE_PATHS = [
+    os.path.join(BASE_DIR , 'locale')
+]
+
+# Language cookie name (for language persistence)
+LANGUAGE_COOKIE_NAME = 'django_language'
+
 
 
 # Static files (CSS, JavaScript, Images)

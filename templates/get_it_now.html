@@ -1,0 +1,107 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+{% load i18n %}
+{% csrf_token %}
+
+<!DOCTYPE html>
+<html lang="{{ LANGUAGE_CODE }}">
+
+    <head>
+        <title>{% trans "Buy Used Cars in Dubai | Premium Vehicles at C7 Motors" %}</title>
+        <meta name="description" content="{% trans 'Discover premium used cars for sale in Dubai with C7 Motors. Browse our curated selection and drive away your dream car today.' %}">
+        <meta name="keywords" content="{% trans 'used cars Dubai, buy cars UAE, C7 Motors, second hand cars Dubai' %}">
+        <link rel="canonical" href="https://www.c7motors.com/">
+        <link rel="stylesheet" href="{% static 'css/get_it.css'%}">
+
+        <!-- Open Graph -->
+        <meta property="og:title" content="{% trans 'Buy Used Cars in Dubai | Premium Vehicles at C7 Motors' %}">
+        <meta property="og:description" content="{% trans 'Explore premium second-hand cars at C7 Motors Dubai. High-quality, affordable vehicles for every driver.' %}">
+        <meta property="og:image" content="{% static 'img/car21.webp' %}">
+        <meta property="og:url" content="https://www.c7motors.com/">
+        <meta property="og:type" content="website">
+
+    </head>
+
+    <body>
+
+        <!-- Carousel Start -->
+        <div class="header-carousel">
+            <div id="carouselId" class="carousel slide" data-bs-ride="carousel" data-bs-interval="false">
+                <div class="carousel-inner" role="listbox">
+                    <div class="carousel-item active">
+                        <img src="{% static 'img/car21.webp'%}" class="img-fluid w-100" alt="{% trans 'Nissan Cars Backgroung Img' %}"/>
+                        <div class="carousel-caption">
+                            <div class="container py-4">
+                                <div class="row g-5">
+                                    <div class="col-lg-6 fadeInLeft animated mb-5" data-animation="fadeInLeft" data-delay="1s" style="animation-delay: 1s;">
+                                        <div class="rounded p-5" style="background-color: rgb(24, 24, 24);">
+                                            <form id="request-form" action="/add_request_data/" method="post">
+                                                {% csrf_token %}    
+                                                <div class="row g-3">
+                                                    <div class="col-12">
+                                                        <input value="{{ car.brand_name }} {{ car.model }} {{ car.model_year }}"  id="car"  class="form-select" style="background-image: none;" name="car" readonly>
+                                                    </div>
+
+                                                    <div class="col-12">
+                                                        <div class="input-group">
+                                                            <div class="d-flex align-items-center bg-light text-body rounded-start p-2">
+                                                                <span class="fa fa-user"></span> <span class="ms-1">{% trans "Name" %}</span>
+                                                            </div>
+                                                            <input name="name" class="form-control" type="text" placeholder="" aria-label="{% trans 'Name' %}">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-12">
+                                                        <div class="input-group">
+                                                            <div class="d-flex align-items-center bg-light text-body rounded-start p-2">
+                                                                <span class="fa fa-mobile"></span> <span class="ms-1">{% trans "Mobile Phone" %}</span>
+                                                            </div>
+                                                            <input name="mobile_phone" class="form-control" type="number" aria-label="{% trans 'Mobile Phone' %}">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-12">
+                                                        <div class="input-group">
+                                                            <div class="d-flex align-items-center bg-light text-body rounded-start p-2">
+                                                            <i class="fa fa-language"></i><span class="ms-1">{% trans "Preferred Language" %}</span>
+                                                            </div>
+                                                            <select class="form-select" name="language" id="language">
+                                                                <option value="Arabic">{% trans "Arabic" %}</option>
+                                                                <option value="English">{% trans "English" %}</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-12">
+                                                        <div class="input-group">
+                                                            <div class="d-flex align-items-center bg-light text-body rounded-start p-2">
+                                                                <i class="fa fa-money-bill"></i> <span class="ms-1">{% trans "Payment Method" %}</span>
+                                                            </div>
+                                                            <select class="form-select" name="payment_method" id="payment_method">
+                                                                <option value="Cash">{% trans "Cash" %}</option>
+                                                                <option value="Bank-financing">{% trans "Bank financing" %}</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-12">
+                                                        <button id="get_it_now" class="btn w-100 py-2" type="submit" style="background-color: #e30a23; color:#ffffff">{% trans "Send Via Whatsapp" %}</button>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 d-none d-lg-flex fadeInRight animated" data-animation="fadeInRight" data-delay="1s" style="animation-delay: 1s;">
+                                        <div class="text-start">
+                                            <h1 class="display-5 text-white" style="margin-left:15%; margin-top:15%;">{% trans "Discover Your Perfect Ride with Our Premium Car Selection" %}</h1>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div> 
+        </div>
+        <!-- Carousel End -->
+    </body>
+</html>
+
+{% endblock %}

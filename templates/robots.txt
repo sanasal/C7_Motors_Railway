@@ -1,0 +1,6 @@
+User-agent: *
+Disallow: /admin/
+
+Allow: /
+
+Sitemap: https://c7motors.com/sitemap.xml

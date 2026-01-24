@@ -11,33 +11,31 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.contrib import messages
 from simple_history.models import HistoricalRecords
+from django.utils.text import slugify
 # Create your models here
 
-class CustomersData(models.Model):
-    name = models.TextField(max_length=300, default='', blank=True)
-    email = models.TextField(max_length=300, default='', blank=True)
-    mobile_phone = models.TextField(blank=True, default='')
-    cars = models.TextField(default='', blank=True)  # plural here
+class TechnicalFeature(models.Model):
+    name = models.CharField(max_length=100, unique=True)
 
-    Salaried = 'Salaried'
-    Self_Employed = 'Self-Employed'
-
-    EMPLOYMENT_TYPE = [
-        (Salaried, 'Salaried'),
-        (Self_Employed, 'Self-Employed'),
-    ]
-
-    employment_type = models.CharField(max_length=20, choices=EMPLOYMENT_TYPE, blank=True)
-    created_at = models.DateTimeField(auto_now_add=True , null=True)
+    class Meta:
+        ordering = ["name"]
 
     def __str__(self):
-        return f"cars:{self.cars} - name:{self.name}"
+        return self.name
+    
 
+class ExtraFeature(models.Model):
+    name = models.CharField(max_length=100, unique=True)
 
+    class Meta:
+        ordering = ["name"]
 
+    def __str__(self):
+        return self.name
 
 class Car(models.Model):
     brand_name = models.CharField(max_length=100, blank=True)
+    slug = models.SlugField(unique=True,max_length=200,blank=True,null=True)
     model = models.CharField(max_length=100, blank=True)
     main_img = models.ImageField(default='', blank=True)
 
@@ -72,26 +70,46 @@ class Car(models.Model):
     model_year = models.IntegerField(null=True, blank=True)
     mileage = models.IntegerField(null=True, blank=True)
     cash_price = models.IntegerField(null=True, blank=True)
+    specification = models.CharField(max_length=40 , null=True)
+    horsepower = models.PositiveIntegerField(null=True, blank=True)
+    engine_capacity = models.PositiveIntegerField(null=True, blank=True)
+    cylinders = models.PositiveIntegerField(null=True, blank=True)
+    seating_capacity = models.PositiveIntegerField(null=True, blank=True)
     monthly_installments_price = models.IntegerField(null=True, blank=True)
+    technical_features = models.ManyToManyField(TechnicalFeature, blank=True)
+    extra_features = models.ManyToManyField(ExtraFeature, blank=True)
     description = models.TextField(blank=True)
     selled = models.BooleanField(default=False)
+    not_available = models.BooleanField(default=False)
 
     history = HistoricalRecords()
 
     def delete_selled_car_images(self):
         """Delete all images from storage and database when a car is sold."""
-        if self.selled:
+        if self.selled or self.not_available:
             for img in self.images.all():  
                 if img.image and os.path.exists(img.image.path):  
                     os.remove(img.image.path) 
                 img.delete()  
 
     def save(self, *args, **kwargs):
-        """Override save to check when a car is marked as sold."""
+        if not self.slug and self.brand_name:
+            base_slug = slugify(f"{self.brand_name} {self.model}")
+            slug = base_slug
+            counter = 1
+    
+            while Car.objects.filter(slug=slug).exclude(pk=self.pk).exists():
+                slug = f"{base_slug}-{counter}"
+                counter += 1
+    
+            self.slug = slug
+    
+        # handle sold cars
         if self.pk:
             old_car = Car.objects.filter(pk=self.pk).first()
             if old_car and not old_car.selled and self.selled:
                 self.delete_selled_car_images()
+    
         super().save(*args, **kwargs)
 
     def __str__(self):
@@ -141,3 +159,30 @@ class Article(models.Model):
     title = models.CharField(blank=True , max_length=300)
     header = models.TextField(blank=True)
     read_more = models.TextField(blank=True)
+    
+class RequestsData(models.Model):
+    car = models.TextField(default='', blank=True) 
+    name = models.TextField(max_length=300, default='', blank=True)
+    mobile_phone = models.TextField(blank=True, default='')
+    Cash = 'Cash'
+    Bank_Financing = 'Bank-Financing'
+
+    PAYMENT_METHODS = [
+        (Cash, 'Cash'),
+        (Bank_Financing, 'Bank-Financing'),
+    ]
+
+    Arabic = 'Arabic'
+    English = 'English'
+
+    LANGUAGE = [
+        (Arabic , 'Arabic'),
+        (English , 'English')
+    ]
+
+    payment_method = models.CharField(max_length=20, choices=PAYMENT_METHODS, blank=True)
+    language = models.CharField(max_length=20 , choices=LANGUAGE , blank=True)
+    created_at = models.DateTimeField(auto_now_add=True , null=True)
+
+    def __str__(self):
+        return f"cars:{self.car} - name:{self.name}"

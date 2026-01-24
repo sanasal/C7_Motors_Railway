@@ -3,37 +3,30 @@ from .settings import *
 from .settings import BASE_DIR
 import stripe
 from urllib.parse import urlparse 
+
 import base64
 
 # Load from .env if needed
 from dotenv import load_dotenv
 load_dotenv()
 
-creds_b64 = os.getenv("GOOGLE_CREDENTIALS_B64")
+'''creds_b64 = os.getenv("GOOGLE_CREDENTIALS_B64")
 
 if creds_b64:
     path = "c7_motors/credentials/sheets.json"
     os.makedirs(os.path.dirname(path), exist_ok=True)  # Ensure folder exists
     with open(path, "wb") as f:
         f.write(base64.b64decode(creds_b64))
-    os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = path
+    os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = path'''
 
 # Security & Allowed Hosts
-SECRET_KEY =  os.environ.get("SECRET")
+SECRET_KEY =  os.environ.get('SECRET')
 ALLOWED_HOSTS = [os.environ.get('HOSTNAME')] 
 CSRF_TRUSTED_ORIGINS = ['https://' + os.environ.get('HOSTNAME')]
 
 
 # Debug Mode
-DEBUG = os.environ.get("DEBUG") 
-
-# Get the PORT from environment variables (Railway uses 8080)
-PORT = os.environ.get("PORT", 8080)
-
-# Run Django with this port
-if __name__ == "__main__":
-    from django.core.management import execute_from_command_line
-    execute_from_command_line(["manage.py", "runserver", f"0.0.0.0:{PORT}"])
+DEBUG = os.environ.get('DEBUG', 'False') == 'True'
 
 # Paths & Templates
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -73,7 +66,6 @@ TEMPLATES = [
 # Middleware
 MIDDLEWARE = [
     'simple_history.middleware.HistoryRequestMiddleware',
-    'middleware.exception_middleware.ExceptionMiddleware', 
     'django.middleware.security.SecurityMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -93,46 +85,28 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [os.path.join(BASE_DIR , 'staticfiles')]
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
-MEDIA_URL = "/media/"
-MEDIA_ROOT = os.path.join("/app/media/")
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.environ.get('MEDIA_ROOT')
 
-connection_string = os.environ.get("DATABASE_URL")
-if connection_string:
-    parsed_url = urlparse(connection_string)
 
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.mysql',
-            'NAME': parsed_url.path[1:],
-            'USER': parsed_url.username,
-            'PASSWORD': parsed_url.password,
-            'HOST': parsed_url.hostname,
-            'PORT': parsed_url.port,
-            'OPTIONS': {
-                'connect_timeout': 10,
-                'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
-            },
-            'CONN_MAX_AGE': 300
-        }
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': os.environ.get('MYSQL_NAME'),
+        'USER': os.environ.get('MYSQL_USER'),
+        'PASSWORD': os.environ.get('MYSQL_PASSWORD'),
+        'HOST': 'localhost',
+        'PORT': '3306',
+        'OPTIONS': {
+            'connect_timeout': 10,
+            'read_timeout': 60,
+            'write_timeout': 60,
+            'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
+        },
+        'CONN_MAX_AGE': 300
     }
-
-else:
-
-    DATABASES = {
-        'default': {
-                'ENGINE': 'django.db.backends.mysql',
-                'NAME': os.environ.get('MYSQL_DATABASE'),
-                'USER': os.environ.get('MYSQL_USER'),
-                'PASSWORD': os.environ.get('MYSQL_PASSWORD'),
-                'HOST': os.environ.get('MYSQL_HOST'),
-                'PORT': os.environ.get('MYSQL_PORT'),
-                'OPTIONS': {
-                'connect_timeout': 10,
-                'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
-            },
-            'CONN_MAX_AGE': 300
-        }
 }
+
 
 # SECURITY HEADERS
 SECURE_HSTS_SECONDS = 31536000

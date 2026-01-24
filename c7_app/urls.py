@@ -16,13 +16,16 @@ urlpatterns = [
     path('financing/' , views.financing , name = 'financing'),
     path('articles/' , views.articles , name='articles'),
     path('contact_us/' , views.contact_us , name='contact_us'),
-    path('car_details/<str:car_name>/<str:car_model>/<int:car_id>/' , views.car_details , name='car_details'),
+    path('car_details/<slug:car_slug>/' , views.car_details , name='car_details'),
     path('cars/', views.cars, name='cars'),
+    path('get_it_now/<int:car_id>/' , views.get_it_now , name='get_it_now'),
     path('cars/<str:car_type>/', views.cars, name='cars_filtered'),
+    path('lang/<str:lang_code>/', views.switch_language, name='switch_language'),
 
     path('log_in/' , views.log_in , name='log_in'),
     path('sign_in/' , views.sign_in , name='sign_in'), 
     path('log_out/' , views.log_out , name='log_out'),  
 
-    path('add_data/' , views.add_customers_data , name = 'add_data'),
+    path('add_financig_data/' , views.add_financing_request_data , name = 'add_f_request_data'),
+    path('add_request_data/' , views.add_request_data , name = 'add_request_data'),
 ]
