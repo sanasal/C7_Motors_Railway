@@ -23,7 +23,7 @@ class CustomAdminSite(admin.AdminSite):
         # Iterate over apps and categorize models
         for app in app_list:
             for model in app["models"]:
-                if model["object_name"] in ["CarImageZip", "CarImage", "Car" , "ExtraFeature" , "TechnicalFeature"]:
+                if model["object_name"] in ["CarImageZip", "CarImage", "Car" ,"TechnicalFeature" ,"ComfortAndConvenience","Exterior","DriverAssistanceAndSafty"]:
                     car_details_section["models"].append(model)
 
                 elif model["object_name"] in ["User", "CustomUser" , "Group"]:
@@ -41,19 +41,16 @@ def mark_as_selled(modeladmin ,requset ,queryset):
 @admin.action(description="Mark as Not Available")
 def mark_as_not_available(modeladmin , request , queryset):
     queryset.update(not_available = True)
-
 class CarImagesInline(admin.TabularInline):
     model = CarImage
 
 class TechnicalFeatureAdmin(admin.ModelAdmin):
     search_fields = ("name",)
 
-class ExtraFeatureAdmin(admin.ModelAdmin):
-    search_fields = ("name",)
 
 class CarAdmin(SimpleHistoryAdmin , admin.ModelAdmin):
     list_display = ["brand_name", "model", "selled" , "not_available"]
-    filter_horizontal = ("technical_features","extra_features")
+    filter_horizontal = ("technical_features","comfort_and_convenience","exterior","driver_assistance_and_safty")
     search_fields = ["brand_name" , "model" , "model_year"]
     list_filter = ["brand_name" ,  "model" , "model_year"]
     inlines = [CarImagesInline]
@@ -83,4 +80,6 @@ custom_admin_site.register(RequestsData)
 custom_admin_site.register(User)
 custom_admin_site.register(Article)
 custom_admin_site.register(TechnicalFeature)
-custom_admin_site.register(ExtraFeature)
+custom_admin_site.register(ComfortAndConvenience)
+custom_admin_site.register(DriverAssistanceAndSafty)
+custom_admin_site.register(Exterior)

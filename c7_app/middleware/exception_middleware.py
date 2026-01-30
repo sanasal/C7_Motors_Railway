@@ -20,5 +20,3 @@ class ExceptionMiddleware(MiddlewareMixin):
                 'error_message': 'The page you’re looking for doesn’t exist.',
             }, status=404)
         return response
-
-

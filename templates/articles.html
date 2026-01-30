@@ -60,7 +60,7 @@
       <div class="col d-flex">
           <div class="card article-card shadow-sm position-relative">
               <img src="{{ article.image.url }}" class="article-img" alt="{% trans 'Article Image' %}">
-              <span class="badge badge-red text-white position-absolute" style="top: 15px; left: 15px;">{{ article.type }}</span>
+              <span class="badge badge-red text-white position-absolute" style="top: 15px; left: 15px">{% trans 'Tips'%}</span>
               <div class="card-body d-flex flex-column mt-4">
                   <h5 class="card-title">{{ article.title }}</h5>
                     <p class="card-text">
@@ -71,14 +71,13 @@
                     </p>
                     
                     <button
-                      type="button"
-                      onclick="toggleReadMore(this)"
-                      class="btn btn-outline-dark btn-sm mt-3"
-                      data-more-text="Read More"
-                      data-less-text="Read Less">
-                      Read More
+                        type="button"
+                        onclick="toggleReadMore(this)"
+                        class="btn btn-outline-dark btn-sm mt-3"
+                        data-more-text="{% trans 'Read More' %}"
+                        data-less-text="{% trans 'Read Less' %}">
+                        {% trans "Read More" %}
                     </button>
-
               </div>
           </div>
       </div>

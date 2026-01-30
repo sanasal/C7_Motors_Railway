@@ -215,15 +215,6 @@ msgstr "جميع المقالات في هذه الصفحة مكتوبة بواس
 msgid "Article Image"
 msgstr "صورة المقال"
 
-#: .\templates\articles.html:58 .\templates\articles.html:92
-#: .\templates\car_details.html:286 .\templates\car_details.html:396
-msgid "Read More"
-msgstr "اقرأ المزيد"
-
-#: .\templates\articles.html:89 .\templates\car_details.html:400
-msgid "Read Less"
-msgstr "اقرأ أقل"
-
 #: .\templates\base.html:40
 msgid "Loading..."
 msgstr "جاري التحميل..."
@@ -1210,20 +1201,6 @@ msgstr "اختر سيارة"
 msgid "Enjoy Driving"
 msgstr "استمتع بالقيادة"
 
-#: .\templates\home.html:245
-msgid ""
-"Based in Dubai, we specialize in offering high-quality used cars that go through "
-"rigorous inspections to ensure safety, performance, and value. Our dedicated team "
-"is committed to providing transparent pricing, honest advice, and flexible payment "
-"options tailored to suit each customer's needs."
-"We understand that buying a car is more than just a transaction — it’s an experience. "
-"That’s why we go the extra mile to guide our clients at every step, from selecting "
-"the perfect vehicle to completing all necessary paperwork. With years of experience "
-"in the automotive industry, C7 Motors has built a reputation for trust, professionalism, "
-"and exceptional customer service."
-msgstr "نحن مقرّنا في دبي، ونتخصص في تقديم سيارات مستعملة عالية الجودة تخضع لفحوصات دقيقة لضمان السلامة والأداء والقيمة. يلتزم فريقنا المتخصص بتوفير أسعار شفافة، ونصائح صادقة، وخيارات دفع مرنة ومصممة لتناسب احتياجات كل عميل.\nنحن ندرك أن شراء السيارة ليس مجرد عملية بيع، بل تجربة متكاملة. لذلك نحرص على مرافقة عملائنا في كل خطوة، بدءًا من اختيار السيارة المثالية وصولًا إلى استكمال جميع الإجراءات والأوراق اللازمة. وبفضل سنوات من الخبرة في قطاع السيارات، بنت C7 Motors سمعة قوية قائمة على الثقة والاحترافية وتقديم خدمة عملاء استثنائية."
-
-
 #: .\templates\inventory.html:9
 msgid "Used Cars for Sale - Reliable & Affordable Cars | C7 Motors"
 msgstr "سيارات مستعملة للبيع - سيارات موثوقة وبأسعار معقولة | سي 7 موتورز"
@@ -1300,3 +1277,54 @@ msgstr "إنشاء حساب سي 7 موتورز, إنشاء حساب مشتري 
 #: ⁨.\templates\sign in.html⁩:77 ⁨.\templates\sign in.html⁩:106
 msgid "Sign Up"
 msgstr "إنشاء حساب"
+
+#: .\templates\home.html:241
+msgid ""
+"Based in Dubai, we specialize in offering high-quality used cars that go "
+"through rigorous inspections to ensure safety, performance, and value. Our "
+"dedicated team is committed to providing transparent pricing, honest advice, "
+"and flexible payment options tailored to suit each customer’s needs. We "
+"understand that buying a car is more than just a transaction — it’s an "
+"experience. That’s why we go the extra mile to guide our clients at every "
+"step, from selecting the perfect vehicle to completing all necessary "
+"paperwork. With years of experience in the automotive industry, C7 Motors "
+"has built a reputation for trust, professionalism, and exceptional customer "
+"service."
+msgstr ""
+"يقع مقرنا في دبي، ونحن متخصصون في تقديم سيارات مستعملة عالية الجودة تخضع لفحوصات "
+"صارمة لضمان السلامة والأداء والقيمة. يلتزم فريقنا المتفاني بتوفير أسعار شفافة، "
+"ونصائح صادقة، وخيارات دفع مرنة مصممة لتناسب احتياجات كل عميل. نحن ندرك أن شراء "
+"سيارة هو أكثر من مجرد صفقة — إنها تجربة فريدة. لهذا السبب، نبذل قصارى جهدنا "
+"لتوجيه عملائنا في كل خطوة، بدءاً من اختيار السيارة المثالية وصولاً إلى إتمام "
+"جميع الأوراق اللازمة. بفضل سنوات من الخبرة في صناعة السيارات، نجحت سي 7 موتورز "
+"في بناء سمعة قائمة على الثقة والاحترافية وخدمة العملاء الاستثنائية."
+
+msgid "Why C7 Motors"
+msgstr "لماذا سي 7 موتورز"
+
+msgid "High-Quality Used Cars"
+msgstr "سيارات مستعملة عالية الجودة"
+
+msgid "We provide a wide selection of high-quality used cars at competitive prices, ensuring you get the best value for your money"
+msgstr "نحن نوفر تشكيلة واسعة من السيارات المستعملة ذات الجودة العالية وبأسعار تنافسية، مما يضمن لك الحصول على أفضل قيمة مقابل أموالك."
+
+msgid "Flexible Payment Options"
+msgstr "خيارات دفع مرنة"
+
+msgid "Enjoy various payment choices, including monthly installments with no down payment, tailored to fit your budget and convenience"
+msgstr "استمتع بخيارات دفع متنوعة، بما في ذلك الأقساط الشهرية بدون دفعة مقدمة، والمصممة خصيصاً لتناسب ميزانيتك وراحتك."
+
+msgid "Online Financing Calculator"
+msgstr "حاسبة التمويل عبر الإنترنت"
+
+msgid "Easily calculate your financing options directly on our website, giving you full control over your car purchase planning"
+msgstr "احسب خيارات التمويل الخاصة بك بسهولة مباشرة عبر موقعنا الإلكتروني، مما يمنحك تحكماً كاملاً في تخطيط شراء سيارتك."
+
+msgid "Read More"
+msgstr "اقرأ المزيد"
+
+msgid "Read Less"
+msgstr "اقرأ أقل"
+
+msgid "Tips"
+msgstr "نصائح"

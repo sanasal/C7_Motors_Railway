@@ -1,69 +1,63 @@
-#views.py
-from django.shortcuts import render , redirect 
-from django.contrib.auth.forms import AuthenticationForm
-from django.contrib.auth import login , logout
-from .forms import CustomUserCreationForm , RequestsForm , RequestsForm
-from .models import *
-from django.http import JsonResponse , HttpResponseBadRequest , HttpResponseNotFound
-import json  
-import urllib
+# views.py
+from django.shortcuts import render, redirect, get_object_or_404
+from django.http import JsonResponse, HttpResponseBadRequest
+from django.views.decorators.cache import cache_page
 from django.utils import translation
-from django.shortcuts import redirect
-from c7_motors import settings 
-from django.shortcuts import get_object_or_404
+from django.views.decorators.http import require_http_methods
+from django.db.models import Prefetch
+import json, urllib
+
+from .models import Car, Article
+from .forms import RequestsForm
+from c7_motors import deployment
 
 def switch_language(request, lang_code):
-    """
-    Switch site language dynamically when user selects a language.
-    """
-    # تفعيل اللغة الجديدة
     translation.activate(lang_code)
-
-    # حفظها في session
     request.session['django_language'] = lang_code
 
-    # حفظها في cookies أيضاً
     response = redirect(request.META.get('HTTP_REFERER', '/'))
-    response.set_cookie(settings.LANGUAGE_COOKIE_NAME, lang_code)
-
+    response.set_cookie(deployment.LANGUAGE_COOKIE_NAME, lang_code)
     return response
 
-
-        
 def home(request):
-    '''Display the home page'''
-    cars = Car.objects.all()
- 
-    models_years = []
-    for car in cars:
-        if car.model_year not in models_years:
-            models_years.append(car.model_year)
+    cars = (
+        Car.objects
+        .filter(selled=False, not_available=False)
+        .only(
+            'id', 'cash_price', 'main_img', 'brand_name',
+            'model', 'model_year', 'mileage'
+        )
+        .order_by('-id')[:15]
+    )
 
-    cars_brands = []
-    for car in cars:
-        if car.brand_name not in cars_brands:
-                cars_brands.append(car.brand_name) 
+    articles = Article.objects.only('id', 'title', 'image')[:4]
 
     context = {
         'cars': cars,
-        'models_years':models_years,
-        'cars_brands':cars_brands,
+        'articles': articles,
+        'models_years': Car.objects.values_list(
+            'model_year', flat=True
+        ).distinct().order_by('model_year'),
+        'cars_brands': Car.objects.values_list(
+            'brand_name', flat=True
+        ).distinct().order_by('brand_name'),
     }
-
     return render(request, 'home.html', context)
 
 
+
+
 def inventory(request):
-    '''Display the cars page with optional filtering by type'''
+    cars = (
+        Car.objects
+        .only(
+            'id', 'cash_price', 'main_img', 'brand_name',
+            'model', 'model_year', 'mileage'
+        )
+        .order_by('-id')
+    )
+    return render(request, 'inventory.html', {'cars': cars})
 
-    # Start with all cars
-    cars = Car.objects.all()
-
-    context = {
-        'cars': cars,
-    }
-
-    return render(request, 'inventory.html', context)
 
 
 def contact_us(request):
@@ -89,18 +83,35 @@ def articles(request):
     return render(request , 'articles.html' , context)
 
 
+@require_http_methods(["GET", "POST"])
 def financing(request):
-    '''Display the cars page with optional filtering by type'''
+    if request.method == 'POST':
+        try:
+            data = json.loads(request.body)
+            car_price = float(data.get('car_price', 0))
+            downpayment = float(data.get('downpayment', 0))
+            loan_duration = int(data.get('loan_duration', 1))
 
-    cars = Car.objects.all()
-    form = RequestsForm()
+            interest = (car_price * 0.04) / 12
+            total = car_price + (interest * loan_duration)
+            monthly = (total - downpayment) / loan_duration
 
-    context = {
-        'cars': cars,
-        'form': form,
-    }
+            return JsonResponse({
+                'estimated_monthly_payment': f"AED {monthly:.2f}"
+            })
 
-    return render(request,'financing.html',context)
+        except Exception:
+            return JsonResponse({'error': 'Invalid data'}, status=400)
+
+    return render(
+        request,
+        "financing.html",
+        {
+            'cars': Car.objects.only('id', 'brand_name', 'model'),
+            'form': RequestsForm()
+        }
+    )
+
 
 
 def get_it_now(request , car_id):
@@ -114,178 +125,109 @@ def get_it_now(request , car_id):
 
 
 
+def _handle_request_form(request, template):
+    form = RequestsForm(request.POST)
+    if not form.is_valid():
+        return render(request, template, {'form': form})
+
+    data = form.save()
+
+    message = urllib.parse.quote(
+        f"Car: {data.car}\n"
+        f"Name: {data.name}\n"
+        f"Phone: {data.mobile_phone}\n"
+        f"Payment: {data.payment_method}\n"
+        f"Lang: {data.language}"
+    )
+
+    return redirect(f"https://wa.me/971562341000?text={message}")
+
+@require_http_methods(["POST"])
 def add_financing_request_data(request):
-    if request.method == 'POST':
+    return _handle_request_form(request, 'financing.html')
 
-        form = RequestsForm(request.POST)
-
-        if form.is_valid():
-            # Save to database
-            financing_request = form.save()
-            
-             # Send to WhatsApp
-            phone_number = "963956626427"   
-            message = (
-                f"Car: {financing_request.car}\n"
-                f"Name: {financing_request.name}\n"
-                f"Phone: {financing_request.mobile_phone}\n"
-                f"Payment Method: {financing_request.payment_method}\n"
-                f"Language: {financing_request.language}\n"
-            ) 
-            encoded_message = urllib.parse.quote(message)
-            whatsapp_url = f"https://wa.me/{phone_number}?text={encoded_message}"
-
-            return redirect(whatsapp_url)
-
-        else:
-            cars = Car.objects.all()
-            return render(request, 'financing.html', {'cars': cars, 'form': form})
-
-    return redirect('c7_motors:financing')
-
-
+@require_http_methods(["POST"])
 def add_request_data(request):
-    '''Add the get it now request data to CustomersData model'''
-    if request.method == 'POST':              
-
-        form = RequestsForm(request.POST)
-
-        if form.is_valid():
-            # Save to database
-            financing_request = form.save()
-             # Send to WhatsApp
-            phone_number = "963956626427"   
-            message = (
-                f"Car: {financing_request.car}\n"
-                f"Name: {financing_request.name}\n"
-                f"Phone: {financing_request.mobile_phone}\n"
-                f"Payment Method: {financing_request.payment_method}\n"
-                f"Language: {financing_request.language}\n"
-            ) 
-            encoded_message = urllib.parse.quote(message)
-            whatsapp_url = f"https://wa.me/{phone_number}?text={encoded_message}"
-
-            return redirect(whatsapp_url)
-
-        else:
-            cars = Car.objects.all()
-            return render(request, 'get_it_now.html', {'cars': cars, 'form': form})
-
-    return redirect('c7_motors:get_it_now')
+    return _handle_request_form(request, 'get_it_now.html')
 
 
-
-
-
+@cache_page(60 * 10)  # 10 minutes cache
 def cars(request, car_type=None):
-    '''Display the cars page with optional filtering by type'''
+    """
+    High-performance cars listing with optional type filtering
+    """
 
-    # Start with all cars
-    cars = Car.objects.all()
+    cars = (
+        Car.objects
+        .filter(selled=False, not_available=False)
+        .only(
+            'id',
+            'brand_name',
+            'model',
+            'model_year',
+            'cash_price',
+            'main_img',
+            'mileage'
+        )
+        .order_by('-id')
+    )
 
-    # Filter by type if provided in the URL
     if car_type:
         cars = cars.filter(type=car_type)
 
     context = {
         'cars': cars,
-        'car_type' : car_type
+        'car_type': car_type
     }
 
     return render(request, 'cars.html', context)
 
 def cars_search(request):
-    '''Filter cars based on search criteria and display them on cars.html'''
-
-    # Retrieve filter parameters
-    year = request.GET.get('year')
-    brand = request.GET.get('brand')
-    style = request.GET.get('style')
-    price_from = request.GET.get('price_from')
-    price_to = request.GET.get('price_to')
-
-    # Start with all cars
     cars = Car.objects.all()
 
-    # Apply filters
-    if year:
-        cars = cars.filter(model_year=year)
-    if brand:
+    filters = {
+        'model_year': request.GET.get('year'),
+        'type': request.GET.get('style'),
+    }
+
+    for field, value in filters.items():
+        if value:
+            cars = cars.filter(**{field: value})
+
+    if brand := request.GET.get('brand'):
         cars = cars.filter(brand_name__icontains=brand)
-    if style:
-        cars = cars.filter(type__exact=style)
-    if price_from and price_to:
-        cars = cars.filter(cash_price__range=(price_from,price_to))
+
+    if request.GET.get('price_from') and request.GET.get('price_to'):
+        cars = cars.filter(
+            cash_price__range=(
+                request.GET['price_from'],
+                request.GET['price_to']
+            )
+        )
 
     return render(request, 'cars.html', {'cars': cars})
 
+
 def car_details(request, car_slug):
-    """Display the details of a car based on brand_name, model, and id."""
-
-    try:
-        # Retrieve the car object matching the parameters
-        car = get_object_or_404(Car,slug=car_slug)
-    except Car.DoesNotExist:
-        # Return a 404 response if the car doesn't exist
-        return HttpResponseNotFound("Car not found")
-    except Car.MultipleObjectsReturned:
-        # Handle cases where multiple cars match the query
-        return HttpResponseBadRequest("Multiple cars with the same name and model found")
-    except ValueError:
-        # Handle invalid `car_id`
-        return HttpResponseBadRequest("Invalid ID")
-
-    # Fetch all images related to the car
-    car_images = car.images.all()
-
-    description_lines = car.description.splitlines()
+    car = get_object_or_404(
+        Car.objects.prefetch_related(
+            'images',
+            'technical_features',
+            'driver_assistance_and_safty',
+            'comfort_and_convenience',
+            'exterior'
+        ),
+        slug=car_slug
+    )
 
     context = {
-        'description_lines': description_lines,
         'car': car,
-        'car_images': car_images,
+        'description_lines': car.description.splitlines(),
+        'car_images': car.images.all(),
         'technical_features': car.technical_features.all(),
-        'extra_features': car.extra_features.all(), 
+        'driver_assistance_and_safty': car.driver_assistance_and_safty.all(),
+        'comfort_and_convenience': car.comfort_and_convenience.all(),
+        'exterior': car.exterior.all(),
     }
 
     return render(request, 'car_details.html', context)
-
-          
-
-
-
-def sign_in(request):
-    '''Sign in the website for new users'''
-    if request.method =='POST':   
-        form = CustomUserCreationForm(request.POST)
-        if form.is_valid(): 
-            user = form.save()              
-            #log the user in
-            login(request , user)           
-            return redirect('c7_motors:home')
-    else:           
-       form = CustomUserCreationForm()     
-    return render(request, 'sign in.html' , {'form' : form})
-
-
-def log_in(request):
-    '''Log in the website for old users'''
-    if request.method == 'POST' :   
-        form = AuthenticationForm(data=request.POST)
-        if form.is_valid():
-            user = form.get_user()
-            login(request , user)
-            if 'next' in request.POST :
-                return redirect(request.POST.get('next'))
-            else: 
-                return redirect ('c7_motors:home')
-    else:
-        form = AuthenticationForm()
-    return render (request , 'log in.html' , {'form':form})
-
-
-def log_out(request):
-    '''Go outside the website'''
-    if request.method == 'POST':
-        logout(request)   
-        return redirect ('c7_motors:home')

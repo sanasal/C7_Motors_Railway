@@ -14,6 +14,15 @@ from simple_history.models import HistoricalRecords
 from django.utils.text import slugify
 # Create your models here
 
+class ComfortAndConvenience(models.Model):
+    name = models.CharField(max_length=100,unique=True)
+    
+    class Meta:
+        ordering = ['name']
+    
+    def __str__(self):
+        return self.name
+
 class TechnicalFeature(models.Model):
     name = models.CharField(max_length=100, unique=True)
 
@@ -24,7 +33,17 @@ class TechnicalFeature(models.Model):
         return self.name
     
 
-class ExtraFeature(models.Model):
+class DriverAssistanceAndSafty(models.Model):
+    name = models.CharField(max_length=100, unique=True)
+
+    class Meta:
+        ordering = ["name"]
+
+    def __str__(self):
+        return self.name
+        
+        
+class Exterior(models.Model):
     name = models.CharField(max_length=100, unique=True)
 
     class Meta:
@@ -34,55 +53,84 @@ class ExtraFeature(models.Model):
         return self.name
 
 class Car(models.Model):
-    brand_name = models.CharField(max_length=100, blank=True)
-    slug = models.SlugField(unique=True,max_length=200,blank=True,null=True)
+    brand_name = models.CharField(max_length=100, blank=True, db_index=True)
     model = models.CharField(max_length=100, blank=True)
+
     main_img = models.ImageField(default='', blank=True)
 
-    SUV = 'SUV'
-    SEDAN = 'Sedan'
-    HATCHBACK = 'Hatchback'
-    HYBRID = 'Hybrid'
-    ELECTRIC = 'Electric'
-    COUPE = 'Coupe'
-    
     TYPE_CHOICES = [
-        (SUV, 'SUV'),
-        (SEDAN, 'Sedan'),
-        (HATCHBACK, 'Hatchback'),
-        (HYBRID, 'Hybrid'),
-        (ELECTRIC, 'Electric'),
-        (COUPE, 'Coupe'),
+        ('SUV', 'SUV'),
+        ('Sedan', 'Sedan'),
+        ('Hatchback', 'Hatchback'),
+        ('Hybrid', 'Hybrid'),
+        ('Electric', 'Electric'),
+        ('Coupe', 'Coupe'),
     ]
 
-    type = models.CharField(max_length=20, choices=TYPE_CHOICES, blank=True)
-    exterior_color = models.CharField(max_length=100, blank=True)
-    interior_color = models.CharField(max_length=100, blank=True)
-    
-    MANUAL = 'Manual'
-    AUTOMATIC = 'Automatic'
-    GEAR_CHOICES = [
-        (MANUAL, 'Manual Transmission'),
-        (AUTOMATIC, 'Automatic Transmission'),
-    ]
-    
-    transmission = models.CharField(max_length=20, choices=GEAR_CHOICES)
-    model_year = models.IntegerField(null=True, blank=True)
+    type = models.CharField(
+        max_length=20,
+        choices=TYPE_CHOICES,
+        blank=True,
+        db_index=True
+    )
+
+    transmission = models.CharField(
+        max_length=20,
+        choices=[
+            ('Manual', 'Manual Transmission'),
+            ('Automatic', 'Automatic Transmission'),
+        ],
+        db_index=True
+    )
+
+    model_year = models.IntegerField(null=True, blank=True, db_index=True)
     mileage = models.IntegerField(null=True, blank=True)
-    cash_price = models.IntegerField(null=True, blank=True)
-    specification = models.CharField(max_length=40 , null=True)
-    horsepower = models.PositiveIntegerField(null=True, blank=True)
-    engine_capacity = models.PositiveIntegerField(null=True, blank=True)
-    cylinders = models.PositiveIntegerField(null=True, blank=True)
-    seating_capacity = models.PositiveIntegerField(null=True, blank=True)
-    monthly_installments_price = models.IntegerField(null=True, blank=True)
-    technical_features = models.ManyToManyField(TechnicalFeature, blank=True)
-    extra_features = models.ManyToManyField(ExtraFeature, blank=True)
+
+    cash_price = models.IntegerField(null=True, blank=True, db_index=True)
+
     description = models.TextField(blank=True)
-    selled = models.BooleanField(default=False)
-    not_available = models.BooleanField(default=False)
+
+    selled = models.BooleanField(default=False, db_index=True)
+    not_available = models.BooleanField(default=False, db_index=True)
+
+    slug = models.SlugField(
+        max_length=200,
+        unique=True,
+        db_index=True,
+        blank=True,
+        null=True,
+    )
+
+    technical_features = models.ManyToManyField(
+        TechnicalFeature,
+        blank=True,
+        related_name="cars"
+    )
+    comfort_and_convenience = models.ManyToManyField(
+        ComfortAndConvenience,
+        blank=True,
+        related_name="cars"
+    )
+    exterior = models.ManyToManyField(
+        Exterior,
+        blank=True,
+        related_name="cars"
+    )
+    driver_assistance_and_safty = models.ManyToManyField(
+        DriverAssistanceAndSafty,
+        blank=True,
+        related_name="cars"
+    )
 
     history = HistoricalRecords()
+
+    class Meta:
+        ordering = ['-id']
+        indexes = [
+            models.Index(fields=['type', 'selled', 'not_available']),
+            models.Index(fields=['brand_name', 'model_year']),
+            models.Index(fields=['cash_price']),
+        ]
 
     def delete_selled_car_images(self):
         """Delete all images from storage and database when a car is sold."""
@@ -91,7 +139,7 @@ class Car(models.Model):
                 if img.image and os.path.exists(img.image.path):  
                     os.remove(img.image.path) 
                 img.delete()  
-
+                
     def save(self, *args, **kwargs):
         if not self.slug and self.brand_name:
             base_slug = slugify(f"{self.brand_name} {self.model}")
@@ -155,10 +203,13 @@ def extract_images_after_save(sender, instance, created, **kwargs):
 class Article(models.Model):
     user = models.ForeignKey(User,null = True, on_delete = models.SET_NULL) 
     image = models.ImageField(default='', blank=True)
-    type = models.CharField(blank=True , max_length=100)
     title = models.CharField(blank=True , max_length=300)
     header = models.TextField(blank=True)
     read_more = models.TextField(blank=True)
+
+    def __str__(self):
+        return self.title
+    
     
 class RequestsData(models.Model):
     car = models.TextField(default='', blank=True) 
@@ -185,4 +236,4 @@ class RequestsData(models.Model):
     created_at = models.DateTimeField(auto_now_add=True , null=True)
 
     def __str__(self):
-        return f"cars:{self.car} - name:{self.name}"
+        return f"car:{self.car} - name:{self.name}"

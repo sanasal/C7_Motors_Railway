@@ -215,15 +215,6 @@ msgstr "Все статьи на этой странице написаны на
 msgid "Article Image"
 msgstr "Изображение статьи"
 
-#: .\templates\articles.html:58 .\templates\articles.html:92
-#: .\templates\car_details.html:286 .\templates\car_details.html:396
-msgid "Read More"
-msgstr "Читать далее"
-
-#: .\templates\articles.html:89 .\templates\car_details.html:400
-msgid "Read Less"
-msgstr "Свернуть"
-
 #: .\templates\base.html:40
 msgid "Loading..."
 msgstr "Загрузка..."
@@ -1106,18 +1097,6 @@ msgstr "Больше о нас"
 msgid "More Articles"
 msgstr "Больше статей"
 
-#: .\templates\home.html:356
-msgid "Red Lamborghini"
-msgstr "Красный Lamborghini"
-
-#: .\templates\home.html:402
-msgid "Verified Dealers"
-msgstr "Проверенные дилеры"
-
-#: .\templates\home.html:414
-msgid "Visitors Per Day"
-msgstr "Посетителей в день"
-
 #: .\templates\home.html:426
 msgid "Services"
 msgstr "Услуги"
@@ -1194,36 +1173,6 @@ msgid ""
 "committed to keeping your car in top-notch condition"
 msgstr "Наслаждайтесь беззаботным опытом владения благодаря нашей послепродажной поддержке. От пакетов технического обслуживания и расширенных гарантий до экспертной помощи — мы стремимся поддерживать ваш автомобиль в отличном состоянии"
 
-#: .\templates\home.html:507
-msgid "Process"
-msgstr "Процесс"
-
-#: .\templates\home.html:513
-msgid "Come In Contact"
-msgstr "Свяжитесь с нами"
-
-#: .\templates\home.html:519
-msgid "Choose A Car"
-msgstr "Выберите автомобиль"
-
-#: .\templates\home.html:525
-msgid "Enjoy Driving"
-msgstr "Наслаждайтесь вождением"
-
-#: .\templates\home.html:245
-msgid ""
-"Based in Dubai, we specialize in offering high-quality used cars that go through "
-"rigorous inspections to ensure safety, performance, and value. Our dedicated team "
-"is committed to providing transparent pricing, honest advice, and flexible payment "
-"options tailored to suit each customer's needs."
-"We understand that buying a car is more than just a transaction — it’s an experience. "
-"That’s why we go the extra mile to guide our clients at every step, from selecting "
-"the perfect vehicle to completing all necessary paperwork. With years of experience "
-"in the automotive industry, C7 Motors has built a reputation for trust, professionalism, "
-"and exceptional customer service."
-msgstr "Мы находимся в Дубае и специализируемся на продаже высококачественных подержанных автомобилей, которые проходят тщательные проверки для обеспечения безопасности, надежности и оптимальной стоимости. Наша профессиональная команда стремится обеспечить прозрачное ценообразование, честные консультации и гибкие варианты оплаты, адаптированные под потребности каждого клиента.\nМы понимаем, что покупка автомобиля — это не просто сделка, а полноценный опыт. Именно поэтому мы сопровождаем наших клиентов на каждом этапе: от выбора идеального автомобиля до оформления всех необходимых документов. Благодаря многолетнему опыту в автомобильной отрасли, компания C7 Motors заслужила репутацию надежного и профессионального партнера с высоким уровнем обслуживания клиентов."
-
-
 #: .\templates\inventory.html:9
 msgid "Used Cars for Sale - Reliable & Affordable Cars | C7 Motors"
 msgstr "Подержанные автомобили в продаже - Надежные и доступные автомобили | C7 Motors"
@@ -1242,3 +1191,57 @@ msgid ""
 "used %(car_type)s for sale, best SUV deals, pre-owned %(car_type)s, buy an "
 "SUV online"
 msgstr "подержанные %(car_type)s в продаже, лучшие предложения по внедорожникам, подержанные %(car_type)s, купите внедорожник онлайн"
+
+#: .\templates\home.html:241
+msgid ""
+"Based in Dubai, we specialize in offering high-quality used cars that go "
+"through rigorous inspections to ensure safety, performance, and value. Our "
+"dedicated team is committed to providing transparent pricing, honest advice, "
+"and flexible payment options tailored to suit each customer’s needs. We "
+"understand that buying a car is more than just a transaction — it’s an "
+"experience. That’s why we go the extra mile to guide our clients at every "
+"step, from selecting the perfect vehicle to completing all necessary "
+"paperwork. With years of experience in the automotive industry, C7 Motors "
+"has built a reputation for trust, professionalism, and exceptional customer "
+"service."
+msgstr ""
+"Базируясь в Дубае, мы специализируемся на предложении высококачественных "
+"подержанных автомобилей, прошедших строгую проверку для обеспечения "
+"безопасности, производительности и выгоды. Наша команда стремится обеспечить "
+"прозрачное ценообразование, честные советы и гибкие варианты оплаты, "
+"адаптированные к потребностям каждого клиента. Мы понимаем, что покупка "
+"автомобиля — это не просто сделка, это событие. Именно поэтому мы делаем все "
+"возможное, чтобы сопровождать наших клиентов на каждом этапе: от выбора "
+"идеального авто до оформления всех документов. Благодаря многолетнему опыту "
+"в автоиндустрии, компания C7 Motors заслужила репутацию надежного и "
+"профессионального партнера с исключительным уровнем обслуживания."
+
+msgid "Why C7 Motors"
+msgstr "Почему выбирают C7 Motors"
+
+msgid "High-Quality Used Cars"
+msgstr "Высококачественные авто с пробегом"
+
+msgid "We provide a wide selection of high-quality used cars at competitive prices, ensuring you get the best value for your money"
+msgstr "Мы предлагаем широкий выбор качественных подержанных автомобилей по конкурентоспособным ценам, гарантируя вам лучшее соотношение цены и качества."
+
+msgid "Flexible Payment Options"
+msgstr "Гибкие варианты оплаты"
+
+msgid "Enjoy various payment choices, including monthly installments with no down payment, tailored to fit your budget and convenience"
+msgstr "Пользуйтесь различными вариантами оплаты, включая ежемесячную рассрочку без первоначального взноса, адаптированную под ваш бюджет и удобство."
+
+msgid "Online Financing Calculator"
+msgstr "Онлайн-калькулятор кредита"
+
+msgid "Easily calculate your financing options directly on our website, giving you full control over your car purchase planning"
+msgstr "Легко рассчитывайте варианты финансирования прямо на нашем сайте, полностью контролируя процесс планирования покупки автомобиля."
+
+msgid "Read More"
+msgstr "Читать далее"
+
+msgid "Read Less"
+msgstr "Свернуть"
+
+msgid "Tips"
+msgstr "Советы"

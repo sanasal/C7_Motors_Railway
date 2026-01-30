@@ -3,8 +3,6 @@
 {% load i18n %}
 
 {% block meta %}
-        {% load compress %}
-        {% compress css %}
         <title>{% trans 'C7 Motors | Used Cars for Sale at the Best Prices' %}</title>
         <meta name="description" content="{% trans 'Find high-quality used cars for sale at competitive prices. Browse our wide selection of well-maintained vehicles with flexible financing options. Explore now!' %}" />
         <meta name="keywords" content="{% trans 'c7 motors , used cars for sale, buy a used car, best used car prices, second-hand cars, pre-owned vehicles, used cars in Dubai' %}" />
@@ -20,9 +18,7 @@
         <meta property="og:locale" content="en_US">
         
         <!-- Template Stylesheet -->
-        <link href="{% static 'css/home.css'%}" rel="stylesheet">
-        <link rel="stylesheet" href="{% static 'css/nice-select.css' %}" type="text/css">
-        {% endcompress %}
+        <link href="{% static 'css/home.min.css'%}" rel="stylesheet">
 {% endblock %}
 
 {% block content %}
@@ -242,8 +238,7 @@
                                     <span style="color: #e30a23;">{% trans 'C7 Motors' %}</span>
                                 </h1>
                                 <p class="mb-0" style="color: rgb(53, 53, 53)">
-                                    {% blocktrans %} '''Based in Dubai, we specialize in offering high-quality used cars that go through rigorous inspections to ensure safety, performance, and value. Our dedicated team is committed to providing transparent pricing, honest advice, and flexible payment options tailored to suit each customer’s needs.
-                                                We understand that buying a car is more than just a transaction — it’s an experience. That’s why we go the extra mile to guide our clients at every step, from selecting the perfect vehicle to completing all necessary paperwork. With years of experience in the automotive industry, C7 Motors has built a reputation for trust, professionalism, and exceptional customer service.'''{% endblocktrans %}
+                                    {% trans 'Based in Dubai, we specialize in offering high-quality used cars that go through rigorous inspections to ensure safety, performance, and value. Our dedicated team is committed to providing transparent pricing, honest advice, and flexible payment options tailored to suit each customer’s needs. We understand that buying a car is more than just a transaction — it’s an experience. That’s why we go the extra mile to guide our clients at every step, from selecting the perfect vehicle to completing all necessary paperwork. With years of experience in the automotive industry, C7 Motors has built a reputation for trust, professionalism, and exceptional customer service.'%}
                                 </p>
                             </div>
 
@@ -366,7 +361,7 @@
               <div class="col d-flex">
                   <div class="card article-card shadow-sm position-relative">
                       <img src="{{ article.image.url }}" class="article-img" alt="{% trans 'Article Image' %}">
-                      <span class="badge badge-red text-white position-absolute" style="top: 15px; left: 15px;">{{ article.type }}</span>
+                      <span class="badge badge-red text-white position-absolute" style="top: 15px; left: 15px;">{% trans 'Tips' %}</span>
                       <div class="card-body d-flex flex-column mt-4">
                           <h5 class="card-title">{{ article.title }}</h5>
                             <p class="card-text">
@@ -377,12 +372,12 @@
                             </p>
                             
                             <button
-                              type="button"
-                              onclick="toggleReadMore(this)"
-                              class="btn btn-outline-dark btn-sm mt-3"
-                              data-more-text="Read More"
-                              data-less-text="Read Less">
-                              Read More
+                            type="button"
+                            onclick="toggleReadMore(this)"
+                            class="btn btn-outline-dark btn-sm mt-3"
+                            data-more-text="{% trans 'Read More' %}"
+                            data-less-text="{% trans 'Read Less' %}">
+                            {% trans "Read More" %}
                             </button>
 
                       </div>
@@ -405,9 +400,6 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
     
     <!-- Template Javascript -->
-    {% load compress %}
-    {% compress js %}
     <script src="{% static 'js/jquery.nice-select.min.js' %}"></script>
     <script src="{% static 'js/main3.js'%}"></script>
-    {% endcompress %}
 {% endblock %}
