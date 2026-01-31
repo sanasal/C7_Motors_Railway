@@ -1,5 +1,4 @@
 import os
-from .settings import *
 from django.utils.translation import gettext_lazy as _
 
 # Load from .env if needed
