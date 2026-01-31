@@ -23,10 +23,6 @@ Temp_Path = os.path.realpath('.')  # MS ADDED
 
 INSTALLED_APPS = [
     'modeltranslation',
-    'easy_thumbnails',
-    'filer',
-    'import_export',
-    'mptt',
 
     'simple_history',
     'jazzmin',
@@ -105,10 +101,6 @@ STATICFILES_FINDERS = [
     'compressor.finders.CompressorFinder',
 ]
 
-COMPRESS_ENABLED = True
-COMPRESS_ROOT = STATIC_ROOT
-COMPRESS_URL = STATIC_URL
-COMPRESS_OFFLINE = False
 
 
 # Internationalization
