@@ -75,6 +75,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
 ]
 
+'''
 CACHES = {
     "default": {
         "BACKEND": "django_redis.cache.RedisCache",
@@ -84,6 +85,7 @@ CACHES = {
         }
     }
 }
+'''
 
 SESSION_ENGINE = "django.contrib.sessions.backends.cached_db"
 
