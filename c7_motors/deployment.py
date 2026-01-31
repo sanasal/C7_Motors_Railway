@@ -71,11 +71,12 @@ MIDDLEWARE = [
     'simple_history.middleware.HistoryRequestMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'c7_app.middleware.exception_middleware.ExceptionMiddleware',
+    #'c7_app.middleware.exception_middleware.ExceptionMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
 ]
 
+'''
 CACHES = {
     "default": {
         "BACKEND": "django_redis.cache.RedisCache",
@@ -85,6 +86,7 @@ CACHES = {
         }
     }
 }
+'''
 
 SESSION_ENGINE = "django.contrib.sessions.backends.cached_db"
 
