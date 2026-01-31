@@ -8,8 +8,9 @@ load_dotenv()
 # Security & Allowed Hosts
 SECRET_KEY =  os.environ.get('SECRET')
 host = os.environ.get('HOSTNAME' , 'c7motors.com')
-ALLOWED_HOSTS = [host, 'www.' + host.lstrip('www.')]
-CSRF_TRUSTED_ORIGINS = [f'https://{host}', f'https://www.{host.lstrip("www.")}']
+#ALLOWED_HOSTS = [host, 'www.' + host.lstrip('www.')]
+ALLOWED_HOSTS = ['*']
+#CSRF_TRUSTED_ORIGINS = [f'https://{host}', f'https://www.{host.lstrip("www.")}']
 
 
 # Debug Mode
@@ -75,7 +76,6 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
 ]
 
-'''
 CACHES = {
     "default": {
         "BACKEND": "django_redis.cache.RedisCache",
@@ -85,7 +85,6 @@ CACHES = {
         }
     }
 }
-'''
 
 SESSION_ENGINE = "django.contrib.sessions.backends.cached_db"
 
